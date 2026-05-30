@@ -535,9 +535,12 @@
        internal scene animations then loop subtly while visible.
        ============================================================= */
     .problem {
-      background: var(--cream-warm);
+      background:
+        radial-gradient(1100px 340px at 50% 0, rgba(255,255,255,.85), transparent 70%),
+        var(--cream-warm);
       padding: 56px 24px 40px;
       border-top: 1px solid var(--rule);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.6);
       min-height: 100dvh;
       min-height: 100vh;
       display: flex;
@@ -1519,6 +1522,41 @@
       color: var(--text-muted-navy);
     }
 
+    /* ===== Tonal heartbeat — navy architecture band ===== */
+    .solution3 { overflow-x: clip; }
+    .thb-arch-band {
+      position: relative;
+      border: 0 !important;
+      margin: 72px 0 64px !important;
+      padding: 76px 0 60px !important;
+      isolation: isolate;
+    }
+    .thb-arch-band::before {
+      content: '';
+      position: absolute; top: 0; bottom: 0;
+      left: 50%; transform: translateX(-50%);
+      width: 100vw;
+      background:
+        radial-gradient(900px 460px at 80% 4%, rgba(224,70,87,.12), transparent 60%),
+        radial-gradient(760px 520px at 6% 100%, rgba(20,40,72,.55), transparent 60%),
+        #0A111F;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06), inset 0 -1px 0 rgba(255,255,255,.06);
+      z-index: -1;
+    }
+    .thb-arch-band .solution3__frame-header { border-bottom-color: rgba(255,255,255,.14); }
+    .thb-arch-band .solution3__frame-tag { color: rgba(255,255,255,.46); }
+    .thb-arch-band .solution3__frame-tag em { color: #E04657; }
+    .thb-arch-band .solution3__frame-flow { color: rgba(255,255,255,.46); }
+    .thb-arch-band .solution3__frame-flow span { color: #EAEEF7; }
+    .thb-arch-band .arch .col-sub  { fill: rgba(255,255,255,.42); }
+    .thb-arch-band .arch .box      { fill: #13223A; stroke: rgba(255,255,255,.22); opacity: 1; }
+    .thb-arch-band .arch .box-text { fill: #EAEEF7; }
+    .thb-arch-band .arch .gateway  { fill: #E04657; stroke: #E04657; }
+    .thb-arch-band .arch .gw-text  { fill: #fff; }
+    .thb-arch-band .arch .gw-sub   { fill: rgba(255,255,255,.72); }
+    .thb-arch-band .arch .edge     { stroke: rgba(255,255,255,.18); }
+    .thb-arch-band .solution3__frame-caption { color: rgba(255,255,255,.62); border-top-color: rgba(255,255,255,.16); }
+
     /* Themes block */
     .solution3__themes-head {
       display: flex; align-items: baseline; justify-content: space-between;
@@ -1751,7 +1789,7 @@
     .heroA-cta { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
 
     /* telemetry strip */
-    .heroA-telemetry { border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); padding: 22px 44px; display: flex; align-items: center; gap: 40px; background: rgba(255,255,255,.015); }
+    .heroA-telemetry { border-top: 1px solid var(--hair); padding: 24px 44px 26px; display: flex; align-items: center; gap: 40px; background: rgba(0,0,0,.22); }
     .heroA-telemetry-label { flex: none; font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--on-dark-mut); line-height: 1.85; padding-right: 32px; border-right: 1px solid var(--hair); white-space: nowrap; }
     .heroA-telemetry-items { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); }
     .heroA-cap { display: flex; align-items: flex-start; gap: 11px; padding-left: 34px; border-left: 1px solid var(--hair); }
@@ -2084,7 +2122,7 @@
         <p class="solution3__lede">It sits between your corebanking stack and every operator &mdash; the layer your team has been holding together by hand.</p>
       </header>
 
-      <div class="solution3__frame">
+      <div class="solution3__frame thb-arch-band">
         <div class="solution3__frame-header">
           <span class="solution3__frame-tag"><em>Fig.</em> &nbsp;The architecture</span>
           <span class="solution3__frame-flow"><span>your stack</span> &nbsp;&rarr;&nbsp; ebb &nbsp;&rarr;&nbsp; <span>every operator</span></span>
