@@ -1757,7 +1757,8 @@
     }
 
     /* dark nav */
-    .heroA-nav { position: relative; display: flex; align-items: center; justify-content: space-between; padding: 22px 44px; gap: 32px; z-index: 5; }
+    .heroA-nav { position: relative; display: flex; align-items: center; justify-content: space-between; padding: 20px 44px; gap: 32px; z-index: 5; background: rgba(0,0,0,.16); }
+    .heroA-nav::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.13) 14%, rgba(255,255,255,.13) 86%, transparent); }
     .heroA-brand { display: inline-flex; flex-direction: column; align-items: flex-start; line-height: 1; }
     .heroA-brand::before { content:''; display:block; width: 26px; height: 1.5px; background: var(--acc); margin-bottom: 7px; }
     .heroA-brand-ebb { font-family: var(--font-display); font-weight: 700; font-size: 24px; color: var(--on-dark); letter-spacing: .02em; }
