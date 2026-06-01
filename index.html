@@ -534,312 +534,106 @@
        Cards reveal staggered when section enters viewport; their
        internal scene animations then loop subtly while visible.
        ============================================================= */
-    .problem {
-      background:
-        radial-gradient(1100px 340px at 50% 0, rgba(255,255,255,.85), transparent 70%),
-        var(--cream-warm);
-      padding: 56px 24px 40px;
-      border-top: 1px solid var(--rule);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.6);
-      min-height: 100dvh;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+    /* =============================================================
+       §2 — THE PROBLEM (Tonal Bridge: dark→cream recovering heartbeat)
+       Dark continuation of the hero that resolves into the cream body.
+       A single ECG trace draws left→right; six red drops mark recurring
+       failure patterns, each labelled as the line tip reaches it. The
+       hero's dark tokens are scoped locally to .o3 so they never leak
+       into the cream body below.
+       ============================================================= */
+    .o3 {
+      --ink:         #0A111F;
+      --ink-2:       #0E1828;
+      --acc:         #E04657;
+      --on-dark:     #EAEEF7;
+      --on-dark-mut: #8A98B4;
+      background: linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 30%, #243a55 56%, #b9b7ae 78%, var(--cream-warm) 100%);
+      padding: 72px 56px 64px;
+      color: var(--on-dark);
     }
+    .o3__head { max-width: 820px; margin: 0 auto 8px; text-align: center; }
 
-    .problem__container {
-      width: 100%;
-      max-width: 980px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
+    /* Shared editorial header trio — eyebrow / heading / bridge line. */
+    .p-eyebrow { font-family: var(--font-ui); font-size: 11px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: var(--crimson); }
+    .p-heading { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.008em; line-height: 1.2; margin: 0; font-size: clamp(26px, 3.4vw, 38px); }
+    .p-heading em { font-style: italic; }
+    .p-bridge { margin: 10px 0 0; font-family: var(--font-display); font-style: italic; font-size: clamp(15px, 1.6vw, 18px); line-height: 1.35; letter-spacing: -0.003em; }
+    .o3 .p-eyebrow { color: var(--acc); }
+    .o3 .p-heading { color: #fff; margin-top: 14px; }
+    .o3 .p-heading em { color: #fff; }
+    .o3 .p-bridge { color: var(--on-dark-mut); }
 
-    .problem__head {
-      max-width: 760px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    /* ECG trace — drawn once on viewport entry (JS sets the 4.5s linear
+       draw inline so it can also sync the drop labels to the line tip). */
+    .o3__ecgwrap { position: relative; max-width: 1000px; margin: 14px auto 0; }
+    .o3__ecg { max-width: 1000px; margin: 14px auto 0; }
+    .o3__ecg svg { width: 100%; height: 230px; display: block; overflow: visible; }
+    .o3__ecg .grid { stroke: rgba(255,255,255,0.06); }
+    .o3__ecg .base { stroke: rgba(255,255,255,0.18); stroke-dasharray: 2 5; }
+    .o3__ecg .trace {
+      fill: none; stroke: var(--acc); stroke-width: 2.2;
+      filter: drop-shadow(0 0 6px rgba(224,70,87,0.5));
+      stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 3200; stroke-dashoffset: 3200;
     }
+    /* The trace draws (and the labels stage in) only once the section
+       reveals on scroll — the shared data-reveal observer adds .is-active. */
+    .o3.is-active .o3__ecg .trace { animation: o3draw 4.5s linear forwards; }
+    @keyframes o3draw { to { stroke-dashoffset: 0; } }
+    .o3__ecg .drop { fill: var(--acc); }
+    .o3__ecg .ring { fill: none; stroke: var(--acc); opacity: 0; }
+    .o3.is-active .o3__ecg .ring { animation: o3ring 4.6s ease-out infinite; }
+    .o3__ecg .ring:nth-of-type(2) { animation-delay: 1.5s; }
+    .o3__ecg .ring:nth-of-type(3) { animation-delay: 3s; }
+    @keyframes o3ring { 0% { r: 4; opacity: 0.5; } 100% { r: 22; opacity: 0; } }
 
-    .problem__eyebrow {
-      font-family: var(--font-ui);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
-      color: var(--crimson);
-    }
-
-    .problem__heading {
-      font-family: var(--font-display);
-      font-size: clamp(26px, 3.4vw, 36px);
-      font-weight: 400;
-      color: var(--navy);
-      letter-spacing: -0.008em;
-      line-height: 1.2;
-      margin: 0;
-    }
-    /* Restrained accent: italic only (no colour shift). The em-dash
-       carries the rhetorical pause; the italic carries the emphasis.
-       Crimson is reserved for pain pills and small chrome accents. */
-    .problem__heading em {
-      font-style: italic;
-      color: var(--navy);
-      font-weight: 400;
-    }
-    /* Sub-line under the headline that explicitly bridges into the list.
-       Serif italic, muted navy, smaller — reads as a quiet deck line
-       rather than a competing headline. */
-    .problem__heading-bridge {
-      margin: 10px 0 0;
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: clamp(15px, 1.6vw, 18px);
-      line-height: 1.35;
-      color: rgba(13, 34, 64, 0.6);
-      letter-spacing: -0.003em;
-    }
-
-    .problem__lede {
-      font-family: var(--font-ui);
-      font-size: clamp(15px, 1.7vw, 17px);
-      color: var(--text-muted);
-      line-height: 1.65;
-      max-width: 56ch;
-    }
-
-    /* ---------- §2 Y1: ECG pulse — payment platform heartbeat ----
-       Single waveform with red drops marking moments of failure.
-       Reveals on viewport entry; drop dots pulse subtly. */
-    .problem__pulse {
-      width: 100%;
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
+    /* Per-drop labels — positioned under each red drop. Each carries an
+       inline animation-delay (computed from the path geometry so it lands
+       the instant the drawing line tip reaches its drop) and reveals when
+       the section becomes active. */
+    .o3__droplabels { position: relative; height: 54px; margin-top: -6px; }
+    .o3__dlabel {
+      position: absolute; top: 0; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      background: transparent; border: 0; cursor: pointer; padding: 0;
+      font-family: var(--font-display); font-style: italic; font-size: 12.5px;
+      color: var(--crimson); white-space: nowrap;
       opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
-      background:
-        repeating-linear-gradient(to right, transparent 0, transparent 119px, rgba(13,34,64,0.04) 119px, rgba(13,34,64,0.04) 120px);
     }
-    .problem__pulse.is-active { opacity: 1; transform: translateY(0); }
-    /* Figure caption — left-aligned magazine plate convention. */
-    .problem__pulse-caption-fig {
-      margin-top: 14px;
-      padding: 0;
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 12.5px;
-      line-height: 1.5;
-      color: rgba(13, 34, 64, 0.5);
-      text-align: left;
-    }
-    .problem__pulse-caption-fig b {
-      font-family: var(--font-mono);
-      font-style: normal;
-      font-weight: 500;
-      font-size: 10px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--crimson);
-      margin-right: 8px;
-      vertical-align: 1px;
-    }
-    .problem__pulse svg { width: 100%; height: 150px; display: block; }
-    .problem__pulse svg .line { fill: none; stroke: var(--navy); stroke-width: 1.5; }
-    .problem__pulse svg .marker { fill: var(--crimson); }
-    .problem__pulse svg .ring { fill: var(--crimson); opacity: 0; animation: pulseRing 2.2s ease-out infinite; }
-    .problem__pulse svg .ring:nth-of-type(2) { animation-delay: 0.5s; }
-    .problem__pulse svg .ring:nth-of-type(3) { animation-delay: 1.0s; }
-    .problem__pulse svg .ring:nth-of-type(4) { animation-delay: 1.5s; }
-    @keyframes pulseRing {
-      0%   { r: 4; opacity: 0.55; }
-      100% { r: 22; opacity: 0; }
-    }
-    /* ---------- §2 prose lede — editorial paragraph that names 7 pains ---
-       The prose IS the problem statement; the chart below visualises it.
-       Pain phrases are rendered as inline-clickable buttons that open the
-       drawer scrolled to that pattern. */
-    .problem__prose {
-      max-width: 860px;
-      margin: 0;
-      font-family: var(--font-ui);
-      font-size: 15.5px;
-      line-height: 1.65;
-      color: var(--text-body);
-    }
-    /* Legacy lead classes — unused now (merged into heading) but kept
-       harmless so we can revert without re-editing markup. */
-    .problem__prose-lead,
-    .problem__prose-lead-a,
-    .problem__prose-lead-b { display: none; }
+    .o3.is-active .o3__dlabel { animation: o3labelIn 0.7s var(--ease) both; }
+    .o3__dlabel::before { content: ''; width: 1px; height: 16px; background: rgba(139,26,26,0.5); }
+    .o3__dlabel span { padding: 3px 9px; border-radius: 999px; border: 1px solid rgba(139,26,26,0.28); background: rgba(255,255,255,0.7); backdrop-filter: blur(2px); transition: background 0.18s var(--ease), color 0.18s var(--ease), border-color 0.18s var(--ease); }
+    .o3__dlabel:hover span { background: var(--crimson); border-color: var(--crimson); color: #fff; }
+    .o3__dlabel:focus-visible { outline: 2px solid var(--crimson); outline-offset: 3px; border-radius: 4px; }
+    @keyframes o3labelIn { from { opacity: 0; transform: translateX(-50%) translateY(6px); } to { opacity: 1; transform: translateX(-50%); } }
 
-    /* §2 pains — F2 format: single-column list. Each line is one short
-       statement, phrase and description joined by a faint em-dash. The
-       10th line — 'invisible cost' — sits below as the closing summary
-       under a soft hairline rule. */
-    .problem__pains {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      max-width: 780px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      font: 400 15px/1.55 var(--font-ui);
-      color: rgba(13, 34, 64, 0.82);
-    }
-    .problem__pains-em {
-      margin: 0 6px;
-      color: rgba(13, 34, 64, 0.42);
-    }
-    /* Closing summary — same em-dash format, color, and spacing as the
-       other 9 lines. The em-dash itself is enough rhythm. */
-    .problem__pains-summary {
-      margin-top: 0;
-    }
-    @media (max-width: 760px) {
-      .problem__pains { gap: 8px; font-size: 14.5px; }
-    }
-    /* Editorial inline reference — serif italic crimson, like a phrase
-       set in a magazine column. Subtle dotted underline by default that
-       solidifies on hover. Matches the heading's italic accent style. */
-    .pain {
-      display: inline;
-      font-family: var(--font-display);
-      font-style: italic;
-      font-weight: 400;
-      font-size: 0.96em;
-      color: var(--crimson);
-      background: transparent;
-      padding: 0;
-      border: 0;
-      border-bottom: 1px dotted rgba(139,26,26,0.4);
-      cursor: pointer;
-      transition: color 0.2s var(--ease), border-bottom 0.2s var(--ease);
-    }
-    .pain:hover {
-      color: #6B0F0F;
-      border-bottom: 1px solid var(--crimson);
-    }
-    .pain:focus-visible {
-      outline: 2px solid var(--crimson);
-      outline-offset: 2px;
-      border-radius: 2px;
+    @media (prefers-reduced-motion: reduce) {
+      .o3__ecg .trace, .o3.is-active .o3__ecg .trace { animation: none; stroke-dashoffset: 0; }
+      .o3__dlabel, .o3.is-active .o3__dlabel { animation: none; opacity: 1; }
+      .o3__ecg .ring, .o3.is-active .o3__ecg .ring { animation: none; opacity: 0; }
     }
 
-    /* Re-enabled: chart drop labels (clickable → open drawer at that pain).
-       Same UX as the earlier ECG-only design — labels under each red drop. */
-    .problem__pulse-labels {
-      display: block;
-      position: relative;
-      height: 50px;
-    }
-    /* Chart drop labels match the prose phrase styling — serif italic
-       crimson — so the eye reads them as the same vocabulary as the
-       list above. The vertical tick connects each label to its drop. */
-    .problem__pulse-label {
-      position: absolute;
-      transform: translateX(-50%);
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 13px;
-      color: var(--crimson);
-      text-align: center;
-      white-space: nowrap;
-      background: transparent;
-      border: 0;
-      cursor: pointer;
-      padding: 4px 8px;
-      border-radius: 3px;
-      transition: background 0.2s var(--ease), color 0.2s var(--ease);
-    }
-    .problem__pulse-label::before {
-      content: ''; display: block;
-      width: 1px; height: 10px;
-      background: var(--crimson);
-      margin: 0 auto 5px;
-    }
-    .problem__pulse-label:hover {
-      background: rgba(139,26,26,0.08);
-      color: #6B0F0F;
-    }
-    .problem__pulse-label:focus-visible {
-      outline: 2px solid var(--crimson);
-      outline-offset: 2px;
-    }
+    /* "See the full list" footer — footnote + pill button. */
+    .o3__foot { display: flex; flex-direction: column; align-items: center; gap: 14px; max-width: 560px; margin: 34px auto 0; padding-top: 28px; border-top: 1px solid rgba(13,34,64,0.1); }
+    .o3__footnote { margin: 0; font-family: var(--font-display); font-style: italic; font-size: 15px; color: rgba(13,34,64,0.7); text-align: center; }
+    .o3__seelist { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-ui); font-weight: 600; font-size: 13px; letter-spacing: 0.01em; color: var(--crimson); background: rgba(139,26,26,0.05); border: 1px solid rgba(139,26,26,0.28); border-radius: 999px; padding: 9px 18px; cursor: pointer; transition: background 0.18s var(--ease), border-color 0.18s var(--ease), color 0.18s var(--ease), transform 0.18s var(--ease); }
+    .o3__seelist span { transition: transform 0.18s var(--ease); }
+    .o3__seelist:hover { background: var(--crimson); border-color: var(--crimson); color: #fff; }
+    .o3__seelist:hover span { transform: translateX(3px); }
+    .o3__seelist:focus-visible { outline: 2px solid var(--crimson); outline-offset: 3px; }
 
-    /* On narrow viewports the four pulse labels would overlap. Swap them
-       for a compact caption list below the chart. The SVG line + dots
-       still render so the metaphor reads. */
-    .problem__pulse-caption {
-      display: none;
-      padding: 14px 4px 4px;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--crimson);
-      letter-spacing: 0.02em;
-      line-height: 1.7;
-      text-align: center;
-    }
-    .problem__pulse-caption b { font-weight: 500; }
-    .problem__pulse-caption span { white-space: nowrap; margin: 0 6px; }
     @media (max-width: 640px) {
-      .problem__pulse-labels { display: none; }
-      .problem__pulse-caption { display: block; }
-      .problem__pulse svg { height: 200px; }
-      .problem__pulse-meta {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 4px;
-      }
+      .o3 { padding: 56px 22px 48px; }
+      .o3__ecg svg { height: 200px; }
+      .o3__droplabels { display: none; }
     }
 
     /* Brief flash applied to the drawer item that matches a clicked label */
-    .drawer__item.is-highlight {
-      animation: drawerFlash 1.6s ease-out;
-    }
+    .drawer__item.is-highlight { animation: drawerFlash 1.6s ease-out; }
     @keyframes drawerFlash {
       0%   { background: rgba(139,26,26,0.18); box-shadow: -10px 0 0 0 rgba(139,26,26,0.18); }
       100% { background: transparent; box-shadow: -10px 0 0 0 transparent; }
-    }
-
-    /* Small editorial caption — serif italic, set apart from the body
-       sans prose above so it reads as a sidebar / 'editor's note'. */
-    .problem__footnote {
-      padding-top: 4px;
-      margin: 0;
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 13px;
-      color: rgba(13, 34, 64, 0.55);
-      max-width: 720px;
-      line-height: 1.55;
-    }
-    .problem__see-list {
-      font-family: inherit;
-      font-size: inherit;
-      font-weight: 600;
-      color: var(--crimson);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      text-decoration-thickness: 1px;
-      background: transparent;
-      border: 0;
-      padding: 0;
-      cursor: pointer;
-      transition: color 0.2s var(--ease), text-decoration-thickness 0.2s var(--ease);
-    }
-    .problem__see-list:hover {
-      color: #6B0F0F;
-      text-decoration-thickness: 2px;
-    }
-    .problem__see-list:focus-visible {
-      outline: 2px solid var(--crimson);
-      outline-offset: 3px;
-      border-radius: 2px;
     }
 
     /* §3 handoff bridge — a quiet directional cue at the bottom of §2
@@ -900,9 +694,9 @@
       position: fixed;
       top: 50%;
       right: 32px;
-      transform: translate(calc(100% + 32px), -50%);
-      width: clamp(520px, 56vw, 720px);
-      max-height: calc(100vh - 48px);
+      transform: translate(calc(100% + 64px), -50%);
+      width: min(840px, 94vw);
+      max-height: calc(100vh - 40px);
       background: var(--cream-warm);
       border-radius: 8px;
       box-shadow: 0 30px 80px -20px rgba(13,34,64,0.35),
@@ -917,13 +711,13 @@
     .drawer__head {
       display: flex; align-items: baseline; justify-content: space-between;
       gap: 16px;
-      padding: 14px 26px 12px;
+      padding: 16px 30px 14px;
       border-bottom: 1px solid var(--rule);
       flex-shrink: 0;
     }
     .drawer__title {
       font-family: var(--font-display);
-      font-size: 17px;
+      font-size: 18px;
       font-weight: 700;
       color: var(--navy);
     }
@@ -948,78 +742,77 @@
     .drawer__close:hover { background: var(--navy); border-color: var(--navy); color: var(--cream-warm); }
     .drawer__close svg { width: 12px; height: 12px; }
     .drawer__body {
-      padding: 14px 26px;
+      padding: 18px 30px 20px;
       overflow-y: auto;
       flex: 0 1 auto;
       display: flex;
       flex-direction: column;
-      gap: 14px;
     }
 
-    /* Original single-column cluster layout — italic numeral + uppercase
-       title + pattern count on the left, tag+serif description list on
-       the right. */
+    /* Stacked editorial cluster layout — large italic numeral + uppercase
+       rule-topped title on the left, a crimson-spined list of tag + serif
+       description on the right. Count is suppressed (we no longer surface
+       a fixed total). */
     .drawer__cluster {
       display: grid;
-      grid-template-columns: 168px 1fr;
-      gap: 24px;
-      padding: 8px 0 4px;
+      grid-template-columns: 172px 1fr;
+      gap: 30px;
+      padding: 17px 0;
       border-top: 1px solid var(--rule);
     }
-    .drawer__cluster:first-child { border-top: 0; padding-top: 0; }
-    .drawer__cluster:nth-child(2) { border-top: 1px solid var(--rule); }
+    .drawer__cluster:first-child { border-top: 0; padding-top: 2px; }
+    .drawer__cluster:last-child { padding-bottom: 2px; }
     .drawer__cluster-head {
       display: flex;
       flex-direction: column;
-      gap: 3px;
-      padding-top: 1px;
+      gap: 8px;
     }
     .drawer__cluster-num {
       font-family: var(--font-display);
       font-style: italic;
-      font-size: 16px;
+      font-size: 30px;
       color: var(--crimson);
-      line-height: 1;
+      line-height: 0.85;
+      opacity: 0.92;
     }
     .drawer__cluster-title {
       font-family: var(--font-ui);
-      font-size: 9px;
+      font-size: 9.5px;
       font-weight: 700;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--navy);
-      line-height: 1.25;
+      line-height: 1.35;
+      padding-top: 5px;
+      border-top: 2px solid rgba(139,26,26,0.2);
+      display: inline-block;
+      align-self: start;
     }
-    .drawer__cluster-count {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      color: var(--text-faint);
-      letter-spacing: 0.06em;
-      margin-top: 1px;
-    }
+    .drawer__cluster-count { display: none; }
     .drawer__list {
       list-style: none;
-      padding: 0;
+      padding: 1px 0 1px 20px;
       margin: 0;
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 13px;
+      border-left: 2px solid rgba(139,26,26,0.14);
     }
-    .drawer__item { display: flex; flex-direction: column; gap: 1px; }
+    .drawer__item { display: flex; flex-direction: column; gap: 3px; }
     /* Pattern title — mono crimson tech identifier (drawer is the
        deep-dive 'look behind the curtain' view; tech tags belong here). */
     .drawer__tag {
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 10.5px;
       font-weight: 700;
       color: var(--crimson);
       letter-spacing: 0.02em;
     }
     .drawer__desc {
       font-family: var(--font-display);
-      font-size: 11.5px;
-      color: var(--navy);
-      line-height: 1.38;
+      font-size: 12.5px;
+      color: rgba(13,34,64,0.82);
+      line-height: 1.5;
     }
 
     .drawer__foot {
@@ -1952,194 +1745,53 @@
          Cluster 3 — Security & Compliance   (themes D.1, D.2)
          Cluster 4 — Velocity & Cost         (themes E.1, G.1)
        ============================================================ -->
-  <section class="problem" id="problem">
-    <div class="problem__container">
+  <section class="o3" id="problem" data-reveal>
+    <div class="o3__head">
+      <span class="p-eyebrow">the problem</span>
+      <h2 class="p-heading">Your payment platform works <em>— until it doesn't.</em></h2>
+      <p class="p-bridge">A steady line, until it isn't. Each drop is a pattern we have seen time and again:</p>
+    </div>
 
-      <header class="problem__head">
-        <span class="problem__eyebrow">the problem</span>
-        <h2 class="problem__heading">
-          Your payment platform works <em>— until it doesn't.</em>
-        </h2>
-        <p class="problem__heading-bridge">The pattern is always one of these:</p>
-      </header>
+    <p class="sr-only">
+      Illustrative throughput chart for a payments platform. The line is mostly steady, with six sharp drops marking recurring failure patterns we have seen across payment stacks: timeouts and outages, silent reversals, security exposure, reconciliation breaks, audit scrambles, and after-hours deploys.
+    </p>
 
-      <!-- Pains list — F2 format: single column, em-dash separator. -->
-      <ul class="problem__pains">
-        <li><button type="button" class="pain" data-pain="timeout.outage">Timeouts &amp; outages</button> <span class="problem__pains-em">—</span> your customers see before your dashboards do.</li>
-        <li><button type="button" class="pain" data-pain="reversal.silent">Reversals</button> <span class="problem__pains-em">—</span> that fail silently for hours.</li>
-        <li><button type="button" class="pain" data-pain="recon.manual">Recon</button> <span class="problem__pains-em">—</span> you still do in spreadsheets every month-end.</li>
-        <li><button type="button" class="pain" data-pain="audit.weeklong">Audits</button> <span class="problem__pains-em">—</span> that consume your team for a week, every quarter.</li>
-        <li><button type="button" class="pain" data-pain="customer.complaints">Customer complaints</button> <span class="problem__pains-em">—</span> that take days to investigate across different teams.</li>
-        <li><button type="button" class="pain" data-pain="corridor.6mo">Corridor integrations</button> <span class="problem__pains-em">—</span> that drag on for more than six months across different teams.</li>
-        <li><button type="button" class="pain" data-pain="deploy.midnight">Deploys</button> <span class="problem__pains-em">—</span> at midnight because daytime is too risky.</li>
-        <li><button type="button" class="pain" data-pain="security.surface">A security surface</button> <span class="problem__pains-em">—</span> that grows with every operator you add.</li>
-        <li><button type="button" class="pain" data-pain="compliance.bolton">Compliance</button> <span class="problem__pains-em">—</span> bolted on after every new market.</li>
-        <li class="problem__pains-summary"><button type="button" class="pain" data-pain="cost.invisible">The invisible cost</button> <span class="problem__pains-em">—</span> engineering headcount spent sustaining integration infrastructure, reconciliation operations, and failure recovery — instead of building revenue-generating products.</li>
-      </ul>
-
-      <!-- 'See the list' — sits after the prose summary because the link
-           expands the textual list above, not the chart below. -->
-      <p class="problem__footnote">
-        All ten patterns — sorted by the layer they break in.
-        <button type="button" class="problem__see-list" data-drawer-open>See the list →</button>
-      </p>
-
-      <!-- ECG pulse — visual reinforcement of the prose above. The chart
-           is now unlabelled (the prose names the pains) and acts as the
-           signature visual moment for §2. -->
-      <div class="problem__pulse" data-reveal>
-        <p class="sr-only">
-          Illustrative throughput chart for a payments platform. The line is mostly steady, with four sharp drops marking moments of failure that recur across every payment stack we have seen.
-        </p>
-        <svg viewBox="0 0 1200 240" preserveAspectRatio="none" aria-hidden="true">
-          <line x1="0" y1="110" x2="1200" y2="110" stroke="rgba(13,34,64,0.08)" stroke-dasharray="2 4"/>
-          <!-- All four drops go to a uniform depth (y=200) so every red dot
-               and its expanding halo render identically. viewBox bottom
-               bumped 220 → 240 so the r=22 ring never clips. -->
-          <path class="line" d="
-            M 0 100
-            Q 30 95, 60 105 T 120 102
-            L 130 102 L 140 200 L 150 102
-            Q 180 98, 210 108 T 280 100
-            Q 320 92, 360 105 T 420 100
-            L 430 100 L 442 200 L 454 100
-            Q 490 95, 520 108 T 580 102
-            Q 620 100, 660 105 T 720 98
-            L 728 98 L 740 200 L 752 98
-            Q 790 95, 820 105 T 880 100
-            Q 920 98, 960 108 T 1020 100
-            L 1028 100 L 1040 200 L 1052 100
-            Q 1090 98, 1120 108 T 1200 102
-          "/>
-          <g class="marker">
-            <circle cx="140"  cy="200" r="4"/>
-            <circle cx="442"  cy="200" r="4"/>
-            <circle cx="740"  cy="200" r="4"/>
-            <circle cx="1040" cy="200" r="4"/>
-          </g>
-          <circle class="ring" cx="140"  cy="200"/>
-          <circle class="ring" cx="442"  cy="200"/>
-          <circle class="ring" cx="740"  cy="200"/>
-          <circle class="ring" cx="1040" cy="200"/>
+    <div class="o3__ecgwrap">
+      <div class="o3__ecg" aria-hidden="true">
+        <svg viewBox="0 0 1200 240" preserveAspectRatio="none">
+          <line class="grid" x1="0" y1="60" x2="1200" y2="60"/>
+          <line class="grid" x1="0" y1="170" x2="1200" y2="170"/>
+          <line class="base" x1="0" y1="115" x2="1200" y2="115"/>
+          <path class="trace" d="M0 110 Q30 105 60 112 T110 108 L118 108 L130 205 L142 108 Q180 102 220 112 T290 106 L298 106 L310 205 L322 106 Q360 100 400 112 T470 108 L478 108 L490 205 L502 108 Q540 102 580 110 T645 106 L653 106 L665 205 L677 106 Q720 100 770 112 T820 108 L828 108 L840 205 L852 108 Q900 102 960 110 T1018 106 L1026 106 L1038 205 L1050 106 Q1100 104 1140 110 T1200 108"/>
+          <g class="drop"><circle cx="130" cy="205" r="4.5"/><circle cx="310" cy="205" r="4.5"/><circle cx="490" cy="205" r="4.5"/><circle cx="665" cy="205" r="4.5"/><circle cx="840" cy="205" r="4.5"/><circle cx="1038" cy="205" r="4.5"/></g>
+          <circle class="ring" cx="130" cy="205"/><circle class="ring" cx="490" cy="205"/><circle class="ring" cx="840" cy="205"/>
         </svg>
-        <!-- Clickable drop labels — each opens the drawer scrolled to
-             that pattern with a brief flash highlight. -->
-        <div class="problem__pulse-labels">
-          <button type="button" class="problem__pulse-label" data-pain="timeout.outage"  style="left: 11.7%;" aria-label="Open list at Timeouts & outages">Timeouts</button>
-          <button type="button" class="problem__pulse-label" data-pain="reversal.silent" style="left: 36.8%;" aria-label="Open list at Reversals">Reversals</button>
-          <button type="button" class="problem__pulse-label" data-pain="recon.manual"    style="left: 61.7%;" aria-label="Open list at Recon">Recon</button>
-          <button type="button" class="problem__pulse-label" data-pain="audit.weeklong"  style="left: 86.7%;" aria-label="Open list at Audits">Audits</button>
-        </div>
-        <!-- Mobile fallback: labels become a single inline caption -->
-        <p class="problem__pulse-caption" aria-hidden="true">
-          <b>Four of ten patterns:</b>
-          <span>Timeouts</span>·<span>Reversals</span>·<span>Recon</span>·<span>Audits</span>
-        </p>
-        <!-- Figure caption — points at the prose above so chart + list read as one -->
-        <p class="problem__pulse-caption-fig">
-          <b>Fig.</b>An illustrative payments throughput. Each red drop marks a pattern from the list above.
-        </p>
       </div>
-
-      <!-- §3 handoff bridge — directional cue downward to the solution section -->
-      <div class="problem__bridge">
-        <a href="#solution" class="problem__bridge-link" aria-label="Continue to how we solve it">
-          <span>How we solve it</span>
-          <svg class="problem__bridge-arrow" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-            <path d="M7 2v10M3 8l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
+      <!-- One label per drop, aligned to the drop's x position; revealed in
+           sync with the trace tip (delays computed by JS from path geometry). -->
+      <div class="o3__droplabels">
+        <button type="button" class="o3__dlabel" data-pain="timeout.outage" style="left:10.8%;animation-delay:0.43s" aria-label="Open list at Timeouts & outages"><span>Timeouts &amp; outages</span></button>
+        <button type="button" class="o3__dlabel" data-pain="reversal.silent" style="left:25.8%;animation-delay:1.14s" aria-label="Open list at Silent reversals"><span>Silent reversals</span></button>
+        <button type="button" class="o3__dlabel" data-pain="security.surface" style="left:40.8%;animation-delay:1.85s" aria-label="Open list at Security exposure"><span>Security exposure</span></button>
+        <button type="button" class="o3__dlabel" data-pain="recon.manual" style="left:55.4%;animation-delay:2.55s" aria-label="Open list at Reconciliation breaks"><span>Reconciliation breaks</span></button>
+        <button type="button" class="o3__dlabel" data-pain="audit.weeklong" style="left:70%;animation-delay:3.25s" aria-label="Open list at Audit scrambles"><span>Audit scrambles</span></button>
+        <button type="button" class="o3__dlabel" data-pain="deploy.midnight" style="left:86.5%;animation-delay:4.0s" aria-label="Open list at After-hours deploys"><span>After-hours deploys</span></button>
       </div>
+    </div>
 
-      <!-- Hidden legacy block (display:none in CSS) — preserved in case we revert -->
-      <div class="problem__clusters" data-reveal>
+    <div class="o3__foot">
+      <p class="o3__footnote">A sample of the common failure patterns &mdash; grouped by the layer that fails.</p>
+      <button type="button" class="o3__seelist" data-drawer-open>See the full list <span aria-hidden="true">&rarr;</span></button>
+    </div>
 
-        <!-- ─── Cluster 1: Transaction Integrity ─── -->
-        <div class="problem__cluster">
-          <div class="problem__cluster-head">
-            <span class="problem__cluster-num"><em>01</em></span>
-            <span class="problem__cluster-title">Transaction Integrity</span>
-            <span class="problem__cluster-count">3 patterns</span>
-          </div>
-          <ul class="problem__cluster-list">
-            <li class="problem__item">
-              <span class="problem__tag">timeout.outage</span>
-              <span class="problem__desc">Your customers see the outage before your dashboards do. Twitter is faster than monitoring.</span>
-            </li>
-            <li class="problem__item">
-              <span class="problem__tag">reversal.silent</span>
-              <span class="problem__desc">A reversal fails silently. Finance discovers the gap three days later during reconciliation.</span>
-            </li>
-            <li class="problem__item">
-              <span class="problem__tag">recon.manual</span>
-              <span class="problem__desc">Month-end in spreadsheets. Four thousand rows. Manual matching. Weekend war rooms.</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- ─── Cluster 2: Operational Reliability ─── -->
-        <div class="problem__cluster">
-          <div class="problem__cluster-head">
-            <span class="problem__cluster-num"><em>02</em></span>
-            <span class="problem__cluster-title">Operational Reliability</span>
-            <span class="problem__cluster-count">3 patterns</span>
-          </div>
-          <ul class="problem__cluster-list">
-            <li class="problem__item">
-              <span class="problem__tag">audit.weeklong</span>
-              <span class="problem__desc">"Show me Q3 reversals by reason code." One engineer. Five dashboards. Five days. Every quarter.</span>
-            </li>
-            <li class="problem__item">
-              <span class="problem__tag">deploy.midnight</span>
-              <span class="problem__desc">Releases at 11pm because daytime is too risky. Rollbacks at 2am. On-call paged.</span>
-            </li>
-            <li class="problem__item">
-              <span class="problem__tag">customer.complaints</span>
-              <span class="problem__desc">A missing transaction. Five systems to query. Two days to give the customer an answer — by then they're gone.</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- ─── Cluster 3: Security & Compliance ─── -->
-        <div class="problem__cluster">
-          <div class="problem__cluster-head">
-            <span class="problem__cluster-num"><em>03</em></span>
-            <span class="problem__cluster-title">Security &amp; Compliance</span>
-            <span class="problem__cluster-count">2 patterns</span>
-          </div>
-          <ul class="problem__cluster-list">
-            <li class="problem__item">
-              <span class="problem__tag">security.surface</span>
-              <span class="problem__desc">Every new integration is a new attack vector. Ten operators equals ten places encryption can be wrong.</span>
-            </li>
-            <li class="problem__item">
-              <span class="problem__tag">compliance.bolton</span>
-              <span class="problem__desc">AML, KYC, and sanctions screening retro-fitted after every new corridor goes live.</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- ─── Cluster 4: Velocity & Cost ─── -->
-        <div class="problem__cluster">
-          <div class="problem__cluster-head">
-            <span class="problem__cluster-num"><em>04</em></span>
-            <span class="problem__cluster-title">Velocity &amp; Cost</span>
-            <span class="problem__cluster-count">2 patterns</span>
-          </div>
-          <ul class="problem__cluster-list">
-            <li class="problem__item">
-              <span class="problem__tag">corridor.6mo</span>
-              <span class="problem__desc">Every new operator is a six-month integration project — new protocol, new AML, new audit trail, built from scratch.</span>
-            </li>
-            <li class="problem__item">
-              <span class="problem__tag">cost.invisible</span>
-              <span class="problem__desc">Eighty percent of your engineering team keeps payments alive. Twenty percent ships the products that actually win business.</span>
-            </li>
-          </ul>
-        </div>
-
-      </div>
-
+    <!-- §3 handoff bridge — directional cue downward to the solution section -->
+    <div class="problem__bridge">
+      <a href="#solution" class="problem__bridge-link" aria-label="Continue to how we solve it">
+        <span>How we solve it</span>
+        <svg class="problem__bridge-arrow" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <path d="M7 2v10M3 8l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
     </div>
   </section>
 
@@ -2348,7 +2000,7 @@
   <aside class="drawer" data-drawer role="dialog" aria-modal="true" aria-labelledby="drawer-title" aria-hidden="true">
     <header class="drawer__head">
       <div>
-        <div class="drawer__title" id="drawer-title">All ten patterns.</div>
+        <div class="drawer__title" id="drawer-title">The patterns we keep seeing.</div>
         <div class="drawer__sub">sorted · by where they break in your stack</div>
       </div>
       <button type="button" class="drawer__close" data-drawer-close aria-label="Close panel">
@@ -2372,11 +2024,11 @@
             <span class="drawer__desc">Customers see the outage before your dashboards do. Social media is faster than monitoring.</span>
           </li>
           <li class="drawer__item" data-pain-item="reversal.silent">
-            <span class="drawer__tag">Reversals</span>
+            <span class="drawer__tag">Silent reversals</span>
             <span class="drawer__desc">A reversal fails silently. Finance discovers the gap days later during reconciliation.</span>
           </li>
           <li class="drawer__item" data-pain-item="recon.manual">
-            <span class="drawer__tag">Recon</span>
+            <span class="drawer__tag">Reconciliation breaks</span>
             <span class="drawer__desc">Month-end in spreadsheets. Thousands of rows. Manual matching. Weekend war rooms.</span>
           </li>
         </ul>
@@ -2390,11 +2042,11 @@
         </div>
         <ul class="drawer__list">
           <li class="drawer__item" data-pain-item="audit.weeklong">
-            <span class="drawer__tag">Audits</span>
+            <span class="drawer__tag">Audit scrambles</span>
             <span class="drawer__desc">Routine compliance queries. One engineer, a week of dashboards. Every quarter.</span>
           </li>
           <li class="drawer__item" data-pain-item="deploy.midnight">
-            <span class="drawer__tag">Deploys</span>
+            <span class="drawer__tag">After-hours deploys</span>
             <span class="drawer__desc">Releases at night because daytime is too risky. Rollbacks before dawn. On-call paged.</span>
           </li>
           <li class="drawer__item" data-pain-item="customer.complaints">
@@ -2412,7 +2064,7 @@
         </div>
         <ul class="drawer__list">
           <li class="drawer__item" data-pain-item="security.surface">
-            <span class="drawer__tag">A security surface</span>
+            <span class="drawer__tag">Security exposure</span>
             <span class="drawer__desc">Every new integration is a new attack vector. Every operator is another place encryption can be wrong.</span>
           </li>
           <li class="drawer__item" data-pain-item="compliance.bolton">
