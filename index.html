@@ -1754,7 +1754,16 @@
         radial-gradient(900px 500px at 78% 8%, rgba(224,70,87,.10), transparent 60%),
         radial-gradient(700px 500px at 10% 100%, rgba(20,40,72,.6), transparent 60%),
         var(--ink);
+      /* Hero owns the first screen: only a thin sliver of the next
+         section peeks under the scroll cue, never the full heading. */
+      min-height: calc(100vh - 46px);
+      min-height: calc(100dvh - 46px);
+      display: flex;
+      flex-direction: column;
     }
+    .heroA-hero { flex: 1 1 auto; display: flex; align-items: center; }
+    .heroA-hero > .heroA-grid { width: 100%; }
+    .heroA-telemetry { margin-top: auto; }
 
     /* dark nav */
     .heroA-nav { position: relative; display: flex; align-items: center; justify-content: space-between; padding: 20px 44px; gap: 32px; z-index: 5; background: rgba(0,0,0,.16); }
@@ -1768,6 +1777,23 @@
     .heroA-links a:hover { color: var(--on-dark); }
     .heroA-navcta { border: 1px solid var(--hair-2); color: var(--on-dark); padding: 9px 18px; font-size: 13px; font-weight: 600; border-radius: 6px; transition: all .2s; }
     .heroA-navcta:hover { border-color: var(--acc); color: #fff; }
+
+    /* scroll cue — clickable doorway straddling the hero → problem seam.
+       Signals more content below and marks where the hero ends. */
+    .heroA-scrollcue { position: absolute; left: 50%; bottom: -23px; transform: translateX(-50%); width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--ink-3); border: 1px solid rgba(224,70,87,.55); box-shadow: 0 14px 28px -12px rgba(0,0,0,.8), 0 0 26px -2px rgba(224,70,87,.5); z-index: 6; transition: border-color .22s ease, background .22s ease, transform .22s ease, box-shadow .22s ease; }
+    /* slow beacon sonar — two staggered rings, echoes the hero's live/streaming telemetry */
+    .heroA-scrollcue::before, .heroA-scrollcue::after { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid var(--acc); opacity: 0; animation: heroACuePing 2.8s cubic-bezier(.22,.61,.36,1) infinite; pointer-events: none; }
+    .heroA-scrollcue::after { animation-delay: 1.4s; }
+    @keyframes heroACuePing { 0% { opacity: .6; transform: scale(1); } 70% { opacity: 0; transform: scale(1.85); } 100% { opacity: 0; transform: scale(1.85); } }
+    .heroA-scrollcue:hover { border-color: var(--acc); background: var(--ink-2); transform: translateX(-50%) translateY(2px); box-shadow: 0 16px 30px -12px rgba(0,0,0,.8), 0 0 34px 0 rgba(224,70,87,.62); }
+    .heroA-scrollcue:hover::before, .heroA-scrollcue:hover::after { animation-play-state: paused; opacity: 0; }
+    .heroA-scrollcue:focus-visible { outline: 2px solid var(--acc); outline-offset: 3px; }
+    .heroA-scrollcue svg { width: 16px; height: 16px; display: block; }
+    .heroA-scrollcue svg path { fill: none; stroke: #F4F6FB; stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; transition: stroke .22s ease; }
+    .heroA-scrollcue:hover svg path { stroke: #fff; }
+    .heroA-scrollcue .chev { transform-origin: center; animation: heroAScrollNudge 2.2s ease-in-out infinite; }
+    @keyframes heroAScrollNudge { 0%, 100% { transform: translateY(-1.5px); } 50% { transform: translateY(2px); } }
+    @media (prefers-reduced-motion: reduce) { .heroA-scrollcue .chev, .heroA-scrollcue::before, .heroA-scrollcue::after { animation: none; } .heroA-scrollcue::before, .heroA-scrollcue::after { opacity: 0; } }
 
     /* buttons */
     .heroA-btn { display: inline-flex; align-items: center; gap: 9px; font-size: 14px; font-weight: 600; padding: 14px 24px; border-radius: 7px; transition: all .2s; letter-spacing: .01em; }
@@ -1791,9 +1817,9 @@
 
     /* telemetry strip */
     .heroA-telemetry { border-top: 1px solid var(--hair); padding: 24px 44px 26px; display: flex; align-items: center; gap: 40px; background: rgba(0,0,0,.22); }
-    .heroA-telemetry-label { flex: none; font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--on-dark-mut); line-height: 1.85; padding-right: 32px; border-right: 1px solid var(--hair); white-space: nowrap; }
-    .heroA-telemetry-items { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); }
-    .heroA-cap { display: flex; align-items: flex-start; gap: 11px; padding-left: 34px; border-left: 1px solid var(--hair); }
+    .heroA-telemetry-label { flex: none; font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--on-dark-mut); line-height: 1.85; padding-right: 28px; border-right: 1px solid var(--hair); white-space: nowrap; }
+    .heroA-telemetry-items { flex: 1; display: grid; grid-template-columns: repeat(5, 1fr); }
+    .heroA-cap { display: flex; align-items: flex-start; gap: 10px; padding-left: 24px; border-left: 1px solid var(--hair); }
     .heroA-cap:first-child { padding-left: 0; border-left: 0; }
     .heroA-cap-ic { flex: none; width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; background: rgba(224,70,87,.12); margin-top: 1px; }
     .heroA-cap-ic svg { width: 9px; height: 9px; display: block; }
@@ -1841,13 +1867,17 @@
     .heroA-topo .t-ok-ring { fill: none; stroke: var(--green); stroke-width: 1.4; opacity: 0; }
     .heroA-topo .t-pulse { fill: none; stroke: var(--acc); stroke-width: 1; opacity: 0; }
 
+    @media (max-width: 1200px) {
+      .heroA-telemetry { flex-direction: column; align-items: stretch; gap: 18px; }
+      .heroA-telemetry-label { max-width: none; padding-right: 0; border-right: 0; white-space: normal; }
+      .heroA-telemetry-label br { display: none; }
+      .heroA-telemetry-items { grid-template-columns: repeat(3, 1fr); gap: 22px 30px; }
+      .heroA-cap, .heroA-cap:first-child { padding-left: 0; border-left: 0; }
+    }
     @media (max-width: 940px) {
       .heroA-grid { grid-template-columns: 1fr; gap: 40px; }
       .heroA-links { display: none; }
-      .heroA-telemetry { flex-direction: column; align-items: stretch; gap: 18px; }
-      .heroA-telemetry-label { max-width: none; padding-right: 0; border-right: 0; }
-      .heroA-telemetry-items { grid-template-columns: repeat(2, 1fr); gap: 20px 28px; }
-      .heroA-cap, .heroA-cap:first-child { padding-left: 0; border-left: 0; }
+      .heroA-telemetry-items { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 560px) {
       .heroA-nav, .heroA-hero, .heroA-telemetry { padding-left: 22px; padding-right: 22px; }
@@ -1895,14 +1925,19 @@
     </div>
 
     <div class="heroA-telemetry">
-      <div class="heroA-telemetry-label">One resilient layer,<br>built around your stack</div>
+      <div class="heroA-telemetry-label">One resilient layer, <br>built around your stack</div>
       <div class="heroA-telemetry-items">
         <div class="heroA-cap"><span class="heroA-cap-ic"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.4 6.4 12 13 4"/></svg></span><span class="heroA-cap-tx"><span class="heroA-cap-h">Any core banking system</span><span class="heroA-cap-s">Finacle, T24, FlexCube or custom</span></span></div>
         <div class="heroA-cap"><span class="heroA-cap-ic"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.4 6.4 12 13 4"/></svg></span><span class="heroA-cap-tx"><span class="heroA-cap-h">Any operator or rail</span><span class="heroA-cap-s">Mobile money through to SWIFT</span></span></div>
         <div class="heroA-cap"><span class="heroA-cap-ic"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.4 6.4 12 13 4"/></svg></span><span class="heroA-cap-tx"><span class="heroA-cap-h">Automatic retry &amp; recovery</span><span class="heroA-cap-s">In real time, no manual resends</span></span></div>
+        <div class="heroA-cap"><span class="heroA-cap-ic"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.4 6.4 12 13 4"/></svg></span><span class="heroA-cap-tx"><span class="heroA-cap-h">Continuous reconciliation</span><span class="heroA-cap-s">Matched in real time, not month-end</span></span></div>
         <div class="heroA-cap"><span class="heroA-cap-ic"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.4 6.4 12 13 4"/></svg></span><span class="heroA-cap-tx"><span class="heroA-cap-h">Zero vendor lock-in</span><span class="heroA-cap-s">The layer your bank owns</span></span></div>
       </div>
     </div>
+
+    <a class="heroA-scrollcue" href="#problem" aria-label="Scroll down to the problem we solve">
+      <svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
+    </a>
 
   </section>
 
