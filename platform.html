@@ -104,13 +104,17 @@
     .hd{text-align:center;max-width:760px;margin:0 auto 38px}
     .rail{position:relative;padding-left:58px}.spine{position:absolute;left:17px;top:6px;bottom:26px;width:2px;background:linear-gradient(180deg,var(--crimson),color-mix(in srgb,var(--crimson) 16%,transparent))}
     .beat{position:relative;margin-bottom:44px}.beat:last-child{margin-bottom:0}
-    .dot{position:absolute;left:-58px;top:-2px;width:36px;height:36px;border-radius:50%;background:#fff;border:2px solid var(--crimson);color:var(--crimson);display:grid;place-items:center;font:600 12px var(--fd);box-shadow:0 6px 16px -8px rgba(139,26,26,.5)}
+    .dot{position:absolute;left:-58px;top:-2px;width:36px;height:36px;border-radius:50%;background:#fff;border:2px solid var(--crimson);color:var(--crimson);display:grid;place-items:center;font:600 12px var(--fd);box-shadow:0 6px 16px -8px rgba(139,26,26,.5);transition:background .5s ease,color .5s ease,transform .45s cubic-bezier(.34,1.56,.64,1),box-shadow .5s ease}
+    .beat.in-view .dot{background:var(--crimson);color:#fff;transform:scale(1.06);box-shadow:0 10px 24px -8px rgba(139,26,26,.7)}
     .bhd{display:flex;align-items:baseline;gap:13px;margin-bottom:16px;flex-wrap:wrap}
     /* lead statement */
     .lead{margin:0 0 22px;max-width:760px}
     .lead p{margin:0;font:400 16px/1.64 var(--fu);color:#33405a}
     .lead p+p{margin-top:10px}
     .lead .o{font-weight:700;color:var(--navy)}
+    .lead .l1{display:block;font:600 17px/1.4 var(--fu);color:var(--navy)}
+    .lead .l1 em{font-style:normal;color:var(--crimson)}
+    .lead .l2{display:block;font:400 14.5px/1.6 var(--fu);color:var(--mut);margin-top:8px}
     .hi{font-weight:600;color:var(--navy);background:linear-gradient(transparent 58%,rgba(224,70,87,.22) 0);padding:0 1.5px}
     /* explanatory grid (term + plain meaning) */
     .xg{display:grid;grid-template-columns:1fr 1fr;gap:0 52px}
@@ -129,71 +133,127 @@
     /* ===== shared viz shell ===== */
     .viz{background:radial-gradient(720px 260px at 50% -10%,rgba(224,70,87,.10),transparent 62%),var(--navy);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:22px 24px;color:var(--on);position:relative;overflow:hidden;margin-top:20px}
     .viz__top{display:flex;justify-content:space-between;align-items:center;font:600 9px var(--fm);letter-spacing:.14em;text-transform:uppercase;color:var(--onmut);margin-bottom:6px}
-    .viz__top .live{color:var(--acc);display:inline-flex;align-items:center;gap:6px}
-    .viz__top .live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--acc);animation:blink 1.6s infinite}
+    .viz__top .live{color:var(--green2);display:inline-flex;align-items:center;gap:6px}
+    .viz__top .live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green2);box-shadow:0 0 6px var(--green2);animation:blink 1.6s infinite}
     @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
     /* ===== i: core illustration ===== */
-    .vCore__row{display:flex;align-items:center;gap:14px;position:relative;margin-top:22px;min-height:96px}
+    .vCore__row{display:flex;align-items:center;gap:14px;position:relative;margin-top:16px;min-height:78px}
+    .viz.vCore{padding-top:18px;padding-bottom:16px}
+    .vCore__cap{margin-top:14px;padding-top:11px;border-top:1px solid rgba(255,255,255,.1);font:500 10px var(--fm);letter-spacing:.04em;color:var(--onmut)}
+    .vCore__cap b{color:var(--on);font-weight:600}
     .vCore__chs{display:flex;flex-direction:column;gap:7px}
-    .vCore__chs span{font:500 11px var(--fu);color:#cdd6e6;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:7px;padding:6px 11px;text-align:center}
+    .vCore__chs span{font:500 11px var(--fu);color:#cdd6e6;background:#16294A;border:1px solid rgba(255,255,255,.12);border-radius:7px;padding:6px 11px;text-align:center}
     .vCore__line{flex:1;height:1px;background:rgba(255,255,255,.16);min-width:22px;position:relative}
-    .vCore__gw{flex:none;text-align:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:14px 16px}
+    .vCore__gw{flex:none;text-align:center;background:#16294A;border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:14px 16px}
     .vCore__gw b{display:block;font:600 13px var(--fu);color:#fff}.vCore__gw i{display:block;margin-top:4px;font:500 8.5px var(--fu);letter-spacing:.05em;text-transform:uppercase;color:var(--onmut);font-style:normal}
-    .vCore__core{flex:none;max-width:230px;text-align:center;background:linear-gradient(180deg,rgba(224,70,87,.16),rgba(224,70,87,.04));border:1.5px solid rgba(224,70,87,.5);border-radius:12px;padding:16px 18px;position:relative}
-    .vCore__core::after{content:"";position:absolute;inset:-1.5px;border-radius:12px;border:1.5px solid var(--acc);opacity:0;animation:pulseRing 2.6s ease-out infinite}
-    @keyframes pulseRing{0%{opacity:.55;transform:scale(1)}100%{opacity:0;transform:scale(1.06)}}
-    .vCore__core b{display:block;font:400 17px var(--fd);color:#fff}.vCore__core i{display:block;margin-top:5px;font:400 11px/1.5 var(--fu);color:#d7b0b4;font-style:normal}
-    .pkt{position:absolute;top:50%;margin-top:-3.5px;width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 10px 1px var(--acc);animation:pktflow 5.2s linear infinite}
+    .vCore__core{flex:none;max-width:230px;text-align:center;background:#16294A;border:1px solid rgba(255,255,255,.18);border-top:2px solid var(--acc);border-radius:12px;padding:16px 18px;position:relative}
+    .vCore__active{position:absolute;top:9px;right:11px;font:600 7.5px var(--fu);letter-spacing:.08em;text-transform:uppercase;color:var(--green2);display:inline-flex;align-items:center;gap:4px}
+    .vCore__active::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--green2);box-shadow:0 0 6px var(--green2)}
+    .vCore__core b{display:block;font:400 17px var(--fd);color:#fff}.vCore__core i{display:block;margin-top:5px;font:400 11px/1.5 var(--fu);color:var(--onmut);font-style:normal}
+    .pkt{position:absolute;top:50%;margin-top:-3.5px;width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 10px 1px var(--acc);z-index:1;animation:pktflow 5.2s linear infinite;animation-fill-mode:backwards}
+    .vCore__line{z-index:0}
+    .vCore__chs,.vCore__gw,.vCore__core{position:relative;z-index:3}
     @keyframes pktflow{0%{left:9%;opacity:0}10%{opacity:1}80%{opacity:1;background:#fff}100%{left:78%;opacity:0}}
-    /* ===== ii: signing lifecycle ===== */
-    .vSign__stage{position:relative;height:188px;margin-top:18px}
-    .vSign__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;height:118px}
-    .sn{position:relative;text-align:center;padding:0 10px;display:flex;flex-direction:column;align-items:center;justify-content:center}
-    .sn__box{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:13px 10px;transition:none}
-    .sn__k{font:600 8px var(--fm);letter-spacing:.12em;text-transform:uppercase;color:var(--onmut);margin-bottom:6px}
-    .sn__t{font:600 13px var(--fu);color:#fff}.sn__d{font:400 10px/1.4 var(--fu);color:var(--onmut);margin-top:5px}
-    .sn__lock{display:inline-block;margin-top:7px;color:var(--green2)}
-    .sn__arr{position:absolute;right:-9px;top:50%;margin-top:-9px;z-index:2;color:var(--acc);font-size:15px}
-    /* glow per node */
-    .sn1 .sn__box{animation:g1 7s infinite}.sn2 .sn__box{animation:g2 7s infinite}.sn3 .sn__box{animation:g3 7s infinite}.sn4 .sn__box{animation:g4 7s infinite}
-    @keyframes g1{0%,3%{border-color:rgba(255,255,255,.14)}5%,18%{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc),0 12px 26px -14px rgba(224,70,87,.7)}24%,100%{border-color:rgba(255,255,255,.14);box-shadow:none}}
-    @keyframes g2{0%,26%{border-color:rgba(255,255,255,.14)}30%,42%{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc),0 12px 26px -14px rgba(224,70,87,.7)}48%,100%{border-color:rgba(255,255,255,.14);box-shadow:none}}
-    @keyframes g3{0%,46%{border-color:rgba(255,255,255,.14)}50%,62%{border-color:var(--green2);box-shadow:0 0 0 1px var(--green2),0 12px 26px -14px rgba(65,192,138,.6)}68%,100%{border-color:rgba(255,255,255,.14);box-shadow:none}}
-    @keyframes g4{0%,66%{border-color:rgba(255,255,255,.14)}70%,90%{border-color:var(--green2);box-shadow:0 0 0 1px var(--green2),0 14px 30px -14px rgba(65,192,138,.7)}96%,100%{border-color:rgba(255,255,255,.14);box-shadow:none}}
-    .vSign__tok{position:absolute;top:50px;width:9px;height:9px;border-radius:50%;background:#fff;box-shadow:0 0 12px 2px var(--acc);z-index:3;animation:signtok 7s ease-in-out infinite}
-    @keyframes signtok{0%{left:12.5%;opacity:0}3%{opacity:1}18%{left:12.5%}30%{left:37.5%}46%{left:37.5%}54%{left:62.5%}68%{left:62.5%}78%{left:87.5%}92%{left:87.5%;opacity:1}100%{left:87.5%;opacity:0}}
-    .vSign__res{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;font:500 11px var(--fu)}
-    .vSign__res .ok{color:var(--green2);display:inline-flex;align-items:center;gap:6px}
-    .vSign__res .bad{color:#e89aa0;display:inline-flex;align-items:center;gap:6px;opacity:.85}
-    .vSign__res .sepd{color:rgba(255,255,255,.18)}
-    /* ===== iii: payment journey ===== */
-    .vFlow__stage{position:relative;height:212px;margin-top:18px}
-    .fn{position:absolute;width:148px;margin-left:-74px;text-align:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:11px;padding:11px 8px;z-index:2}
+    /* ===== ii: plugin signing & verification (flowchart, flowing lines) ===== */
+    .vPlug .fc{max-width:540px;margin:8px auto 0;display:flex;flex-direction:column;align-items:stretch}
+    .vPlug .nd{background:#16294A;border:1px solid rgba(255,255,255,.16);border-radius:11px;padding:13px 16px;text-align:center;position:relative}
+    .vPlug .nd .k{display:block;font:600 8px var(--fm);letter-spacing:.12em;text-transform:uppercase;color:var(--onmut);margin-bottom:5px}
+    .vPlug .nd b{display:block;font:600 13px var(--fu);color:#fff}.vPlug .nd small{display:block;margin-top:4px;font:400 10px/1.4 var(--fu);color:var(--onmut)}
+    .vPlug svg.ic{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-left:4px}
+    .vPlug .dec{border-color:rgba(224,70,87,.4);background:linear-gradient(180deg,rgba(224,70,87,.10),#16294A)}
+    .vPlug .conn{width:3px;height:22px;align-self:center;background:transparent;position:relative}
+    .vPlug .conn::after{content:"";position:absolute;bottom:-1px;left:-3px;border:4px solid transparent;border-top-color:var(--acc)}
+    .vPlug .conn i{position:absolute;inset:0;background:repeating-linear-gradient(180deg,var(--acc) 0 5px,transparent 5px 11px);background-size:100% 11px;animation:Bflow .7s linear infinite;opacity:.9}
+    .vPlug .branch{display:flex;gap:22px;margin-top:24px;position:relative}
+    .vPlug .branch::before{content:"";position:absolute;top:-24px;left:25%;right:25%;height:1.5px;background:repeating-linear-gradient(90deg,var(--acc) 0 5px,transparent 5px 11px);background-size:11px 100%;animation:BflowX .7s linear infinite;opacity:.85}
+    .vPlug .leg{position:absolute;top:-24px;width:1.5px;height:24px;background:repeating-linear-gradient(180deg,var(--acc) 0 5px,transparent 5px 11px);background-size:100% 11px;animation:Bflow .7s linear infinite}.vPlug .legL{left:25%}.vPlug .legR{right:25%}
+    .vPlug .branch .nd{flex:1;border-width:1.5px}
+    .vPlug .out b{color:#fff}.vPlug .out--ok{border-color:rgba(65,192,138,.45);animation:Bok 4s infinite}.vPlug .out--no{border-color:rgba(224,70,87,.45)}
+    .vPlug .out--ok .ic{color:var(--green2)}.vPlug .out--no .ic{color:var(--acc)}
+    @keyframes Bflow{to{background-position:0 11px}}
+    @keyframes BflowX{to{background-position:11px 0}}
+    @keyframes Bok{0%,100%{box-shadow:none}50%{box-shadow:0 0 0 1px var(--green2),0 10px 26px -12px var(--green2)}}
+    /* ===== iii: deployment (high availability) ===== */
+    /* ===== iii: deployment (high-availability blueprint) ===== */
+    .vDep__estate{position:relative;margin-top:20px;border:1px dashed rgba(255,255,255,.2);border-radius:12px;padding:24px 16px 15px}
+    .vDep__estateLbl{position:absolute;top:-8px;left:16px;background:var(--navy);padding:0 8px;font:600 8px var(--fm);letter-spacing:.16em;text-transform:uppercase;color:var(--onmut)}
+    .vDep__zone{border:1px solid rgba(255,255,255,.13);border-radius:11px;padding:14px}
+    .vDep__zn{display:block;font:600 8px var(--fm);letter-spacing:.13em;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+    .vDep__gw{width:max-content;margin:0 auto;text-align:center;background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.22);border-radius:9px;padding:10px 22px}
+    .vDep__gw b{display:block;font:600 12.5px var(--fu);color:#fff}
+    .vDep__gw i{display:block;margin-top:3px;font:500 8px/1 var(--fm);letter-spacing:.12em;text-transform:uppercase;color:var(--onmut);font-style:normal}
+    .vDep__cores{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+    .vDep__core{border:1px solid rgba(255,255,255,.14);border-radius:11px;padding:14px}
+    .vDep__coreHd{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+    .vDep__coreHd b{font:600 13px var(--fu);color:#fff}
+    .vDep__ha{display:inline-flex;align-items:center;gap:6px;font:600 8px var(--fu);letter-spacing:.07em;text-transform:uppercase;color:var(--green2);background:rgba(65,192,138,.1);border:1px solid rgba(65,192,138,.3);border-radius:20px;padding:4px 10px}
+    .vDep__ha::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--green2);box-shadow:0 0 5px var(--green2)}
+    .vDep__caps{font:500 9.5px/1.85 var(--fu);color:#cdd6e6;margin-bottom:11px}.vDep__caps .d{color:#6E8FC0;margin:0 6px}
+    .vDep__plugs{display:flex;flex-wrap:wrap;gap:6px}
+    .vDep__pl{font:500 10px var(--fu);color:#dbe3f0;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:4px 11px;display:inline-flex;align-items:center;gap:6px}
+    .vDep__pl::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--green2);box-shadow:0 0 5px var(--green2);flex:none}
+    .vDep__cbs{display:flex;flex-wrap:wrap;gap:7px}
+    .vDep__cbsc{font:500 10px var(--fu);color:#cdd6e6;background:#16294A;border:1px solid rgba(255,255,255,.13);border-radius:6px;padding:6px 12px}
+    /* ===== iv: payment journey (plugin runs in-core) ===== */
+    .vFlow__stage{position:relative;height:214px;margin-top:18px}
+    .fn{position:absolute;width:150px;margin-left:-75px;text-align:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:11px;padding:11px 9px;z-index:2}
     .fn b{display:block;font:600 12.5px var(--fu);color:#fff}.fn small{display:block;margin-top:4px;font:400 9.5px/1.35 var(--fu);color:var(--onmut)}
-    .fn--user{left:9%;top:64px}.fn--ebb{left:33%;top:64px;width:166px;margin-left:-83px}.fn--cbs{left:33%;top:150px;margin-left:-74px}
-    .fn--plug{left:63%;top:64px}.fn--op{left:88%;top:64px;width:158px;margin-left:-79px}
+    .fn--user{left:8%;top:64px}
+    .fn--ebb{left:39%;top:48px;width:214px;margin-left:-107px}
     .fn--ebb b{font-size:13.5px}
+    .fn__inplug{display:block;margin-top:9px;padding:6px 8px;background:rgba(224,70,87,.12);border:1px solid rgba(224,70,87,.35);border-radius:7px;font:600 10px var(--fu);color:#f0b6bd}
+    .fn__inplug span{display:block;margin-top:2px;font:500 7.5px/1.2 var(--fm);letter-spacing:.08em;text-transform:uppercase;color:var(--onmut)}
+    .fn--cbs{left:39%;top:170px;margin-left:-75px}
+    .fn--op{left:88%;top:64px;width:158px;margin-left:-79px}
     .fw{position:absolute;background:rgba(255,255,255,.14);z-index:1}
-    .fw--1{left:13%;top:88px;width:12%;height:1px}.fw--2{left:43%;top:88px;width:11.5%;height:1px}
-    .fw--3{left:69%;top:88px;width:11%;height:1px}.fw--4{left:33%;top:88px;width:1px;height:62px;margin-left:-1px}
-    .tok{position:absolute;width:10px;height:10px;border-radius:50%;background:#fff;box-shadow:0 0 12px 2px var(--acc);z-index:4;animation:journey 7.5s ease-in-out infinite}
+    .fw--1{left:13%;top:90px;width:16%;height:1px}
+    .fw--2{left:57%;top:90px;width:23%;height:1px}
+    .fw--3{left:39%;top:108px;width:1px;height:62px;margin-left:-1px}
+    .tok{position:absolute;width:10px;height:10px;border-radius:50%;background:#fff;box-shadow:0 0 12px 2px var(--acc);z-index:4;animation:journey 8s ease-in-out infinite}
     @keyframes journey{
-     0%{left:9%;top:88px;opacity:0}
+     0%{left:8%;top:90px;opacity:0}
      3%{opacity:1}
-     16%{left:33%;top:88px}
-     24%{left:33%;top:150px}
-     36%{left:33%;top:88px}
-     52%{left:63%;top:88px}
-     70%{left:88%;top:88px}
-     86%{left:88%;top:88px;opacity:1}
-     100%{left:9%;top:88px;opacity:0}}
-    .fn--user{animation:fU 7.5s infinite}.fn--ebb{animation:fE 7.5s infinite}.fn--cbs{animation:fC 7.5s infinite}.fn--plug{animation:fP 7.5s infinite}.fn--op{animation:fO 7.5s infinite}
-    @keyframes fU{0%,2%{border-color:rgba(255,255,255,.14)}4%,12%{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc)}18%,100%{border-color:rgba(255,255,255,.14);box-shadow:none}}
-    @keyframes fE{0%,12%{border-color:rgba(255,255,255,.14)}15%,18%{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc)}22%,32%{border-color:rgba(255,255,255,.14);box-shadow:none}35%,40%{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc)}46%,100%{border-color:rgba(255,255,255,.14);box-shadow:none}}
-    @keyframes fC{0%,20%{border-color:rgba(255,255,255,.14)}24%,32%{border-color:var(--green2);box-shadow:0 0 0 1px var(--green2)}38%,100%{border-color:rgba(255,255,255,.14);box-shadow:none}}
-    @keyframes fP{0%,46%{border-color:rgba(255,255,255,.14)}50%,60%{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc)}66%,100%{border-color:rgba(255,255,255,.14);box-shadow:none}}
-    @keyframes fO{0%,64%{border-color:rgba(255,255,255,.14)}68%,86%{border-color:var(--green2);box-shadow:0 0 0 1px var(--green2),0 14px 30px -16px rgba(65,192,138,.7)}94%,100%{border-color:rgba(255,255,255,.14);box-shadow:none}}
+     15%{left:39%;top:90px}
+     24%{left:39%;top:170px}
+     36%{left:39%;top:90px}
+     56%{left:39%;top:90px}
+     72%{left:88%;top:90px}
+     88%{left:88%;top:90px;opacity:1}
+     100%{left:8%;top:90px;opacity:0}}
+    .fn--user{animation:fU 8s infinite}.fn--ebb{animation:fE 8s infinite}.fn--cbs{animation:fC 8s infinite}.fn--op{animation:fO 8s infinite}.fn__inplug{animation:fPL 8s infinite}
+    @keyframes fU{0%,2%{border-color:rgba(255,255,255,.14)}4%,11%{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc)}16%,100%{border-color:rgba(255,255,255,.14);box-shadow:none}}
+    @keyframes fE{0%,11%{border-color:rgba(255,255,255,.14)}14%,18%{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc)}22%,33%{border-color:rgba(255,255,255,.14);box-shadow:none}36%,40%{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc)}44%,100%{border-color:rgba(255,255,255,.14);box-shadow:none}}
+    @keyframes fC{0%,19%{border-color:rgba(255,255,255,.14)}24%,32%{border-color:var(--green2);box-shadow:0 0 0 1px var(--green2)}38%,100%{border-color:rgba(255,255,255,.14);box-shadow:none}}
+    @keyframes fPL{0%,48%{border-color:rgba(224,70,87,.35);box-shadow:none}54%,64%{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc),0 0 16px -2px rgba(224,70,87,.55)}70%,100%{border-color:rgba(224,70,87,.35);box-shadow:none}}
+    @keyframes fO{0%,66%{border-color:rgba(255,255,255,.14)}70%,88%{border-color:var(--green2);box-shadow:0 0 0 1px var(--green2),0 14px 30px -16px rgba(65,192,138,.7)}94%,100%{border-color:rgba(255,255,255,.14);box-shadow:none}}
     @media(max-width:760px){.hl{column-count:1}}
+
+    /* ════════ platform hero ════════ */
+    .plat-hero__copy{max-width:820px}
+    .plat-hero__copy .v2-h1{max-width:21ch}
+    .plat-hero__copy .v2-h1 em{display:inline-block}
+    /* station 01: purpose pillars (tinted header zone) + hover-linked core */
+    .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:start}
+    .h3col{border:1px solid var(--rule);border-radius:13px;overflow:hidden;background:#fff}
+    .h3hd{display:flex;align-items:flex-start;gap:12px;background:linear-gradient(180deg,rgba(139,26,26,.06),rgba(139,26,26,.025));padding:16px 18px;border-bottom:1px solid var(--rules)}
+    .h3ic{flex:none;width:34px;height:34px;border-radius:9px;background:#fff;border:1px solid rgba(139,26,26,.2);display:grid;place-items:center;color:var(--crimson)}
+    .h3ic svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+    .h3name{display:block;font:400 17px/1.15 var(--fd);color:var(--navy)}
+    .h3sub{display:block;font:400 11px/1.4 var(--fu);color:var(--mut);margin-top:3px}
+    .h3body{padding:6px 16px 8px}
+    .cols.cols--2{grid-template-columns:repeat(2,1fr)}
+    .h3body .opd{margin:0;padding:2px 0 4px;font:400 12px/1.5 var(--fu);color:var(--mut)}
+    .it{display:grid;grid-template-columns:26px 1fr;column-gap:11px;align-items:start;padding:10px 6px;border-radius:8px;transition:background .18s ease}
+    .it+.it{border-top:1px solid var(--rules)}
+    .it__ic{width:26px;height:26px;display:grid;place-items:center;border:1px solid var(--rule);border-radius:7px;color:var(--navy);transition:color .18s,border-color .18s,background .18s}
+    .it__ic svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+    .it__t{display:block;font:600 13px var(--fu);color:var(--navy)}.it__d{display:block;font:400 11.5px/1.45 var(--fu);color:var(--mut);margin-top:2px}
+    .it:hover{background:rgba(139,26,26,.045)}
+    .it:hover .it__t{color:var(--crimson)}
+    .it:hover .it__ic{color:var(--crimson);border-color:color-mix(in srgb,var(--crimson) 35%,transparent);background:rgba(139,26,26,.06)}
+    .vCore__core{transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+    .vCore__core.pulse{transform:scale(1.04);border-color:var(--acc);box-shadow:0 0 0 2px rgba(224,70,87,.4),0 0 34px -4px rgba(224,70,87,.55)}
+    @media(max-width:820px){.cols{grid-template-columns:1fr}}
   </style>
 </head>
 <body class="v2">
@@ -207,6 +267,7 @@
       <span class="v2-brand__sys">Systems</span>
     </a>
     <nav class="v2-nav__links" aria-label="Primary">
+      <a href="index.html">Home</a>
       <a href="index.html#problem">The problem</a>
       <a href="index.html#solution">Solution</a>
       <a href="platform.html" aria-current="page">Platform</a>
@@ -217,6 +278,7 @@
     </button>
   </div>
   <nav class="v2-nav__mobile" id="v2mobile" aria-label="Mobile">
+    <a href="index.html">Home</a>
     <a href="index.html#problem">The problem</a>
     <a href="index.html#solution">Solution</a>
     <a href="platform.html" aria-current="page">Platform</a>
@@ -226,14 +288,16 @@
 </header>
 
 <!-- ───────────── HERO ───────────── -->
-<section class="v2-hero">
+<section class="v2-hero plat-hero">
   <div class="v2-container v2-hero__inner">
-    <span class="v2-eyebrow">the platform</span>
-    <h1 class="v2-h1">The core, gateway &amp; signed plugins &mdash; <em>that you run yourself.</em></h1>
-    <p class="v2-hero__lede">EBB is one platform you operate inside your own estate: a core and gateway that carry every payment&rsquo;s heavy lifting, extended by small plugins that are cryptographically verified before they ever run.</p>
-    <div class="v2-actions">
-      <a href="index.html#talk" class="v2-btn v2-btn--primary">Schedule a briefing</a>
-      <a href="#deploy" class="v2-btn v2-btn--ghost">How it deploys</a>
+    <div class="plat-hero__copy">
+      <span class="v2-eyebrow">the platform</span>
+      <h1 class="v2-h1">The core, gateway &amp; signed plugins<br><em>&mdash; that you run yourself.</em></h1>
+      <p class="v2-hero__lede">EBB is one platform you operate inside your own estate: a core and gateway that carry every payment&rsquo;s heavy lifting, extended by small plugins that are cryptographically verified before they ever run.</p>
+      <div class="v2-actions">
+        <a href="index.html#talk" class="v2-btn v2-btn--primary">Schedule a briefing</a>
+        <a href="#deploy" class="v2-btn v2-btn--ghost">How it deploys</a>
+      </div>
     </div>
   </div>
 </section>
@@ -250,83 +314,106 @@
   <div class="rail"><div class="spine"></div>
 
     <!-- i -->
-    <div class="beat"><div class="dot">i</div>
+    <div class="beat"><div class="dot">01</div>
       <div class="bp">
         <div class="bhd"><span class="nm">The core &amp; gateway</span><span class="sub">built once</span></div>
         <div class="lead">
-          <p><span class="o">One platform you run, written once.</span> It carries every payment&rsquo;s <span class="hi">heavy lifting</span> — so each plugin stays small and never re-implements any of it. Here&rsquo;s what the core handles for you:</p>
+          <p><span class="l1">Written once. The core runs it for <em>every payment</em>.</span><span class="l2">All the demanding work lives in one place and runs the same way every time &mdash; here&rsquo;s what the core handles:</span></p>
         </div>
-        <div class="xg">
-          <div class="xi"><span class="n">01</span><span class="t">Resilient routing</span><span class="d">If one route fails, the payment automatically tries another.</span></div>
-          <div class="xi"><span class="n">05</span><span class="t">Signature verification</span><span class="d">Confirms each plugin is genuine before it&rsquo;s allowed to run.</span></div>
-          <div class="xi"><span class="n">02</span><span class="t">Retry</span><span class="d">Re-sends a stuck payment safely — never paying twice.</span></div>
-          <div class="xi"><span class="n">06</span><span class="t">Audit trail</span><span class="d">Records who did what, and when, on every payment.</span></div>
-          <div class="xi"><span class="n">03</span><span class="t">Reverse</span><span class="d">Cleanly rolls a payment back when it can&rsquo;t complete.</span></div>
-          <div class="xi"><span class="n">07</span><span class="t">AML / compliance</span><span class="d">Screens every payment against sanctions and AML rules.</span></div>
-          <div class="xi"><span class="n">04</span><span class="t">Reconcile</span><span class="d">Matches every leg so nothing is lost or double-counted.</span></div>
-          <div class="xi"><span class="n">08</span><span class="t">Ledger sync</span><span class="d">Keeps your books and the core perfectly in step.</span></div>
+        <div class="cols h3" id="cgList">
+          <div class="h3col"><div class="h3hd"><span class="h3ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4 3 11l7 2.5L13 21l3-7z"/><path d="M21 4l-8 10"/></svg></span><div><span class="h3name">Move money</span><span class="h3sub">Get every payment through &mdash; whatever breaks.</span></div></div><div class="h3body"><div class="it" data-cap="Resilient routing"><span class="it__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h4l5 6h5"/><path d="M14 12l-5 6H5"/><circle cx="19" cy="6" r="1.7"/><circle cx="19" cy="18" r="1.7"/><circle cx="4" cy="12" r="1.7"/></svg></span><div><span class="it__t">Resilient routing</span><span class="it__d">If one route fails, the payment automatically tries another.</span></div></div><div class="it" data-cap="Retry"><span class="it__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 1-2.5-5.8"/><path d="M20 4v4h-4"/></svg></span><div><span class="it__t">Retry</span><span class="it__d">Re-sends a stuck payment safely — never paying twice.</span></div></div><div class="it" data-cap="Reverse"><span class="it__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7 4 12l5 5"/><path d="M4 12h10a6 6 0 0 1 0 12h-2"/></svg></span><div><span class="it__t">Reverse</span><span class="it__d">Cleanly rolls a payment back when it can&rsquo;t complete.</span></div></div></div></div>
+          <div class="h3col"><div class="h3hd"><span class="h3ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h10a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M8 14h10"/><path d="M9 8h6"/></svg></span><div><span class="h3name">Keep the books true</span><span class="h3sub">Nothing lost; every leg matched.</span></div></div><div class="h3body"><div class="it" data-cap="Reconcile"><span class="it__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h15"/><path d="M16 5l3 3-3 3"/><path d="M20 16H5"/><path d="M8 13l-3 3 3 3"/></svg></span><div><span class="it__t">Reconcile</span><span class="it__d">Matches every leg so nothing is lost or double-counted.</span></div></div><div class="it" data-cap="Ledger sync"><span class="it__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 9a8 8 0 0 0-14-3.5"/><path d="M20 4v5h-5"/><path d="M4 15a8 8 0 0 0 14 3.5"/><path d="M4 20v-5h5"/></svg></span><div><span class="it__t">Ledger sync</span><span class="it__d">Keeps your books and the core perfectly in step.</span></div></div></div></div>
+          <div class="h3col"><div class="h3hd"><span class="h3ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.6-3 7.6-7 9-4-1.4-7-4.4-7-9V6z"/><path d="M9.5 11.5l2 2 3.5-3.5"/></svg></span><div><span class="h3name">Prove &amp; protect</span><span class="h3sub">Trusted, screened, and logged.</span></div></div><div class="h3body"><div class="it" data-cap="Signature verification"><span class="it__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.6-3 7.6-7 9-4-1.4-7-4.4-7-9V6z"/><path d="M9 11.5l2 2 4-4"/></svg></span><div><span class="it__t">Signature verification</span><span class="it__d">Confirms code is genuine and signed before it&rsquo;s allowed to run.</span></div></div><div class="it" data-cap="Audit trail"><span class="it__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h8l3 3v15H7z"/><path d="M10 9h6M10 13h6M10 17h4"/></svg></span><div><span class="it__t">Audit trail</span><span class="it__d">Records who did what, and when, on every payment.</span></div></div><div class="it" data-cap="AML / compliance"><span class="it__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.6-3 7.6-7 9-4-1.4-7-4.4-7-9V6z"/><circle cx="10.6" cy="11" r="2.3"/><path d="M12.3 12.7 14 14.4"/></svg></span><div><span class="it__t">AML / compliance</span><span class="it__d">Screens every payment against sanctions and AML rules.</span></div></div></div></div>
         </div>
         <div class="viz vCore">
-          <div class="viz__top"><span>every channel · one core</span><span class="live">live</span></div>
+          <div class="viz__top"><span>every channel in · one front door · one core</span><span class="live">live</span></div>
           <div class="vCore__row">
             <div class="vCore__chs"><span>Mobile app</span><span>Web &amp; API</span><span>Branch</span><span>Partner</span></div>
             <div class="vCore__line"></div>
             <div class="vCore__gw"><b>Gateway</b><i>one front door</i></div>
             <div class="vCore__line"></div>
-            <div class="vCore__core"><b>One core</b><i>written once · carries every payment&rsquo;s heavy lifting</i></div>
+            <div class="vCore__core" id="cgCore"><span class="vCore__active">active</span><b>One core</b><i>every channel arrives here</i></div>
             <span class="pkt" style="animation-delay:0s"></span>
             <span class="pkt" style="animation-delay:1.75s"></span>
             <span class="pkt" style="animation-delay:3.5s"></span>
           </div>
+          <div class="vCore__cap">mobile, web, branch or partner &mdash; every channel runs through <b>one gateway, into one core</b></div>
         </div>
       </div>
     </div>
 
     <!-- ii -->
-    <div class="beat"><div class="dot">ii</div>
+    <div class="beat"><div class="dot">02</div>
       <div class="bp">
         <div class="bhd"><span class="nm">The plugins</span><span class="sub">small · signed · per operator</span></div>
         <div class="lead">
-          <p><span class="o">A plugin is a small backend-Java integration to one operator</span> — written by your developers or ours. The author writes only the operator-specific code; the core orchestrates the rest.</p>
-          <p>Each plugin is <span class="hi">signed when it&rsquo;s built</span>. On deploy, the core <span class="hi">verifies that signature</span> before the plugin ever loads — proving its <b>integrity</b>, <b>authenticity</b> and <b>non-repudiation</b>. A typical plugin connects to:</p>
+          <p><span class="l1">A plugin is a small integration to <em>one operator</em>.</span><span class="l2">Written by your developers or ours — signed at build, then verified by the core before it loads, proving its <b>integrity</b>, <b>authenticity</b> and <b>non-repudiation</b>. The core orchestrates them all as one — a plugin connects you to:</span></p>
         </div>
-        <div class="xg xg--p">
-          <div class="xi"><span class="t">Mobile money</span><span class="d">Wallet schemes such as M-Pesa, Airtel Money and MoMo.</span></div>
-          <div class="xi"><span class="t">Inter-banking</span><span class="d">Domestic switches and rails like RTGS and ACH.</span></div>
-          <div class="xi"><span class="t">Card networks</span><span class="d">Scheme rails such as Visa and Mastercard.</span></div>
-          <div class="xi"><span class="t">Cross-border</span><span class="d">Remittance and FX settlement corridors.</span></div>
+        <div class="cols cols--2">
+          <div class="h3col"><div class="h3hd"><span class="h3ic"><svg viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><line x1="10" y1="18.5" x2="14" y2="18.5"/></svg></span><div><span class="h3name">Mobile money</span><span class="h3sub">Wallet schemes</span></div></div><div class="h3body"><p class="opd">M-Pesa, Airtel Money, MoMo and other wallets.</p></div></div>
+          <div class="h3col"><div class="h3hd"><span class="h3ic"><svg viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><line x1="2.5" y1="10" x2="21.5" y2="10"/></svg></span><div><span class="h3name">Card networks</span><span class="h3sub">Scheme rails</span></div></div><div class="h3body"><p class="opd">Visa, Mastercard and card schemes.</p></div></div>
+          <div class="h3col"><div class="h3hd"><span class="h3ic"><svg viewBox="0 0 24 24"><path d="M3 9.5l9-5.5 9 5.5"/><line x1="5" y1="10.5" x2="5" y2="18"/><line x1="9.5" y1="10.5" x2="9.5" y2="18"/><line x1="14.5" y1="10.5" x2="14.5" y2="18"/><line x1="19" y1="10.5" x2="19" y2="18"/><line x1="3" y1="20.5" x2="21" y2="20.5"/></svg></span><div><span class="h3name">Inter-banking</span><span class="h3sub">Domestic rails</span></div></div><div class="h3body"><p class="opd">Switches, RTGS and ACH.</p></div></div>
+          <div class="h3col"><div class="h3hd"><span class="h3ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3c2.5 2.5 4 5.5 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.5-4-9s1.5-6.5 4-9z"/></svg></span><div><span class="h3name">Cross-border</span><span class="h3sub">Corridors</span></div></div><div class="h3body"><p class="opd">Remittance and FX settlement.</p></div></div>
         </div>
-        <div class="viz vSign">
+        <div class="viz vPlug">
           <div class="viz__top"><span>build · sign · deploy · verify</span><span class="live">live</span></div>
-          <div class="vSign__stage">
-            <div class="vSign__grid">
-              <div class="sn sn1"><div class="sn__box"><div class="sn__k">at build</div><div class="sn__t">Sign</div><div class="sn__d">hash the plugin, encrypt it with the developer&rsquo;s private key</div><div class="sn__lock">🔒</div></div><span class="sn__arr">→</span></div>
-              <div class="sn sn2"><div class="sn__box"><div class="sn__k">deploy</div><div class="sn__t">Hand to core</div><div class="sn__d">signed plugin shipped into your core</div></div><span class="sn__arr">→</span></div>
-              <div class="sn sn3"><div class="sn__box"><div class="sn__k">at deploy</div><div class="sn__t">Verify</div><div class="sn__d">core re-hashes &amp; checks the registered public key</div></div><span class="sn__arr">→</span></div>
-              <div class="sn sn4"><div class="sn__box"><div class="sn__k">result</div><div class="sn__t">Trusted</div><div class="sn__d">signature matches → plugin loads &amp; runs</div></div></div>
+          <div class="fc">
+            <div class="nd"><span class="k">at build</span><b>Build &amp; sign <svg class="ic" width="13" height="13" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></b><small>hash the plugin, encrypt with the developer&rsquo;s private key</small></div>
+            <div class="conn"><i></i></div>
+            <div class="nd"><span class="k">deploy</span><b>Deploy to core</b><small>signed plugin shipped into the core</small></div>
+            <div class="conn"><i></i></div>
+            <div class="nd dec"><span class="k">at deploy</span><b>Verify signature</b><small>re-hash &amp; check the registered public key</small></div>
+            <div class="branch"><span class="leg legL"></span><span class="leg legR"></span>
+              <div class="nd out out--ok"><b>Trusted <svg class="ic" width="13" height="13" viewBox="0 0 24 24"><path d="M5 12l4 4 10-11"/></svg></b><small>valid signature &middot; loaded &amp; running</small></div>
+              <div class="nd out out--no"><b>Not trusted <svg class="ic" width="12" height="12" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></b><small>tampered or unsigned &middot; rejected &amp; deleted</small></div>
             </div>
-            <span class="vSign__tok"></span>
           </div>
-          <div class="vSign__res"><span class="ok">✓ match → loads &amp; runs</span><span class="sepd">|</span><span class="bad">✗ tampered or unsigned → rejected, never loads</span></div>
         </div>
         <div class="guar"><span>Integrity</span><span>Authenticity</span><span>Non-repudiation</span></div>
       </div>
     </div>
 
-    <!-- iii -->
-    <div class="beat"><div class="dot">iii</div>
+    <!-- iii deploy -->
+    <div class="beat" id="deploy"><div class="dot">03</div>
       <div class="bp">
-        <div class="bhd"><span class="nm">How they work together</span><span class="sub">initiate → core banking → settle</span></div>
-        <p class="pd" style="margin:0 0 2px">A customer initiates a payment. The EBB <b>core and gateway</b> take it from there — posting to your <b>core banking</b>, then routing through the operator&rsquo;s <b>plugin</b> out to the <b>third-party network</b> to settle.</p>
+        <div class="bhd"><span class="nm">How it&rsquo;s deployed</span><span class="sub">in your estate &middot; gateway + cores</span></div>
+        <div class="lead">
+          <p><span class="l1">EBB is software your bank runs — inside <em>your own estate</em>, on a gateway and the cores you operate.</span></p>
+        </div>
+        <div class="cols cols--2">
+          <div class="h3col"><div class="h3hd"><span class="h3ic"><svg viewBox="0 0 24 24"><path d="M9 2v5M15 2v5"/><path d="M6 7h12v4a6 6 0 0 1-12 0z"/><path d="M12 17v5"/></svg></span><div><span class="h3name">Extend with a plugin</span><span class="h3sub">live in weeks</span></div></div><div class="h3body"><p class="opd">A new operator or rail is one small signed plugin — written, verified, and live in weeks.</p></div></div>
+          <div class="h3col"><div class="h3hd"><span class="h3ic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5.5" rx="7" ry="2.8"/><path d="M5 5.5v6c0 1.6 3.1 2.8 7 2.8s7-1.2 7-2.8v-6"/><path d="M5 11.5v6c0 1.6 3.1 2.8 7 2.8s7-1.2 7-2.8v-6"/></svg></span><div><span class="h3name">Your core, untouched</span><span class="h3sub">ledger interface</span></div></div><div class="h3body"><p class="opd">Integrates with Finacle, T24, FlexCube or custom.</p></div></div>
+        </div>
+        <div class="viz vDep">
+          <div class="viz__top"><span>deployment &middot; high availability</span><span class="live">live</span></div>
+          <div class="vDep__estate">
+            <span class="vDep__estateLbl">your estate &middot; you operate it</span>
+            <div class="vDep__zone"><span class="vDep__zn">front door</span><div style="display:flex;justify-content:center"><div class="vDep__gw"><b>API gateway</b><i>one front door</i></div></div></div>
+            <div class="vDep__cores">
+              <div class="vDep__core"><div class="vDep__coreHd"><b>Core &middot; 1</b><span class="vDep__ha">active</span></div><div class="vDep__caps">resilient routing <span class="d">&middot;</span> reconcile <span class="d">&middot;</span> AML / KYC <span class="d">&middot;</span> audit</div><div class="vDep__plugs"><span class="vDep__pl">Mobile money</span><span class="vDep__pl">Cards</span><span class="vDep__pl">Inter-bank</span><span class="vDep__pl">X-border</span></div></div>
+              <div class="vDep__core"><div class="vDep__coreHd"><b>Core &middot; 2</b><span class="vDep__ha">HA</span></div><div class="vDep__caps">resilient routing <span class="d">&middot;</span> reconcile <span class="d">&middot;</span> AML / KYC <span class="d">&middot;</span> audit</div><div class="vDep__plugs"><span class="vDep__pl">Mobile money</span><span class="vDep__pl">Cards</span><span class="vDep__pl">Inter-bank</span><span class="vDep__pl">X-border</span></div></div>
+            </div>
+            <div class="vDep__zone"><span class="vDep__zn">your core banking</span><div class="vDep__cbs"><span class="vDep__cbsc">Finacle</span><span class="vDep__cbsc">T24</span><span class="vDep__cbsc">FlexCube</span><span class="vDep__cbsc">custom</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- iv -->
+    <div class="beat"><div class="dot">04</div>
+      <div class="bp">
+        <div class="bhd"><span class="nm">How they work together</span><span class="sub">initiate · core banking · settle</span></div>
+        <div class="lead">
+          <p><span class="l1">A customer initiates a payment — EBB takes it <em>end to end</em>.</span><span class="l2">The core and gateway post to your core banking, then invoke the operator&rsquo;s signed plugin — running inside the core — to reach the third-party network and settle.</span></p>
+        </div>
         <div class="viz vFlow">
           <div class="viz__top"><span>a payment, end to end</span><span class="live">live</span></div>
           <div class="vFlow__stage">
-            <div class="fw fw--1"></div><div class="fw fw--2"></div><div class="fw fw--3"></div><div class="fw fw--4"></div>
+            <div class="fw fw--1"></div><div class="fw fw--2"></div><div class="fw fw--3"></div>
             <div class="fn fn--user"><b>User</b><small>initiates a payment</small></div>
-            <div class="fn fn--ebb"><b>EBB platform</b><small>gateway &amp; core orchestrate</small></div>
+            <div class="fn fn--ebb"><b>EBB core &amp; gateway</b><small>gateway in front &middot; core orchestrates</small><span class="fn__inplug">operator plugin<span>runs inside the core</span></span></div>
             <div class="fn fn--cbs"><b>Core banking</b><small>core posts: debit / authorize</small></div>
-            <div class="fn fn--plug"><b>Operator plugin</b><small>core calls the adapter</small></div>
-            <div class="fn fn--op"><b>Third-party network</b><small>plugin calls operator → settles</small></div>
+            <div class="fn fn--op"><b>Third-party network</b><small>in-core plugin calls the operator &middot; settles</small></div>
             <span class="tok"></span>
           </div>
         </div>
@@ -334,20 +421,6 @@
     </div>
 
   </div>
-  </div>
-</section>
-
-<!-- ───────────── DEPLOYMENT ───────────── -->
-<section class="v2-section v2-seam" id="deploy">
-  <div class="v2-container">
-    <span class="v2-eyebrow">how it deploys</span>
-    <h2 class="v2-h2">A layer you own and operate.</h2>
-    <p class="v2-lede">EBB is software your bank runs &mdash; not a managed service you route through. You keep the deployment, the keys, and the system-of-record relationship.</p>
-    <div class="v2-grid v2-grid--3">
-      <div class="v2-card v2-card--plain"><h3>In your estate</h3><p>Runs on the infrastructure your bank controls &mdash; cloud, on-prem, or hybrid. Yours to operate.</p></div>
-      <div class="v2-card v2-card--plain"><h3>Config, not rebuild</h3><p>A new rail or corridor is a signed plugin and a configuration change &mdash; live in weeks, not a project per integration.</p></div>
-      <div class="v2-card v2-card--plain"><h3>Your core, untouched</h3><p>EBB integrates through a ledger interface to Finacle, T24, FlexCube, or a custom core &mdash; without replacing it.</p></div>
-    </div>
   </div>
 </section>
 
@@ -428,5 +501,27 @@
 </footer>
 
 <script src="assets/js/v2-nav.js"></script>
+<script>
+(function(){
+  var beats=[].slice.call(document.querySelectorAll('.rail .beat'));
+  if(!beats.length) return;
+  if(!('IntersectionObserver' in window)){ beats.forEach(function(b){ b.classList.add('in-view'); }); return; }
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { threshold: 0, rootMargin: '0px 0px -40% 0px' });
+  beats.forEach(function(b){ io.observe(b); });
+})();
+</script>
+<script>
+(function(){
+  var list=document.getElementById('cgList'), core=document.getElementById('cgCore');
+  if(!list||!core) return;
+  var sub=core.querySelector('i'), def=sub.innerHTML;
+  list.querySelectorAll('.it').forEach(function(it){
+    it.addEventListener('mouseenter',function(){ core.classList.add('pulse'); sub.textContent=it.getAttribute('data-cap')+' \u2014 handled in the core'; });
+    it.addEventListener('mouseleave',function(){ core.classList.remove('pulse'); sub.innerHTML=def; });
+  });
+})();
+</script>
 </body>
 </html>
