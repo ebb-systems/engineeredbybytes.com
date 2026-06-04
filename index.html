@@ -8,7 +8,7 @@
   <meta name="robots" content="noindex, nofollow">
 
   <title>EBB Systems | Engineered By Bytes — Payment Gateway &amp; Banking Integration Platform</title>
-  <meta name="description" content="EBB Systems is the resilient payment infrastructure layer between your core banking system and every operator — routing, retrying, and recovering in real time.">
+  <meta name="description" content="EBB Systems is the resilient payment infrastructure layer between every channel and every operator, with your core as the system of record — routing, retrying, and recovering in real time.">
   <link rel="canonical" href="https://www.engineeredbybytes.com/">
 
   <!-- Favicons (reuse V1) -->
@@ -565,15 +565,18 @@
       --ink:         #0A111F;
       --ink-2:       #0E1828;
       --acc:         #E04657;
+      --ok:          #2F8A5B;
       --on-dark:     #EAEEF7;
       --on-dark-mut: #8A98B4;
-      /* The page's ONE dark→light crossover, scaled to this section's own
-         (stable) height so the footnote/CTA at the bottom always land on
-         cream. Top edge = --ink (meets the hero); bottom = cream-warm
-         (meets the solution) — seamless on both sides. */
-      background: linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 30%, #243a55 56%, #b9b7ae 78%, var(--cream-warm) 92%, var(--cream-warm) 100%);
-      padding: 72px 56px 64px;
-      color: var(--on-dark);
+      /* The page's ONE dark→light crossover, now compressed into a slim lip
+         at the very top so it lives in the hero→problem seam. The section
+         then sits in the LIGHT world (stone) — same ground as the solution
+         below — so the problem reads as its own chapter, not hero spillover.
+         Top edge = --ink (meets the hero); body + bottom = stone (#E8E1D5),
+         seamless into .solution3 which is also stone. */
+      background: linear-gradient(180deg, #0A111F 0, #11203a 26px, #6c7689 54px, #cdc6ba 70px, #E8E1D5 86px);
+      padding: 104px 56px 64px;
+      color: var(--navy);
       position: relative;
     }
     /* Seam (hero -> problem) — part of the unified hairline seam system
@@ -600,74 +603,83 @@
     .p-heading { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.008em; line-height: 1.2; margin: 0; font-size: clamp(26px, 3.4vw, 38px); }
     .p-heading em { font-style: italic; }
     .p-bridge { margin: 10px 0 0; font-family: var(--font-display); font-style: italic; font-size: clamp(15px, 1.6vw, 18px); line-height: 1.35; letter-spacing: -0.003em; }
-    .o3 .p-eyebrow { color: var(--acc); }
-    .o3 .p-heading { color: #fff; margin-top: 14px; }
-    .o3 .p-heading em { color: #fff; }
-    .o3 .p-bridge { color: var(--on-dark-mut); }
+    .o3 .p-eyebrow { color: var(--crimson); }
+    .o3 .p-heading { color: var(--navy); margin-top: 14px; }
+    .o3 .p-heading em { color: var(--crimson); }
+    .o3 .p-bridge { color: rgba(13,34,64,0.62); }
 
-    /* ECG trace — drawn once on viewport entry (JS sets the 4.5s linear
-       draw inline so it can also sync the drop labels to the line tip). */
-    .o3__ecgwrap { position: relative; max-width: 1000px; margin: 14px auto 0; }
-    .o3__ecg { max-width: 1000px; margin: 14px auto 0; }
-    .o3__ecg svg { width: 100%; height: 230px; display: block; overflow: visible; }
-    .o3__ecg .grid { stroke: rgba(255,255,255,0.06); }
-    .o3__ecg .base { stroke: rgba(255,255,255,0.18); stroke-dasharray: 2 5; }
-    .o3__ecg .trace {
-      fill: none; stroke: var(--acc); stroke-width: 2.2;
-      filter: drop-shadow(0 0 6px rgba(224,70,87,0.5));
-      stroke-linecap: round; stroke-linejoin: round;
-      stroke-dasharray: 3200; stroke-dashoffset: 3200;
+    /* ── Diptych: "It works / until it doesn't" (Direction E) ──
+       The headline made literal: a calm left half and a breaking right
+       half, split by a crimson fault line. Held in its own floating panel
+       on the stone ground so it rhymes with the solution panel below. */
+    .o3 .dip {
+      max-width: 1000px; margin: 22px auto 0;
+      background: #FCFBF8; border: 1px solid var(--rule); border-radius: 18px; overflow: hidden;
+      box-shadow: 0 1px 2px rgba(13,34,64,.05), 0 28px 60px -30px rgba(13,34,64,.32);
+      opacity: 0; transform: translateY(14px); transition: opacity .7s var(--ease), transform .7s var(--ease);
     }
-    /* The trace draws (and the labels stage in) only once the section
-       reveals on scroll — the shared data-reveal observer adds .is-active. */
-    .o3.is-active .o3__ecg .trace { animation: o3draw 4.5s linear forwards; }
-    @keyframes o3draw { to { stroke-dashoffset: 0; } }
-    .o3__ecg .drop { fill: var(--acc); }
-    .o3__ecg .ring { fill: none; stroke: var(--acc); opacity: 0; }
-    .o3.is-active .o3__ecg .ring { animation: o3ring 4.6s ease-out infinite; }
-    .o3__ecg .ring:nth-of-type(2) { animation-delay: 1.5s; }
-    .o3__ecg .ring:nth-of-type(3) { animation-delay: 3s; }
-    @keyframes o3ring { 0% { r: 4; opacity: 0.5; } 100% { r: 22; opacity: 0; } }
-
-    /* Per-drop labels — positioned under each red drop. Each carries an
-       inline animation-delay (computed from the path geometry so it lands
-       the instant the drawing line tip reaches its drop) and reveals when
-       the section becomes active. */
-    .o3__droplabels { position: relative; height: 54px; margin-top: -6px; }
-    .o3__dlabel {
-      position: absolute; top: 0; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 6px;
-      background: transparent; border: 0; cursor: pointer; padding: 0;
-      font-family: var(--font-display); font-style: italic; font-size: 12.5px;
-      color: var(--crimson); white-space: nowrap;
-      opacity: 0;
-    }
-    .o3.is-active .o3__dlabel { animation: o3labelIn 0.7s var(--ease) both; }
-    .o3__dlabel::before { content: ''; width: 1px; height: 16px; background: rgba(139,26,26,0.5); }
-    .o3__dlabel span { padding: 3px 9px; border-radius: 999px; border: 1px solid rgba(139,26,26,0.28); background: rgba(255,255,255,0.7); backdrop-filter: blur(2px); transition: background 0.18s var(--ease), color 0.18s var(--ease), border-color 0.18s var(--ease); }
-    .o3__dlabel:hover span { background: var(--crimson); border-color: var(--crimson); color: #fff; }
-    .o3__dlabel:focus-visible { outline: 2px solid var(--crimson); outline-offset: 3px; border-radius: 4px; }
-    @keyframes o3labelIn { from { opacity: 0; transform: translateX(-50%) translateY(6px); } to { opacity: 1; transform: translateX(-50%); } }
+    .o3.is-active .dip { opacity: 1; transform: none; }
+    .o3 .dip__cols { position: relative; display: grid; grid-template-columns: 1fr 1fr; }
+    .o3 .dip__side { padding: 32px 34px 36px; }
+    .o3 .dip__side--bad { position: relative; background: linear-gradient(180deg, rgba(224,70,87,.05), rgba(224,70,87,.015)); }
+    .o3 .dip__tag { display: inline-flex; align-items: center; gap: 9px; font-family: var(--font-ui); font-weight: 700; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; }
+    .o3 .dip__side--ok .dip__tag { color: var(--ok); }
+    .o3 .dip__side--bad .dip__tag { color: var(--crimson); }
+    .o3 .dip__tag::before { content: ''; width: 8px; height: 8px; border-radius: 50%; }
+    .o3 .dip__side--ok .dip__tag::before { background: var(--ok); }
+    .o3 .dip__side--bad .dip__tag::before { background: var(--acc); box-shadow: 0 0 9px var(--acc); }
+    .o3 .dip__side h3 { font-family: var(--font-display); font-weight: 400; font-size: 22px; line-height: 1.25; color: var(--navy); margin: 14px 0 18px; }
+    .o3 .dip__side--ok h3 em { font-style: italic; color: rgba(13,34,64,0.45); }
+    /* hedge words — the quiet tells of unverified calm (seem · appear to · yet) */
+    .o3 .dip__side--ok .hedge { font-style: italic; font-weight: 600; color: #9A7038; }
+    .o3 .dip__side--bad h3 em { font-style: italic; color: var(--crimson); }
+    .o3 .dip__mini { height: 54px; margin-bottom: 20px; }
+    .o3 .dip__mini svg { width: 100%; height: 54px; display: block; overflow: visible; }
+    .o3 .lOK { fill: none; stroke: var(--ok); stroke-width: 2.2; stroke-linecap: round; }
+    .o3 .lBAD { fill: none; stroke: var(--crimson); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 2px 4px rgba(139,26,26,.2)); }
+    .o3 .dip__list { list-style: none; margin: 0; padding: 0; }
+    .o3 .row { display: flex; align-items: flex-start; gap: 11px; width: 100%; text-align: left;
+      padding: 9px 0; font-family: var(--font-ui); font-weight: 500; font-size: 13.5px; line-height: 1.4;
+      border: 0; border-bottom: 1px solid var(--rule); background: transparent; }
+    .o3 .dip__list .row:last-child, .o3 .dip__rows .row:last-child { border-bottom: none; }
+    .o3 button.row { cursor: pointer; transition: color .18s var(--ease); }
+    .o3 button.row:hover { color: var(--crimson); }
+    .o3 button.row:focus-visible { outline: 2px solid var(--crimson); outline-offset: 3px; border-radius: 4px; }
+    .o3 .ic { flex: none; width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center;
+      font-family: var(--font-ui); font-weight: 700; font-size: 11px; margin-top: 1px; }
+    .o3 .dip__side--ok .ic { background: rgba(47,138,91,.14); color: var(--ok); }
+    .o3 .dip__side--bad .ic { background: rgba(224,70,87,.14); color: var(--crimson); }
+    .o3 .dip__side--ok .row { color: rgba(13,34,64,.7); }
+    .o3 .dip__side--bad .row { color: var(--navy); }
+    .o3 .dip__seam { position: absolute; top: 0; bottom: 0; left: 50%; width: 0;
+      border-left: 1.5px dashed rgba(224,70,87,.4); transform: translateX(-50%); z-index: 2; }
+    .o3 .dip__seam::after { content: 'until'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      background: #FCFBF8; border: 1px solid rgba(224,70,87,.4); color: var(--crimson);
+      font-family: var(--font-display); font-style: italic; font-size: 13px; padding: 5px 12px; border-radius: 999px; white-space: nowrap; }
 
     @media (prefers-reduced-motion: reduce) {
-      .o3__ecg .trace, .o3.is-active .o3__ecg .trace { animation: none; stroke-dashoffset: 0; }
-      .o3__dlabel, .o3.is-active .o3__dlabel { animation: none; opacity: 1; }
-      .o3__ecg .ring, .o3.is-active .o3__ecg .ring { animation: none; opacity: 0; }
+      .o3 .dip, .o3.is-active .dip { opacity: 1; transform: none; transition: none; }
     }
 
-    /* "See the full list" footer — footnote + pill button. */
-    .o3__foot { display: flex; flex-direction: column; align-items: center; gap: 14px; max-width: 560px; margin: 34px auto 0; padding-top: 28px; border-top: 1px solid rgba(13,34,64,0.1); }
-    .o3__footnote { margin: 0; font-family: var(--font-display); font-style: italic; font-size: 15px; color: rgba(13,34,64,0.7); text-align: center; }
-    .o3__seelist { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-ui); font-weight: 600; font-size: 13px; letter-spacing: 0.01em; color: var(--crimson); background: rgba(139,26,26,0.05); border: 1px solid rgba(139,26,26,0.28); border-radius: 999px; padding: 9px 18px; cursor: pointer; transition: background 0.18s var(--ease), border-color 0.18s var(--ease), color 0.18s var(--ease), transform 0.18s var(--ease); }
+    /* Footer band — lives INSIDE the card, on the same surface as the two
+       columns, divided by a hairline so it reads as the card's own footer
+       (caption + CTA) rather than a note floating on the stone below. */
+    .o3 .dip__foot { display: flex; align-items: center; justify-content: space-between; gap: 24px;
+      padding: 20px 34px; border-top: 1px solid var(--rule); background: rgba(13,34,64,0.018); }
+    .o3 .dip__footnote { margin: 0; max-width: 620px; font-family: var(--font-display); font-style: italic;
+      font-size: 14.5px; line-height: 1.5; color: rgba(13,34,64,0.7); }
+    .o3__seelist { flex: none; display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-ui); font-weight: 600; font-size: 13px; letter-spacing: 0.01em; color: var(--crimson); background: rgba(139,26,26,0.05); border: 1px solid rgba(139,26,26,0.28); border-radius: 999px; padding: 9px 18px; cursor: pointer; transition: background 0.18s var(--ease), border-color 0.18s var(--ease), color 0.18s var(--ease), transform 0.18s var(--ease); }
     .o3__seelist span { transition: transform 0.18s var(--ease); }
     .o3__seelist:hover { background: var(--crimson); border-color: var(--crimson); color: #fff; }
     .o3__seelist:hover span { transform: translateX(3px); }
     .o3__seelist:focus-visible { outline: 2px solid var(--crimson); outline-offset: 3px; }
 
     @media (max-width: 640px) {
-      .o3 { padding: 56px 22px 48px; }
-      .o3__ecg svg { height: 200px; }
-      .o3__droplabels { display: none; }
+      .o3 { padding: 96px 22px 48px; }
+      .o3 .dip__cols { grid-template-columns: 1fr; }
+      .o3 .dip__seam { display: none; }
+      .o3 .dip__side--bad { border-top: 1px solid var(--rule); }
+      .o3 .dip__foot { flex-direction: column; align-items: flex-start; gap: 16px; padding: 20px 24px; }
     }
 
     /* Brief flash applied to the drawer item that matches a clicked label */
@@ -783,11 +795,13 @@
     .drawer__close:hover { background: var(--navy); border-color: var(--navy); color: var(--cream-warm); }
     .drawer__close svg { width: 12px; height: 12px; }
     .drawer__body {
-      padding: 18px 30px 20px;
+      padding: 18px 24px 20px;
       overflow-y: auto;
       flex: 0 1 auto;
       display: flex;
       flex-direction: column;
+      gap: 12px;
+      background: #EBE6DD;
     }
 
     /* Stacked editorial cluster layout — large italic numeral + uppercase
@@ -798,11 +812,12 @@
       display: grid;
       grid-template-columns: 172px 1fr;
       gap: 30px;
-      padding: 17px 0;
-      border-top: 1px solid var(--rule);
+      padding: 16px 26px;
+      background: #FCFBF8;
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      box-shadow: 0 1px 2px rgba(13,34,64,0.04), 0 16px 34px -24px rgba(13,34,64,0.30);
     }
-    .drawer__cluster:first-child { border-top: 0; padding-top: 2px; }
-    .drawer__cluster:last-child { padding-bottom: 2px; }
     .drawer__cluster-head {
       display: flex;
       flex-direction: column;
@@ -836,7 +851,7 @@
       margin: 0;
       display: flex;
       flex-direction: column;
-      gap: 13px;
+      gap: 10px;
       border-left: 2px solid rgba(139,26,26,0.14);
     }
     .drawer__item { display: flex; flex-direction: column; gap: 3px; }
@@ -853,7 +868,7 @@
       font-family: var(--font-display);
       font-size: 12.5px;
       color: rgba(13,34,64,0.82);
-      line-height: 1.5;
+      line-height: 1.45;
     }
 
     .drawer__foot {
@@ -1072,6 +1087,165 @@
     }
 
     /* =============================================================
+       §4 ENGAGEMENT CTA (#talk) — dark navy band before the footer,
+       bookending the dark hero. Single conversion path: a 30-min
+       architecture walkthrough, engineer to engineer. Posts to Formspree.
+       ============================================================= */
+    .talk { position: relative; background: radial-gradient(900px 520px at 80% 0%, rgba(224,70,87,.10), transparent 60%), #0A111F; color: #EAEEF7; padding: 96px 24px 104px; }
+    .talk::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, #8B1A1A 50%, transparent); opacity: .55; z-index: 2; pointer-events: none; }
+    .talk__inner { max-width: 1060px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; position: relative; z-index: 1; }
+    .talk__eyebrow { font: 700 11px/1 'Inter', sans-serif; letter-spacing: .26em; text-transform: uppercase; color: #E04657; }
+    .talk__head { font: 400 clamp(26px, 3.2vw, 36px)/1.2 'Libre Baskerville', Georgia, serif; color: #fff; margin: 16px 0 0; letter-spacing: -.01em; }
+    .talk__head em { font-style: italic; color: #E04657; }
+    .talk__sub { font: 400 15px/1.6 'Inter', sans-serif; color: #9aa6be; margin: 16px 0 0; max-width: 440px; }
+    .talk__points { list-style: none; margin: 26px 0 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+    .talk__points li { position: relative; padding-left: 26px; font: 400 13.5px/1.5 'Inter', sans-serif; color: #cdd6e6; }
+    .talk__points li::before { content: ""; position: absolute; left: 1px; top: 4px; width: 11px; height: 7px; border-left: 2px solid #E04657; border-bottom: 2px solid #E04657; transform: rotate(-45deg); }
+    .talk__form { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.10); border-radius: 14px; padding: 28px 28px 24px; box-shadow: 0 40px 80px -40px rgba(0,0,0,.8); }
+    .talk__hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+    .talk__field { margin-bottom: 15px; }
+    .talk__field label { display: block; font: 600 10.5px/1 'Inter', sans-serif; letter-spacing: .08em; text-transform: uppercase; color: #8a98b4; margin-bottom: 8px; }
+    .talk__field label span { text-transform: none; letter-spacing: 0; font-weight: 400; color: #5c6b86; }
+    .talk__field input, .talk__field textarea { width: 100%; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.14); border-radius: 8px; padding: 12px 14px; font: 400 14px 'Inter', sans-serif; color: #EAEEF7; transition: border-color .2s, background .2s; }
+    .talk__field input:focus, .talk__field textarea:focus { outline: none; border-color: #E04657; background: rgba(255,255,255,.07); }
+    .talk__field textarea { resize: vertical; min-height: 54px; }
+    .talk__submit { width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 9px; background: #E04657; color: #fff; font: 600 14px 'Inter', sans-serif; border: none; border-radius: 8px; padding: 14px 24px; cursor: pointer; transition: background .2s, transform .1s; margin-top: 4px; }
+    .talk__submit:hover { background: #c93a4a; }
+    .talk__submit:active { transform: translateY(1px); }
+    .talk__submit:disabled { opacity: .65; cursor: default; }
+    .talk__status { font: 500 12.5px/1.5 'Inter', sans-serif; border-radius: 8px; margin: 0 0 4px; padding: 0; max-height: 0; overflow: hidden; opacity: 0; transition: max-height .25s, opacity .25s, padding .25s; }
+    .talk__status--pending { opacity: 1; max-height: 80px; padding: 10px 14px; color: #c5cfe2; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); }
+    .talk__status--success { opacity: 1; max-height: 120px; padding: 10px 14px; color: #8fe3c0; background: rgba(65,192,138,.10); border: 1px solid rgba(65,192,138,.32); }
+    .talk__status--error { opacity: 1; max-height: 120px; padding: 10px 14px; color: #f0a9a9; background: rgba(224,70,87,.10); border: 1px solid rgba(224,70,87,.34); }
+    .talk__fineprint { font: 400 11.5px/1.5 'Inter', sans-serif; color: #5c6b86; text-align: center; margin: 14px 0 0; }
+    @media (max-width: 820px) { .talk__inner { grid-template-columns: 1fr; gap: 34px; } .talk { padding: 72px 22px 84px; } }
+
+    /* =============================================================
+       §3.5 — WHY EBB comparison (#compare). Three ways a bank can
+       connect to the rails; the EBB column is spotlighted and the
+       marks reuse the green / amber / crimson language from §3.
+       Stone section + floating card to match the solution chapter,
+       then it hands off to the dark engagement CTA.
+       ============================================================= */
+    .cmp { padding: 84px 24px 96px; background: #E8E1D5; color: var(--navy); position: relative; }
+    .cmp::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--crimson) 50%, transparent);
+      opacity: .6; z-index: 2; pointer-events: none;
+    }
+    .cmp__head { max-width: 820px; margin: 0 auto 30px; text-align: center; position: relative; z-index: 1; }
+    .cmp__eyebrow { display: inline-block; font: 700 11px/1 var(--font-ui); letter-spacing: .26em; text-transform: uppercase; color: var(--crimson); }
+    .cmp__heading { font: 400 clamp(26px, 3.4vw, 38px)/1.2 var(--font-display); color: var(--navy); letter-spacing: -.008em; max-width: 760px; margin: 14px auto 0; }
+    .cmp__heading em { font-style: italic; color: var(--crimson); font-weight: 400; }
+    .cmp__lede { font: 400 15.5px/1.65 var(--font-ui); color: var(--text-muted-navy); max-width: 660px; margin: 14px auto 0; }
+
+    .cmp__container {
+      max-width: 1160px; margin: 0 auto; position: relative; z-index: 1;
+      background: #FCFBF8; border: 1px solid var(--rule); border-radius: 22px;
+      box-shadow: 0 1px 2px rgba(13,34,64,.05), 0 28px 60px -30px rgba(13,34,64,.32);
+      padding: clamp(16px, 1.8vw, 24px);
+      opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease;
+    }
+    .cmp.is-active .cmp__container { opacity: 1; transform: none; }
+
+    /* legend — what the three marks mean (the honest table needs it) */
+    .cmp__legend { display: flex; flex-wrap: wrap; gap: 22px; justify-content: center; margin: 2px 0 18px; font: 500 11.5px/1.4 var(--font-ui); color: var(--text-muted-navy); }
+    .cmp__legend > span { display: inline-flex; align-items: center; gap: 7px; }
+    .cmp__legend .cmp__mk { width: 17px; height: 17px; font-size: 10px; }
+
+    .cmp__scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .cmp__table { display: grid; grid-template-columns: 0.72fr 1fr 1fr 1fr; min-width: 1000px; }
+    /* rows are layout-transparent so their cells become the grid items */
+    .cmp__row { display: contents; }
+
+    .cmp__cell {
+      padding: 14px 15px; display: flex; gap: 9px; align-items: center;
+      border-bottom: 1px solid var(--rule-soft);
+      font: 400 13px/1.45 var(--font-ui); color: var(--text-muted-navy);
+      transition: background .16s ease;
+      /* wide columns let every cell sit on one line; balance is a safety net
+         that evens any wrap on narrower viewports instead of stranding a word */
+      text-wrap: balance;
+    }
+    .cmp__row:last-child .cmp__cell { border-bottom: none; }
+    .cmp__cell--label { font: 500 14px/1.35 var(--font-ui); color: var(--navy); align-items: center; }
+
+    /* row hover — faint wash across the whole row, each column deepening its
+       own tint so the column identity is preserved while scanning */
+    .cmp__row.is-hl .cmp__cell--label { background: color-mix(in srgb, var(--navy) 3.5%, #FCFBF8); }
+    .cmp__row.is-hl .cmp__cell--ebb { background: color-mix(in srgb, var(--crimson) 10%, #FCFBF8); }
+    .cmp__row.is-hl .cmp__cell--d { background: color-mix(in srgb, var(--navy) 8%, #FCFBF8); }
+    .cmp__row.is-hl .cmp__cell--v { background: color-mix(in srgb, #2b2b31 11%, #FCFBF8); }
+
+    /* header row — three filled caps define the top; no divider line needed */
+    .cmp__row--head .cmp__cell { padding-bottom: 16px; align-items: flex-start; }
+    .cmp__col-h { flex-direction: column; gap: 3px; align-items: flex-start; }
+    .cmp__colname { font: 400 17px/1.2 var(--font-display); color: var(--navy); }
+    .cmp__coltag { font: 600 9.5px/1.3 var(--font-ui); letter-spacing: .1em; text-transform: uppercase; color: var(--text-faint-navy); }
+
+    /* EBB spotlight column: an elevated card — crimson header cap that lifts
+       off the table, faint crimson tint, and hairline crimson side rails that
+       run the full height to read as one continuous column. */
+    .cmp__cell--ebb {
+      background: color-mix(in srgb, var(--crimson) 6%, #FCFBF8); color: var(--navy);
+      border-left: 1px solid color-mix(in srgb, var(--crimson) 14%, transparent);
+      border-right: 1px solid color-mix(in srgb, var(--crimson) 14%, transparent);
+    }
+    .cmp__col-h--ebb {
+      background: var(--crimson); border-radius: 11px 11px 0 0;
+      border-left: 1px solid var(--crimson); border-right: 1px solid var(--crimson);
+      box-shadow: 0 12px 26px -14px rgba(139,26,26,.55); position: relative; z-index: 1;
+    }
+    .cmp__col-h--ebb .cmp__colname { color: #fff; }
+    .cmp__col-h--ebb .cmp__coltag { color: rgba(255,255,255,.74); }
+    .cmp__row:last-child .cmp__cell--ebb { border-radius: 0 0 11px 11px; border-bottom: 1px solid color-mix(in srgb, var(--crimson) 14%, transparent); }
+
+    /* Direct integrations — a cool slate card: viable, but yours to build & run */
+    .cmp__cell--d { background: color-mix(in srgb, var(--navy) 4%, #FCFBF8); }
+    .cmp__col-h--d {
+      background: color-mix(in srgb, var(--navy) 12%, #FCFBF8); border-radius: 11px 11px 0 0;
+      box-shadow: 0 9px 20px -15px rgba(13,34,64,.40);
+    }
+    .cmp__row:last-child .cmp__cell--d { border-radius: 0 0 11px 11px; }
+
+    /* Black-box processor — a neutral cool-grey card. (Warm tints vanish on the
+       warm cream; a desaturated graphite grey actually reads, and its lack of
+       any brand hue suits the "outsider / vendor" framing.) */
+    .cmp__cell--v { background: color-mix(in srgb, #2b2b31 6%, #FCFBF8); }
+    .cmp__col-h--v {
+      background: color-mix(in srgb, #2b2b31 17%, #FCFBF8); border-radius: 11px 11px 0 0;
+      box-shadow: 0 10px 22px -15px rgba(13,34,64,.34);
+    }
+    .cmp__col-h--v .cmp__colname { color: var(--navy); }
+    .cmp__col-h--v .cmp__coltag { color: var(--text-muted-navy); }
+    .cmp__row:last-child .cmp__cell--v { border-radius: 0 0 11px 11px; }
+
+    /* marks — same green / amber / crimson semantics as the stepper */
+    .cmp__mk { flex: none; width: 19px; height: 19px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 700; margin-top: 1px; }
+    .cmp__mk--yes { background: rgba(47,138,91,.15); color: #2F8A5B; }
+    .cmp__mk--mid { background: rgba(168,115,42,.16); color: #A8732A; }
+    .cmp__mk--no  { background: rgba(154,47,47,.13); color: #9A2F2F; }
+
+    /* closing verdict — the table's takeaway, lifted from a plain footnote into
+       a small centred "bottom line" block with a crimson tick, emphasised key
+       phrases, and a quiet link into the briefing CTA below */
+    .cmp__verdict { text-align: center; max-width: 720px; margin: 30px auto 0; }
+    .cmp__verdict::before { content: ""; display: block; width: 34px; height: 2px; border-radius: 2px; background: var(--crimson); opacity: .6; margin: 0 auto 16px; }
+    .cmp__verdict-eyebrow { font: 700 10.5px/1 var(--font-ui); letter-spacing: .2em; text-transform: uppercase; color: var(--crimson); }
+    .cmp__verdict-line { font: 400 19px/1.5 var(--font-display); color: var(--navy); margin: 12px auto 0; max-width: 660px; }
+    .cmp__verdict-line em { font-style: normal; color: var(--crimson); }
+    .cmp__verdict-cta { display: inline-flex; align-items: center; gap: 7px; margin-top: 18px; font: 600 13px/1 var(--font-ui); color: var(--crimson); text-decoration: none; transition: gap .18s ease, color .18s ease; }
+    .cmp__verdict-cta span { transition: transform .18s ease; }
+    .cmp__verdict-cta:hover { color: var(--acc); }
+    .cmp__verdict-cta:hover span { transform: translateX(3px); }
+
+    @media (max-width: 760px) {
+      .cmp { padding: 64px 16px 76px; }
+      .cmp__table { min-width: 600px; }
+      .cmp__cell { padding: 13px 14px; font-size: 13px; }
+    }
+
+    /* =============================================================
        SITE FOOTER — full navigation (Home / About / Solutions / Network / Get in Touch)
        The V2 hero design keeps the top nav minimal (logo + Talk to engineering CTA),
        so detailed navigation lives in the footer for users who want to explore deeper.
@@ -1097,8 +1271,8 @@
       max-width: 1200px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1.3fr 1.5fr 1fr;
-      gap: 48px;
+      grid-template-columns: 1.7fr 1fr 1fr 1fr;
+      gap: 40px;
       padding-bottom: 36px;
       border-bottom: 1px solid rgba(13,34,64,0.12);
     }
@@ -1148,8 +1322,8 @@
     }
     .ftr__nav-list {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px 24px;
+      grid-template-columns: 1fr;
+      gap: 10px;
       list-style: none;
       padding: 0;
       margin: 0;
@@ -1199,11 +1373,19 @@
       font-style: italic;
       color: rgba(13,34,64,0.62);
     }
-    @media (max-width: 760px) {
+    @media (max-width: 980px) {
       .ftr__container {
-        grid-template-columns: 1fr;
-        gap: 32px;
+        grid-template-columns: 1.4fr 1fr 1fr;
+        gap: 34px;
       }
+      .ftr__brand { grid-column: 1 / -1; }
+    }
+    @media (max-width: 620px) {
+      .ftr__container {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px 24px;
+      }
+      .ftr__brand { grid-column: 1 / -1; }
       .ftr__bottom {
         justify-content: flex-start;
       }
@@ -1300,286 +1482,237 @@
     /* Seam 2 (problem -> solution) — unified hairline seam system. Both sides
        are cream-warm, so the boundary carries the same crimson hairline as the
        other seams, here with no glow (it reads as a fine rule on cream). */
-    .solution3 { padding: 80px 24px 104px; background: var(--cream-warm); color: var(--navy); position: relative; }
+    .solution3 { padding: 80px 24px 104px; background: #E8E1D5; color: var(--navy); position: relative; }
     .solution3::before {
       content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
       background: linear-gradient(90deg, transparent, var(--crimson) 50%, transparent);
       opacity: .6; z-index: 2; pointer-events: none;
     }
-    .solution3__container { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+    /* Section heading sits on the stone gutter; each rail station below
+       gets its own floating outer panel (the v1 "platform" panel look). */
+    .solution3__container {
+      max-width: 1120px; margin: 0 auto; position: relative; z-index: 1;
+      background: #FCFBF8;
+      border: 1px solid var(--rule);
+      border-radius: 22px;
+      box-shadow: 0 1px 2px rgba(13,34,64,.05), 0 28px 60px -30px rgba(13,34,64,.32);
+      padding: clamp(34px, 4.4vw, 64px);
+    }
 
-    .solution3__head { max-width: 760px; display: flex; flex-direction: column; gap: 14px; margin-bottom: 52px; }
+    /* Section header sits on the stone gutter above the panel, centred —
+       mirroring the problem section's .o3__head treatment so the two
+       chapters share one editorial rhythm. */
+    .solution3__head { max-width: 820px; margin: 0 auto 26px; text-align: center; position: relative; z-index: 1; }
     .solution3__eyebrow {
-      display: inline-flex; align-items: center; gap: 12px;
-      font: 700 10px/1 var(--font-ui);
-      letter-spacing: 0.24em; text-transform: uppercase;
+      display: inline-block;
+      font: 700 11px/1 var(--font-ui);
+      letter-spacing: 0.26em; text-transform: uppercase;
       color: var(--crimson);
     }
-    .solution3__eyebrow::before { content: ''; width: 32px; height: 1.5px; background: var(--crimson); }
     .solution3__heading {
-      font: 400 clamp(26px, 3vw, 34px)/1.28 var(--font-display);
+      font: 400 clamp(26px, 3.4vw, 38px)/1.2 var(--font-display);
       color: var(--navy);
-      letter-spacing: -0.01em;
-      max-width: 720px;
+      letter-spacing: -0.008em;
+      max-width: 760px;
+      margin: 14px auto 0;
     }
     .solution3__heading em { font-style: italic; color: var(--crimson); font-weight: 400; }
     .solution3__lede {
       font: 400 clamp(14.5px, 1.4vw, 16px)/1.6 var(--font-ui);
       color: var(--text-muted-navy);
-      max-width: 600px;
-      margin-top: 4px;
+      max-width: 620px;
+      margin: 12px auto 0;
     }
 
-    /* Diagram frame — now with small header strip naming the architecture */
-    .solution3__frame {
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
-      padding: 22px 0 18px;
-      margin-bottom: 60px;
+    /* ============================================================
+       "The Rail" — one crimson spine threads three movements:
+       01 architecture · 02 lifecycle · 03 what changes.
+       Stations light crimson as the reader scrolls to them.
+       ============================================================ */
+    .rail { position: relative; margin-top: 30px; padding-left: 72px; }
+    /* the spine: a quiet crimson line down the section, fading as it descends */
+    .rail__spine {
+      position: absolute; left: 25px; top: 14px; bottom: 0; width: 2px;
+      background: linear-gradient(180deg, var(--crimson) 0%, rgba(139,26,26,.85) 70%, rgba(139,26,26,.12) 100%);
+      border-radius: 2px;
     }
-    .solution3__frame-header {
-      display: flex; justify-content: space-between; align-items: baseline;
-      padding: 0 4px 18px;
-      border-bottom: 1px dashed var(--rule);
-      margin-bottom: 22px;
+    .rail__beat { position: relative; padding-bottom: 60px; }
+    .rail__beat:last-child { padding-bottom: 0; }
+    /* station marker */
+    .rail__dot {
+      position: absolute; left: -72px; top: -2px; width: 52px; height: 52px; border-radius: 50%;
+      background: var(--cream-warm); border: 2px solid var(--rule);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: 0.3s cubic-bezier(.2,.7,.3,1); z-index: 3;
     }
-    .solution3__frame-tag {
-      font: 700 9.5px/1 var(--font-ui);
-      letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--text-faint-navy);
+    .rail__dot b { font: 500 13px/1 'JetBrains Mono', monospace; color: var(--text-muted-navy); transition: 0.3s; }
+    .rail__beat.in .rail__dot { border-color: var(--crimson); background: var(--crimson); box-shadow: 0 0 0 7px rgba(139,26,26,.1); }
+    .rail__beat.in .rail__dot b { color: #fff; }
+
+    /* consistent movement header */
+    .bh { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 20px; }
+    .bh__name { font: 400 clamp(19px,2.1vw,23px)/1.2 var(--font-display); color: var(--navy); }
+    .bh__aside { display: inline-flex; align-items: center; gap: 11px; font: 700 10.5px/1.5 var(--font-ui); text-transform: uppercase; letter-spacing: 0.14em; color: var(--crimson); }
+    .bh__aside::before { content: ''; flex: none; width: 18px; height: 1.5px; background: var(--crimson); opacity: 0.55; }
+
+    /* the floating container panel above is the only "platform" surface; each
+       rail station sits directly on it with no panel of its own (the inner
+       diagram/visual carry their own frames) */
+    .rail__panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      padding: 0;
     }
-    .solution3__frame-tag em {
-      font-style: normal;
-      color: var(--crimson);
+
+    /* 01 — architecture (original diagram, kept verbatim) */
+    /* shared station canvas — one framed card per rail station so the three
+       movements (architecture · lifecycle · outcomes) read as one design. */
+    .arch-frame, .s3-canvas {
+      border: 1px solid var(--rule); border-radius: 10px; background: #F2ECE2;
+      padding: 14px 20px 16px; box-shadow: 0 18px 40px -28px rgba(13,34,64,.5); overflow: hidden;
     }
-    .solution3__frame-flow {
-      font: 500 10px/1 var(--font-ui);
-      letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--text-faint-navy);
-    }
-    .solution3__frame-flow span { color: var(--navy); font-weight: 600; }
-    .solution3__frame svg { width: 100%; height: 460px; display: block; }
+    .s3-canvas { padding: 26px 30px; }
+    .solution3 .arch { width: 100%; height: auto; display: block; }
+    /* caption lives inside the diagram card as its footer band, tied to the
+       diagram by a hairline + faint tint (was floating disconnected below). */
+    .arch-cap { font: italic 400 13px/1.5 var(--font-display); color: var(--text-muted-navy); text-align: center;
+      margin: 14px -20px -16px; padding: 13px 24px 14px; border-top: 1px solid var(--rule); background: rgba(13,34,64,0.018); }
     .solution3 .arch .col-sub  { fill: var(--text-faint-navy); font: 400 10px var(--font-ui); letter-spacing: 0.06em; }
-    .solution3 .arch .box      { fill: var(--cream-warm); stroke: var(--navy); stroke-width: 1; opacity: 0.78; }
+    .solution3 .arch .box      { fill: #FFFFFF; stroke: var(--navy); stroke-width: 1; opacity: 1; }
     .solution3 .arch .box-text { fill: var(--navy); font: 500 11px var(--font-ui); }
     .solution3 .arch .gateway  { fill: var(--crimson); stroke: var(--crimson); }
     .solution3 .arch .gw-text  { fill: #fff; font: 700 14px var(--font-display); }
     .solution3 .arch .gw-sub   { fill: rgba(242,239,232,0.55); font: 500 9px var(--font-ui); letter-spacing: 0.1em; text-transform: uppercase; }
     .solution3 .arch .edge     { stroke: rgba(13,34,64,0.22); stroke-width: 1; fill: none; }
-    .solution3__frame-caption {
-      max-width: 760px;
-      margin-top: 14px;
-      padding-top: 14px;
-      border-top: 1px dashed var(--rule);
-      font: italic 400 13.5px/1.5 var(--font-display);
-      color: var(--text-muted-navy);
+    /* pipeline layout (stack → gateway → networks) */
+    .solution3 .arch .flow       { stroke: var(--crimson); stroke-width: 2.5; fill: none; opacity: 0.9; }
+    .solution3 .arch .cluster    { fill: color-mix(in srgb, var(--crimson) 4%, #FCFBF8); stroke: color-mix(in srgb, var(--crimson) 22%, var(--rule)); stroke-width: 1; }
+    .solution3 .arch .hdr        { fill: var(--crimson); font: 700 10px var(--font-ui); letter-spacing: 0.16em; text-transform: uppercase; }
+    .solution3 .arch .panel-rect { fill: var(--cream-card); stroke: var(--crimson); stroke-width: 1.2; }
+    .solution3 .arch .panel-bar  { fill: var(--crimson); }
+    .solution3 .arch .chip       { fill: #FFFFFF; stroke: rgba(13,34,64,0.20); stroke-width: 1; }
+    .solution3 .arch .chip-text  { fill: var(--navy); font: 500 10.5px var(--font-ui); }
+    .solution3 .arch .flowlbl    { fill: var(--text-muted-navy); font: italic 400 11px var(--font-display); }
+    /* 02 — lifecycle (scroll morph): Route → Retry → Reverse → Reconcile */
+    .morph__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: center; }
+    .morph__visual {
+      background: var(--navy); border-radius: 12px; height: 344px; position: relative;
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+      box-shadow: 0 18px 40px -28px rgba(13,34,64,.7);
     }
+    .morph__visual::before {
+      content: ""; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    .mtrack { position: relative; width: 78%; height: 66px; display: flex; align-items: center; justify-content: space-between; z-index: 2; }
+    /* node/hub carry a stacking context so the connector line is masked behind the gateway */
+    .mnode { position: relative; z-index: 4; width: 60px; height: 42px; border-radius: 6px; border: 1px solid rgba(255,255,255,.25); background: var(--navy); color: #dfe6f2; display: flex; align-items: center; justify-content: center; font: 600 12px var(--font-ui); }
+    .mhub { position: relative; z-index: 4; width: 60px; height: 60px; border-radius: 50%; background: var(--crimson); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; font: 400 14px var(--font-display); box-shadow: 0 0 30px rgba(224,70,87,.4); }
+    .mhub span { font-size: 7px; letter-spacing: .16em; text-transform: uppercase; opacity: .8; }
+    .mline { position: absolute; top: 50%; left: 60px; right: 60px; height: 2px; background: rgba(255,255,255,.18); z-index: 1; }
+    .mpkt { position: absolute; top: 50%; width: 12px; height: 12px; border-radius: 50%; transform: translate(-50%,-50%); z-index: 3; opacity: 0; }
+    .mpkt.g { background: #3ad07a; box-shadow: 0 0 12px #3ad07a; }
+    .mpkt.a { background: #f0b440; box-shadow: 0 0 12px #f0b440; }
+    .morph__visual[data-s="1"] .mpkt.g { animation: mroute 2.2s linear infinite; }
+    .morph__visual[data-s="2"] .mpkt.a { animation: mretry 2.6s linear infinite; }
+    .morph__visual[data-s="3"] .mpkt.a { animation: mrev 2.4s linear infinite; }
+    @keyframes mroute { 0%{left:14%;opacity:0} 12%{opacity:1} 88%{left:86%;opacity:1} 100%{opacity:0} }
+    @keyframes mretry { 0%{left:50%;opacity:0} 10%{opacity:1} 40%{left:86%;opacity:1} 45%{left:86%;opacity:0} 55%{left:50%;opacity:1} 100%{left:86%;opacity:1} }
+    @keyframes mrev { 0%{left:86%;opacity:0} 12%{opacity:1} 88%{left:14%;opacity:1} 100%{opacity:0} }
+    .mledger { display: none; flex-direction: column; gap: 11px; width: 64%; z-index: 2; }
+    .morph__visual[data-s="4"] .mtrack { display: none; }
+    .morph__visual[data-s="4"] .mledger { display: flex; }
+    .mlrow { display: flex; align-items: center; gap: 11px; opacity: 0; }
+    .morph__visual[data-s="4"] .mlrow { animation: mlIn 0.5s ease forwards; }
+    .morph__visual[data-s="4"] .mlrow:nth-child(1) { animation-delay: 0.12s; }
+    .morph__visual[data-s="4"] .mlrow:nth-child(2) { animation-delay: 0.30s; }
+    .morph__visual[data-s="4"] .mlrow:nth-child(3) { animation-delay: 0.48s; }
+    @keyframes mlIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+    .mlc { flex: 1; height: 13px; border-radius: 3px; background: rgba(255,255,255,.12); }
+    .mlt { position: relative; flex: none; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; }
+    .mlt .ok { color: #3ad07a; }
+    .mlt .no { color: #E04657; }
+    /* the mismatch row: a red ✗ shows on entry, then ~2s later flips to a
+       green ✓ once JS adds .resolved (the reconciliation moment) */
+    .mlrow--fix .mlt span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; transition: opacity .3s ease, transform .3s ease; }
+    .mlrow--fix .no { opacity: 1; transform: scale(1); }
+    .mlrow--fix .ok { opacity: 0; transform: scale(.4); }
+    .mlrow--fix.resolved .no { opacity: 0; transform: scale(.5); }
+    .mlrow--fix.resolved .ok { opacity: 1; transform: scale(1); animation: mlPop .42s ease; }
+    @keyframes mlPop { 0% { transform: scale(.4); } 60% { transform: scale(1.22); } 100% { transform: scale(1); } }
+    /* steps share the four-colour accent language of "What changes": each
+       step carries a colour; the active step (and hover) shows a soft tint,
+       a coloured left bar and number. The progress bar tints to match. */
+    .morph__steps { display: flex; flex-direction: column; gap: 5px; }
+    .mstep { padding: 15px 17px; border-radius: 8px; cursor: pointer; border-left: 2px solid transparent; background: color-mix(in srgb, var(--c) 5%, #FCFBF8); transition: background .25s, border-color .25s, box-shadow .25s; }
+    .mstep:nth-child(1) { --c: #3E7D63; } /* route — green */
+    .mstep:nth-child(2) { --c: #2C4E7A; } /* retry — navy-blue */
+    .mstep:nth-child(3) { --c: #9A2F2F; } /* reverse — crimson */
+    .mstep:nth-child(4) { --c: #A8732A; } /* reconcile — amber */
+    .mstep:not(.on):hover { background: color-mix(in srgb, var(--c) 9%, #FCFBF8); }
+    .mstep:not(.on):hover .n { opacity: 1; }
+    .mstep.on { background: color-mix(in srgb, var(--c) 13%, #FCFBF8); border-left-color: var(--c); box-shadow: 0 6px 22px rgba(13,34,64,.08); }
+    .mstep .r { display: flex; align-items: baseline; gap: 12px; }
+    .mstep .n { font: 400 12px 'JetBrains Mono', monospace; color: var(--c); opacity: .7; transition: opacity .25s; }
+    .mstep.on .n { opacity: 1; }
+    .mstep .nm { font: 400 19px var(--font-display); color: var(--navy); }
+    .mstep .cap { font: 400 13px/1.55 var(--font-ui); color: var(--text-muted-navy); margin-top: 6px; max-height: 0; overflow: hidden; }
+    /* Only the OPENING caption animates; the outgoing one collapses instantly.
+       If both transitioned together, the column would briefly hold two open
+       captions at once, overshoot the fixed-height visual, and bounce the whole
+       page on every step change. Instant collapse keeps the column height stable. */
+    .mstep:not(.on) .cap { transition: none; }
+    .mstep.on .cap { max-height: 96px; margin-top: 8px; transition: max-height .28s ease, margin-top .28s ease; }
+    .morph__progress { height: 3px; background: var(--rule); border-radius: 2px; margin-top: 16px; overflow: hidden; }
+    .morph__progress i { display: block; height: 100%; background: var(--crimson); width: 25%; transition: width .4s, background .4s; }
 
-    /* ===== Tonal heartbeat — navy architecture band ===== */
-    .solution3 { overflow-x: clip; }
-    .thb-arch-band {
-      position: relative;
-      border: 0 !important;
-      margin: 72px 0 64px !important;
-      padding: 76px 0 60px !important;
-      isolation: isolate;
-    }
-    .thb-arch-band::before {
-      content: '';
-      position: absolute; top: 0; bottom: 0;
-      left: 50%; transform: translateX(-50%);
-      width: 100vw;
-      background:
-        radial-gradient(900px 460px at 80% 4%, rgba(224,70,87,.12), transparent 60%),
-        radial-gradient(760px 520px at 6% 100%, rgba(20,40,72,.55), transparent 60%),
-        #0A111F;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.06), inset 0 -1px 0 rgba(255,255,255,.06);
-      z-index: -1;
-    }
-    .thb-arch-band .solution3__frame-header { border-bottom-color: rgba(255,255,255,.14); }
-    .thb-arch-band .solution3__frame-tag { color: rgba(255,255,255,.46); }
-    .thb-arch-band .solution3__frame-tag em { color: #E04657; }
-    .thb-arch-band .solution3__frame-flow { color: rgba(255,255,255,.46); }
-    .thb-arch-band .solution3__frame-flow span { color: #EAEEF7; }
-    .thb-arch-band .arch .col-sub  { fill: rgba(255,255,255,.42); }
-    .thb-arch-band .arch .box      { fill: #13223A; stroke: rgba(255,255,255,.22); opacity: 1; }
-    .thb-arch-band .arch .box-text { fill: #EAEEF7; }
-    .thb-arch-band .arch .gateway  { fill: #E04657; stroke: #E04657; }
-    .thb-arch-band .arch .gw-text  { fill: #fff; }
-    .thb-arch-band .arch .gw-sub   { fill: rgba(255,255,255,.72); }
-    .thb-arch-band .arch .edge     { stroke: rgba(255,255,255,.18); }
-    .thb-arch-band .solution3__frame-caption { color: rgba(255,255,255,.62); border-top-color: rgba(255,255,255,.16); }
-
-    /* Themes block */
-    .solution3__themes-head {
-      display: flex; align-items: baseline; justify-content: space-between;
-      flex-wrap: wrap; gap: 12px;
-      margin-bottom: 22px;
-    }
-    .solution3__themes-intro {
-      display: inline-flex; align-items: center; gap: 12px;
-      font: 700 10px/1 var(--font-ui);
-      letter-spacing: 0.24em; text-transform: uppercase;
-      color: var(--crimson);
-    }
-    .solution3__themes-intro::before { content: ''; width: 28px; height: 1.5px; background: var(--crimson); }
-    .solution3__themes-aside {
-      font: italic 400 13.5px/1.4 var(--font-display);
-      color: var(--text-muted-navy);
-    }
-
-    .solution3__themes {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      list-style: none;
-      padding: 0;
-    }
-    .solution3__theme {
-      background: var(--cream-card);
-      border: 1px solid var(--rule);
-      border-left: 3px solid var(--crimson);
-      border-radius: 4px;
-      padding: 26px 28px 24px;
-      display: flex; flex-direction: column; gap: 14px;
-      transition: transform 220ms var(--ease), box-shadow 220ms var(--ease), border-left-width 220ms var(--ease);
-      position: relative;
-    }
-    .solution3__theme:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 32px rgba(13,34,64,0.07);
-      border-left-width: 6px;
-    }
-    .solution3__theme-head {
-      display: flex; align-items: baseline; gap: 14px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--rule-soft);
-    }
-    .solution3__theme-num {
-      font: italic 400 16px/1 var(--font-display);
-      color: var(--crimson);
-      min-width: 22px;
-    }
-    .solution3__theme-title {
-      font: 700 20px/1.2 var(--font-display);
-      color: var(--navy);
-      letter-spacing: -0.005em;
-    }
-    .solution3__theme-felt {
-      font: italic 400 15.5px/1.5 var(--font-display);
-      color: var(--navy);
-      opacity: 0.82;
-      padding-left: 0;
-      border-left: 2px solid var(--crimson);
-      padding: 2px 0 2px 12px;
-      margin: 2px 0;
-    }
-    .solution3__theme-items {
-      list-style: none;
-      display: flex; flex-direction: column; gap: 12px;
-      margin-top: 4px;
-      padding: 0;
-    }
-    .solution3__theme-item {
-      display: grid;
-      grid-template-columns: 16px 1fr;
-      gap: 10px;
-      align-items: baseline;
-      font: 400 14px/1.5 var(--font-ui);
-      color: var(--navy);
-    }
-    .solution3__theme-item::before {
-      content: '+';
-      font: 500 15px/1 var(--font-ui);
-      color: var(--crimson);
-      transform: translateY(1px);
-    }
-    .solution3__theme-item b { font-weight: 600; }
-    .solution3__theme-item span {
-      display: block;
-      font: 400 12.5px/1.55 var(--font-ui);
-      color: var(--text-muted-navy);
-      margin-top: 3px;
-    }
-
-    /* Closing — weighted, framed, restrained */
-    .solution3__closing {
-      margin: 64px auto 0;
-      max-width: 760px;
-      padding: 30px 32px;
-      background: rgba(13, 34, 64, 0.025);
-      border-top: 1px solid var(--crimson);
-      text-align: center;
-      position: relative;
-    }
-    .solution3__closing::before {
-      content: '';
-      position: absolute;
-      top: -1px; left: 50%; transform: translateX(-50%);
-      width: 56px; height: 3px;
-      background: var(--crimson);
-    }
-    .solution3__closing-text {
-      font: 400 clamp(18px, 2vw, 22px)/1.45 var(--font-display);
-      color: var(--navy);
-    }
-    .solution3__closing-text em { font-style: italic; color: var(--crimson); font-weight: 400; }
+    /* 03 — what changes: four separate colour-coded panels. Cream at rest;
+       on hover a barely-there tint of the panel's colour washes in, a left
+       bar grows, and the accents (number, feeling line, bullets) take the
+       colour. Calm but alive. Per-panel colour via --c. */
+    .pay__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .pay__entry { position: relative; overflow: hidden; border-radius: 13px; border: 1px solid var(--rule);
+      background: color-mix(in srgb, var(--c) 5%, #FCFBF8); padding: 26px 30px 28px;
+      transition: transform .3s var(--ease), box-shadow .35s, border-color .35s, background .35s; }
+    .pay__entry > * { position: relative; z-index: 1; }
+    .pay__entry::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--c);
+      transform: scaleY(0); transform-origin: top; transition: transform .35s var(--ease); z-index: 2; }
+    .pay__entry:hover::before { transform: scaleY(1); }
+    .pay__entry:hover { transform: translateY(-3px); box-shadow: 0 22px 46px -26px rgba(13,34,64,.30);
+      border-color: color-mix(in srgb, var(--c) 30%, var(--rule));
+      background: color-mix(in srgb, var(--c) 9%, #FCFBF8); }
+    .pay__entry:nth-child(1) { --c: #3E7D63; } /* peace — green */
+    .pay__entry:nth-child(2) { --c: #2C4E7A; } /* confidence — navy-blue */
+    .pay__entry:nth-child(3) { --c: #9A2F2F; } /* trust — crimson */
+    .pay__entry:nth-child(4) { --c: #A8732A; } /* velocity — amber */
+    .pay__entry-hd { display: flex; align-items: baseline; gap: 13px; }
+    .pay__num { font: 400 13px 'JetBrains Mono', monospace; color: var(--c); opacity: .65; transition: opacity .3s; }
+    .pay__entry:hover .pay__num { opacity: 1; }
+    .pay__title { font: 400 22px var(--font-display); color: var(--navy); }
+    .pay__felt { font: italic 400 15.5px var(--font-display); color: var(--crimson); margin: 10px 0 18px; transition: color .3s; }
+    .pay__entry:hover .pay__felt { color: var(--c); }
+    .pay__items { list-style: none; display: flex; flex-direction: column; gap: 14px; padding: 0; }
+    .pay__item { display: flex; gap: 11px; font: 400 12.5px/1.65 var(--font-ui); }
+    .pay__item::before { content: ""; flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--crimson); margin-top: 7px; transition: background .3s; }
+    .pay__entry:hover .pay__item::before { background: var(--c); }
+    .pay__item b { font-weight: 600; color: var(--navy); }
+    .pay__item span { color: var(--text-muted-navy); }
+    .pay__close { margin-top: 34px; padding-top: 24px; border-top: 2px solid var(--crimson); text-align: center; }
+    .pay__close p { font: 400 clamp(20px,2.4vw,27px) var(--font-display); color: var(--navy); }
+    .pay__close em { font-style: italic; color: var(--crimson); }
 
     @media (max-width: 820px) {
-      .solution3__themes { grid-template-columns: 1fr; }
-      .solution3__frame svg { height: 380px; }
-    }
-
-    /* §3 — transaction lifecycle band: Route → Retry → Reverse → Reconcile.
-       Cream-readable success/warn tokens (the hero's --green/--amber are
-       scoped to .heroA and too light on cream, so we define our own here). */
-    .solution3__lifecycle { --lc-green: #1E8E5A; --lc-amber: #C0791F; margin: 0 0 60px; }
-    .solution3__lc-head {
-      display: flex; justify-content: space-between; align-items: baseline;
-      gap: 16px; flex-wrap: wrap; margin-bottom: 24px;
-    }
-    .solution3__lc-intro {
-      display: inline-flex; align-items: center; gap: 12px;
-      font: 700 10px/1 var(--font-ui); letter-spacing: 0.24em; text-transform: uppercase;
-      color: var(--crimson);
-    }
-    .solution3__lc-intro::before { content: ''; width: 32px; height: 1.5px; background: var(--crimson); }
-    .solution3__lc-aside { font: italic 400 13px/1.5 var(--font-display); color: var(--text-muted-navy); }
-    .solution3__lc-stages {
-      list-style: none; display: grid; grid-template-columns: repeat(4, 1fr);
-      border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; background: var(--cream-card);
-    }
-    .solution3__lc-stage {
-      padding: 20px 18px 22px; border-right: 1px solid var(--rule);
-      display: flex; flex-direction: column; gap: 12px;
-    }
-    .solution3__lc-stage:last-child { border-right: 0; }
-    .solution3__lc-stage-head { display: flex; align-items: baseline; gap: 9px; }
-    .solution3__lc-num { font: 700 10px/1 'JetBrains Mono', monospace; color: var(--crimson); letter-spacing: 0.04em; }
-    .solution3__lc-name { font: 600 12.5px/1 var(--font-ui); letter-spacing: 0.06em; text-transform: uppercase; color: var(--navy); }
-    .solution3__lc-viz { background: var(--cream-warm); border: 1px solid var(--rule); border-radius: 4px; }
-    .solution3__lc-viz .lc-svg { width: 100%; height: 92px; display: block; }
-    .solution3__lc-cap { font: 400 12px/1.5 var(--font-ui); color: var(--text-muted-navy); }
-
-    /* lifecycle SVG element styles (scoped under .solution3__lifecycle) */
-    .solution3__lifecycle .lc-edge   { stroke: rgba(13,34,64,0.25); stroke-width: 1; fill: none; }
-    .solution3__lifecycle .lc-node   { fill: var(--cream-warm); stroke: var(--navy); stroke-width: 1; opacity: 0.82; }
-    .solution3__lifecycle .lc-hub    { fill: var(--navy); }
-    .solution3__lifecycle .lc-hub-tx { fill: var(--cream-warm); font: 700 9px var(--font-ui); }
-    .solution3__lifecycle .lc-lbl    { fill: var(--text-faint-navy); font: 500 8.5px var(--font-ui); letter-spacing: 0.04em; }
-    .solution3__lifecycle .lc-pkt.is-green { fill: var(--lc-green); }
-    .solution3__lifecycle .lc-pkt.is-amber { fill: var(--lc-amber); }
-    .solution3__lifecycle .lc-ring   { fill: none; stroke-width: 1.6; }
-    .solution3__lifecycle .lc-ring.is-green { stroke: var(--lc-green); }
-    .solution3__lifecycle .lc-ring.is-amber { stroke: var(--lc-amber); }
-    .solution3__lifecycle .lc-tick   { font: 700 13px var(--font-ui); }
-    .solution3__lifecycle .lc-tick.is-green   { fill: var(--lc-green); }
-    .solution3__lifecycle .lc-tick.is-crimson { fill: var(--crimson); }
-
-    @media (max-width: 820px) {
-      .solution3__lc-stages { grid-template-columns: 1fr; }
-      .solution3__lc-stage { border-right: 0; border-bottom: 1px solid var(--rule); }
-      .solution3__lc-stage:last-child { border-bottom: 0; }
+      .solution3 { padding: 56px 14px 72px; }
+      .solution3__container { border-radius: 16px; }
+      .rail { padding-left: 50px; }
+      .rail__dot { left: -50px; width: 40px; height: 40px; }
+      .rail__dot b { font-size: 11px; }
+      .rail__spine { left: 19px; }
+      .morph__grid { grid-template-columns: 1fr; gap: 24px; }
+      .pay__grid { grid-template-columns: 1fr; }
     }
 
     /* =============================================================
@@ -1604,13 +1737,13 @@
       position: relative;
       color: var(--on-dark);
       background:
-        radial-gradient(900px 500px at 78% 8%, rgba(224,70,87,.10), transparent 60%),
-        radial-gradient(700px 500px at 10% 100%, rgba(20,40,72,.6), transparent 60%),
-        var(--ink);
-      /* Hero owns the first screen: only a thin sliver of the next
-         section peeks under the scroll cue, never the full heading. */
-      min-height: calc(100vh - 46px);
-      min-height: calc(100dvh - 46px);
+        radial-gradient(900px 500px at 78% 8%, rgba(224,70,87,.12), transparent 60%),
+        radial-gradient(760px 520px at 10% 100%, rgba(28,49,88,.55), transparent 60%),
+        #0D2240;
+      /* Hero owns the first screen but is height-capped so a tall viewport
+         doesn't open a void between the content and the feature strip. */
+      min-height: min(calc(100vh - 46px), 860px);
+      min-height: min(calc(100dvh - 46px), 860px);
       display: flex;
       flex-direction: column;
     }
@@ -1682,7 +1815,9 @@
     .heroA-cap-s { font-size: 11px; color: var(--on-dark-mut); letter-spacing: .01em; line-height: 1.35; }
 
     /* topology panel */
-    .heroA-topo { background: var(--ink-2); border: 1px solid var(--hair); border-radius: 12px; padding: 18px 20px 14px; position: relative; box-shadow: 0 40px 80px -40px rgba(0,0,0,.8); }
+    /* Lift: panel sits lighter than the navy hero so it reads as an elevated
+       live console (brighter hairline + drop shadow + faint top highlight). */
+    .heroA-topo { background: #16294A; border: 1px solid rgba(255,255,255,.16); border-radius: 12px; padding: 18px 20px 14px; position: relative; box-shadow: 0 34px 70px -34px rgba(0,0,0,.65), inset 0 1px 0 rgba(255,255,255,.06); }
     .heroA-topo .topo__head { display: flex; align-items: center; justify-content: space-between; padding-bottom: 12px; margin-bottom: 6px; border-bottom: 1px solid var(--hair); }
     .heroA-topo .topo__title { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--on-dark-mut); }
     .heroA-topo .topo__live { display: inline-flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 10.5px; color: var(--green); }
@@ -1719,6 +1854,19 @@
     
     .heroA-topo .t-ok-ring { fill: none; stroke: var(--green); stroke-width: 1.4; opacity: 0; }
     .heroA-topo .t-pulse { fill: none; stroke: var(--acc); stroke-width: 1; opacity: 0; }
+    .heroA-topo .t-ledger-tx { fill: var(--on-dark-faint); font: 500 8px var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+    /* ghosted channels — quiet inputs so the live operators stay the star */
+    .heroA-topo .t-edge-ghost { stroke: rgba(255,255,255,.07); stroke-width: 1.2; fill: none; }
+    .heroA-topo .t-box-ghost { fill: rgba(255,255,255,.022); stroke: rgba(255,255,255,.12); stroke-width: 1; }
+    .heroA-topo .t-box-tx-ghost { fill: rgba(234,238,247,.6); font: 500 11px var(--font-ui); }
+    .heroA-topo .t-packet-ghost { fill: rgba(234,238,247,.5); }
+    /* auto-reversal beat (amber) — a payment that can't clear is returned through EBB into core */
+    .heroA-topo .t-rev-ring { fill: none; stroke: var(--amber); stroke-width: 1.4; opacity: 0; animation: heroARev 11s linear infinite; }
+    .heroA-topo .t-tag--reversed { fill: var(--amber); opacity: 0; animation: heroARev 11s linear infinite; }
+    .heroA-topo .t-tag--ok-rev   { fill: var(--green); animation: heroAOkHideRev 11s linear infinite; }
+    .heroA-topo .t-ledger-rev    { fill: var(--amber); font: 600 8px var(--mono); letter-spacing: .1em; text-transform: uppercase; opacity: 0; animation: heroARev 11s linear infinite; }
+    @keyframes heroARev { 0%,23%{opacity:0} 27%,45%{opacity:1} 49%,100%{opacity:0} }
+    @keyframes heroAOkHideRev { 0%,23%{opacity:.68} 27%,45%{opacity:0} 49%,100%{opacity:.68} }
 
     @media (max-width: 1200px) {
       .heroA-telemetry { flex-direction: column; align-items: stretch; gap: 18px; }
@@ -1737,6 +1885,24 @@
       .heroA-navcta { display: none; }
       .heroA-telemetry-items { grid-template-columns: 1fr; }
     }
+
+    /* ── Back-to-top floating button — appears once scrolled past the hero ── */
+    .to-top {
+      position: fixed; right: 26px; bottom: 26px; z-index: 90;
+      width: 48px; height: 48px; border-radius: 50%;
+      display: grid; place-items: center; cursor: pointer;
+      background: #0D2240; color: #fff; border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 12px 30px -10px rgba(13,34,64,.55);
+      opacity: 0; transform: translateY(14px) scale(.92); pointer-events: none;
+      transition: opacity .26s ease, transform .26s ease, background .2s ease, border-color .2s ease;
+    }
+    .to-top.show { opacity: 1; transform: none; pointer-events: auto; }
+    .to-top:hover { background: var(--acc); border-color: var(--acc); box-shadow: 0 14px 32px -10px rgba(224,70,87,.5); }
+    .to-top:focus-visible { outline: 2px solid var(--acc); outline-offset: 3px; }
+    .to-top svg { width: 18px; height: 18px; display: block; }
+    .to-top svg path { fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+    @media (max-width: 600px) { .to-top { right: 16px; bottom: 16px; width: 44px; height: 44px; } }
+    @media (prefers-reduced-motion: reduce) { .to-top { transition: opacity .2s ease; transform: none; } }
   </style>
 </head>
 <body>
@@ -1755,11 +1921,11 @@
         <span class="heroA-brand-sys" aria-hidden="true">Systems</span>
       </a>
       <ul class="heroA-links">
-        <li><a href="#solution">Platform</a></li>
-        <li><a href="#problem">Solutions</a></li>
-        <li><a href="#about">About</a></li>
+        <li><a href="#problem">The problem</a></li>
+        <li><a href="#solution">Solution</a></li>
+        <li><a href="platform.html">Platform</a></li>
       </ul>
-      <a href="#talk" class="heroA-navcta">Request architecture review</a>
+      <a href="#talk" class="heroA-navcta">Schedule a briefing</a>
     </nav>
 
     <div class="heroA-hero">
@@ -1767,9 +1933,9 @@
         <div>
           <span class="heroA-eyebrow">Payment orchestration</span>
           <h1 class="heroA-h1">When a rail goes down, your payments <em>don&rsquo;t.</em></h1>
-          <p class="heroA-sub">EBB sits between your core and every operator &mdash; <strong>routing, retrying, and recovering in real time.</strong> One resilient layer your bank owns, not a vendor&rsquo;s black box.</p>
+          <p class="heroA-sub">EBB sits between every channel and every operator, with your core as the system of record &mdash; <strong>routing, retrying, and recovering in real time.</strong> One resilient layer your bank owns, not a vendor&rsquo;s black box.</p>
           <div class="heroA-cta">
-            <a href="#talk" class="heroA-btn heroA-btn--primary">Request an architecture review</a>
+            <a href="#talk" class="heroA-btn heroA-btn--primary">Schedule a briefing</a>
             <a href="#solution" class="heroA-btn heroA-btn--ghost">See how it recovers &rarr;</a>
           </div>
         </div>
@@ -1809,39 +1975,46 @@
     <div class="o3__head">
       <span class="p-eyebrow">the problem</span>
       <h2 class="p-heading">Your payment platform works <em>— until it doesn't.</em></h2>
-      <p class="p-bridge">A steady line, until it isn't. Each drop is a pattern we have seen time and again:</p>
+      <p class="p-bridge">Two states of the same system. The good days all look alike &mdash; the bad ones never do.</p>
     </div>
 
     <p class="sr-only">
-      Illustrative throughput chart for a payments platform. The line is mostly steady, with six sharp drops marking recurring failure patterns we have seen across payment stacks: timeouts and outages, silent reversals, security exposure, reconciliation breaks, audit scrambles, and after-hours deploys.
+      Two states of the same payment platform. On a good day: payments clear on the first try, the books reconcile themselves overnight, and no one is paged. When a rail fails it cascades — timeouts and outages, silent reversals that leave money in limbo, security exposure, reconciliation breaks, audit scrambles, and after-hours deploys to stop the bleed.
     </p>
 
-    <div class="o3__ecgwrap">
-      <div class="o3__ecg" aria-hidden="true">
-        <svg viewBox="0 0 1200 240" preserveAspectRatio="none">
-          <line class="grid" x1="0" y1="60" x2="1200" y2="60"/>
-          <line class="grid" x1="0" y1="170" x2="1200" y2="170"/>
-          <line class="base" x1="0" y1="115" x2="1200" y2="115"/>
-          <path class="trace" d="M0 110 Q30 105 60 112 T110 108 L118 108 L130 205 L142 108 Q180 102 220 112 T290 106 L298 106 L310 205 L322 106 Q360 100 400 112 T470 108 L478 108 L490 205 L502 108 Q540 102 580 110 T645 106 L653 106 L665 205 L677 106 Q720 100 770 112 T820 108 L828 108 L840 205 L852 108 Q900 102 960 110 T1018 106 L1026 106 L1038 205 L1050 106 Q1100 104 1140 110 T1200 108"/>
-          <g class="drop"><circle cx="130" cy="205" r="4.5"/><circle cx="310" cy="205" r="4.5"/><circle cx="490" cy="205" r="4.5"/><circle cx="665" cy="205" r="4.5"/><circle cx="840" cy="205" r="4.5"/><circle cx="1038" cy="205" r="4.5"/></g>
-          <circle class="ring" cx="130" cy="205"/><circle class="ring" cx="490" cy="205"/><circle class="ring" cx="840" cy="205"/>
-        </svg>
+    <div class="dip">
+      <div class="dip__cols">
+      <div class="dip__side dip__side--ok">
+        <span class="dip__tag">It works</span>
+        <h3>It looks fine <em>&mdash; so no one looks closer.</em></h3>
+        <div class="dip__mini" aria-hidden="true"><svg viewBox="0 0 320 54" preserveAspectRatio="none"><path class="lOK" d="M0 27 Q30 24 60 27 T120 27 T180 27 T240 27 T320 27"/></svg></div>
+        <ul class="dip__list">
+          <li class="row"><span class="ic" aria-hidden="true">&#10003;</span><span>Payments <em class="hedge">seem</em> to clear on the first try</span></li>
+          <li class="row"><span class="ic" aria-hidden="true">&#10003;</span><span>Every dashboard reads green</span></li>
+          <li class="row"><span class="ic" aria-hidden="true">&#10003;</span><span>No one has flagged a missing payment</span></li>
+          <li class="row"><span class="ic" aria-hidden="true">&#10003;</span><span>The books <em class="hedge">appear to</em> tie out</span></li>
+          <li class="row"><span class="ic" aria-hidden="true">&#10003;</span><span>The on-call phone hasn&rsquo;t rung &mdash; <em class="hedge">yet</em></span></li>
+        </ul>
       </div>
-      <!-- One label per drop, aligned to the drop's x position; revealed in
-           sync with the trace tip (delays computed by JS from path geometry). -->
-      <div class="o3__droplabels">
-        <button type="button" class="o3__dlabel" data-pain="timeout.outage" style="left:10.8%;animation-delay:0.43s" aria-label="Open list at Timeouts & outages"><span>Timeouts &amp; outages</span></button>
-        <button type="button" class="o3__dlabel" data-pain="reversal.silent" style="left:25.8%;animation-delay:1.14s" aria-label="Open list at Silent reversals"><span>Silent reversals</span></button>
-        <button type="button" class="o3__dlabel" data-pain="security.surface" style="left:40.8%;animation-delay:1.85s" aria-label="Open list at Security exposure"><span>Security exposure</span></button>
-        <button type="button" class="o3__dlabel" data-pain="recon.manual" style="left:55.4%;animation-delay:2.55s" aria-label="Open list at Reconciliation breaks"><span>Reconciliation breaks</span></button>
-        <button type="button" class="o3__dlabel" data-pain="audit.weeklong" style="left:70%;animation-delay:3.25s" aria-label="Open list at Audit scrambles"><span>Audit scrambles</span></button>
-        <button type="button" class="o3__dlabel" data-pain="deploy.midnight" style="left:86.5%;animation-delay:4.0s" aria-label="Open list at After-hours deploys"><span>After-hours deploys</span></button>
+      <div class="dip__side dip__side--bad">
+        <span class="dip__tag">until it doesn&rsquo;t</span>
+        <h3>Then one rail hiccups <em>&mdash; and it cascades.</em></h3>
+        <div class="dip__mini" aria-hidden="true"><svg viewBox="0 0 320 54" preserveAspectRatio="none"><path class="lBAD" d="M0 24 Q24 22 48 25 L60 25 L70 50 L80 8 L92 38 L104 14 L150 30 L160 49 L170 12 L200 33 L230 47 L250 16 L320 40"/></svg></div>
+        <div class="dip__rows">
+          <button type="button" class="row" data-pain="timeout.outage"><span class="ic" aria-hidden="true">&times;</span>Timeouts &amp; outages</button>
+          <button type="button" class="row" data-pain="reversal.silent"><span class="ic" aria-hidden="true">&times;</span>Silent reversals &mdash; money in limbo</button>
+          <button type="button" class="row" data-pain="security.surface"><span class="ic" aria-hidden="true">&times;</span>Security exposure</button>
+          <button type="button" class="row" data-pain="recon.manual"><span class="ic" aria-hidden="true">&times;</span>Reconciliation breaks &middot; audit scrambles</button>
+          <button type="button" class="row" data-pain="deploy.midnight"><span class="ic" aria-hidden="true">&times;</span>After-hours deploys to stop the bleed</button>
+        </div>
       </div>
-    </div>
+      <span class="dip__seam" aria-hidden="true"></span>
+      </div>
 
-    <div class="o3__foot">
-      <p class="o3__footnote">A sample of the common failure patterns &mdash; grouped by the layer that fails.</p>
-      <button type="button" class="o3__seelist" data-drawer-open>See the full list <span aria-hidden="true">&rarr;</span></button>
+      <div class="dip__foot">
+        <p class="dip__footnote">A sample of the common failure patterns &mdash; the full set is grouped by the layer that&nbsp;fails.</p>
+        <button type="button" class="o3__seelist" data-drawer-open>See them all <span aria-hidden="true">&rarr;</span></button>
+      </div>
     </div>
 
   </section>
@@ -1853,193 +2026,293 @@
        4-theme card grid (Peace of mind · Confidence · Trust · Velocity)
        ============================================================ -->
   <section class="solution3" id="solution">
+
+    <header class="solution3__head">
+      <span class="solution3__eyebrow">the solution</span>
+      <h2 class="solution3__heading">EBB Systems replaces fragile payment infrastructure <em>with a resilient transaction platform.</em></h2>
+      <p class="solution3__lede">It sits between every channel your customers touch and every operator they reach &mdash; with your core as the system of record. The layer your team has been holding together by hand. Follow one payment down the rail.</p>
+    </header>
+
     <div class="solution3__container">
 
-      <header class="solution3__head">
-        <span class="solution3__eyebrow">the solution</span>
-        <h2 class="solution3__heading">EBB Systems replaces fragile payment infrastructure <em>with a resilient transaction platform.</em></h2>
-        <p class="solution3__lede">It sits between your corebanking stack and every operator &mdash; the layer your team has been holding together by hand.</p>
-      </header>
+      <div class="rail" id="rail">
+        <div class="rail__spine"></div>
 
-      <div class="solution3__frame">
-        <div class="solution3__frame-header">
-          <span class="solution3__frame-tag"><em>Fig.</em> &nbsp;The architecture</span>
-          <span class="solution3__frame-flow"><span>your stack</span> &nbsp;&rarr;&nbsp; ebb &nbsp;&rarr;&nbsp; <span>every operator</span></span>
-        </div>
-        <svg class="arch" viewBox="0 0 1100 460" role="img" aria-label="EBB gateway between corebanking stack and operator networks">
-          <rect x="48" y="48" width="144" height="132" rx="3" fill="none" stroke="rgba(13,34,64,0.4)" stroke-width="1"/>
-          <rect x="908" y="188" width="144" height="212" rx="3" fill="none" stroke="rgba(13,34,64,0.4)" stroke-width="1"/>
+        <!-- 01 ARCHITECTURE -->
+        <div class="rail__beat in">
+          <div class="rail__dot"><b>01</b></div>
+          <div class="rail__panel">
+          <div class="bh">
+            <span class="bh__name">The architecture</span>
+            <span class="bh__aside">where EBB sits</span>
+          </div>
+          <div class="arch-frame">
+        <svg class="arch" viewBox="0 0 1100 564" role="img" aria-label="EBB gateway sits between every customer channel and every operator network. Channels — mobile app, internet bank, USSD, agency banking, corporate host-to-host, DFS wallet, and merchant/POS — originate payments into the EBB gateway. The gateway runs eight capabilities, calls the core banking system (Finacle, T24, FlexCube or custom CBS) to debit and credit the ledger, and settles out to operator networks: mobile money, card networks, inter-banking, cross-border and remittances.">
+          <defs><marker id="arch-ah" markerWidth="10" markerHeight="10" refX="7" refY="4.5" orient="auto-start-reverse"><path d="M0 0 L9 4.5 L0 9 z" fill="#8B1A1A"/></marker></defs>
 
-          <g>
-            <line class="edge" x1="550" y1="210" x2="550" y2="80"/>
-            <line class="edge" x1="550" y1="210" x2="720" y2="100"/>
-            <line class="edge" x1="550" y1="210" x2="800" y2="210"/>
-            <line class="edge" x1="550" y1="210" x2="720" y2="320"/>
-            <line class="edge" x1="550" y1="210" x2="550" y2="340"/>
-            <line class="edge" x1="550" y1="210" x2="380" y2="320"/>
-            <line class="edge" x1="550" y1="210" x2="300" y2="210"/>
-            <line class="edge" x1="550" y1="210" x2="380" y2="100"/>
-          </g>
+          <!-- left: channels (origination) -->
+          <text class="hdr" x="120" y="76" text-anchor="middle">Channels</text>
+          <rect class="cluster" x="36" y="86" width="168" height="250" rx="8"/>
+          <rect class="box" x="45" y="98" width="150" height="26" rx="3"/><text class="box-text" x="120" y="115" text-anchor="middle">Mobile app</text>
+          <rect class="box" x="45" y="131" width="150" height="26" rx="3"/><text class="box-text" x="120" y="148" text-anchor="middle">Internet bank</text>
+          <rect class="box" x="45" y="164" width="150" height="26" rx="3"/><text class="box-text" x="120" y="181" text-anchor="middle">USSD</text>
+          <rect class="box" x="45" y="197" width="150" height="26" rx="3"/><text class="box-text" x="120" y="214" text-anchor="middle">Agency bank</text>
+          <rect class="box" x="45" y="230" width="150" height="26" rx="3"/><text class="box-text" x="120" y="247" text-anchor="middle">Corporate / H2H</text>
+          <rect class="box" x="45" y="263" width="150" height="26" rx="3"/><text class="box-text" x="120" y="280" text-anchor="middle">DFS / wallet</text>
+          <rect class="box" x="45" y="296" width="150" height="26" rx="3"/><text class="box-text" x="120" y="313" text-anchor="middle">Merchant &amp; POS</text>
 
-          <g>
-            <rect class="box" x="490" y="50" width="120" height="34" rx="3"/><text class="box-text" x="550" y="71" text-anchor="middle">resilient routing</text>
-            <rect class="box" x="660" y="74" width="120" height="34" rx="3"/><text class="box-text" x="720" y="95" text-anchor="middle">reconciliation</text>
-            <rect class="box" x="740" y="190" width="120" height="34" rx="3"/><text class="box-text" x="800" y="211" text-anchor="middle">audit trails</text>
-            <rect class="box" x="660" y="306" width="120" height="34" rx="3"/><text class="box-text" x="720" y="327" text-anchor="middle">transaction view</text>
-            <rect class="box" x="490" y="330" width="120" height="34" rx="3"/><text class="box-text" x="550" y="351" text-anchor="middle">defence-in-depth</text>
-            <rect class="box" x="320" y="306" width="120" height="34" rx="3"/><text class="box-text" x="380" y="327" text-anchor="middle">AML / KYC</text>
-            <rect class="box" x="240" y="190" width="120" height="34" rx="3"/><text class="box-text" x="300" y="211" text-anchor="middle">new corridors</text>
-            <rect class="box" x="320" y="74" width="120" height="34" rx="3"/><text class="box-text" x="380" y="95" text-anchor="middle">safe deploys</text>
-          </g>
+          <!-- flow in -->
+          <text class="flowlbl" x="282" y="196" text-anchor="middle">every payment</text>
+          <line class="flow" x1="212" y1="210" x2="352" y2="210" marker-end="url(#arch-ah)"/>
 
-          <circle class="gateway" cx="550" cy="210" r="48"/>
-          <text class="gw-text" x="550" y="208" text-anchor="middle">EBB</text>
-          <text class="gw-sub" x="550" y="228" text-anchor="middle">gateway</text>
+          <!-- center: EBB gateway holding the capabilities -->
+          <rect class="panel-rect" x="360" y="60" width="380" height="300" rx="12"/>
+          <path class="panel-bar" d="M360 72 a12 12 0 0 1 12 -12 h356 a12 12 0 0 1 12 12 v34 h-380 z"/>
+          <text class="gw-text" x="550" y="92" text-anchor="middle">EBB GATEWAY</text>
+          <rect class="chip" x="384" y="132" width="156" height="36" rx="4"/><text class="chip-text" x="462" y="155" text-anchor="middle">resilient routing</text>
+          <rect class="chip" x="560" y="132" width="156" height="36" rx="4"/><text class="chip-text" x="638" y="155" text-anchor="middle">reconciliation</text>
+          <rect class="chip" x="384" y="178" width="156" height="36" rx="4"/><text class="chip-text" x="462" y="201" text-anchor="middle">safe deploys</text>
+          <rect class="chip" x="560" y="178" width="156" height="36" rx="4"/><text class="chip-text" x="638" y="201" text-anchor="middle">audit trails</text>
+          <rect class="chip" x="384" y="224" width="156" height="36" rx="4"/><text class="chip-text" x="462" y="247" text-anchor="middle">new corridors</text>
+          <rect class="chip" x="560" y="224" width="156" height="36" rx="4"/><text class="chip-text" x="638" y="247" text-anchor="middle">transaction view</text>
+          <rect class="chip" x="384" y="270" width="156" height="36" rx="4"/><text class="chip-text" x="462" y="293" text-anchor="middle">AML / KYC</text>
+          <rect class="chip" x="560" y="270" width="156" height="36" rx="4"/><text class="chip-text" x="638" y="293" text-anchor="middle">defence-in-depth</text>
+          <text class="col-sub" x="550" y="338" text-anchor="middle">the resilient layer your bank owns</text>
 
-          <g>
-            <rect class="box" x="60" y="60" width="120" height="28" rx="3"/><text class="box-text" x="120" y="78" text-anchor="middle">Finacle / T24</text>
-            <rect class="box" x="60" y="100" width="120" height="28" rx="3"/><text class="box-text" x="120" y="118" text-anchor="middle">FlexCube</text>
-            <rect class="box" x="60" y="140" width="120" height="28" rx="3"/><text class="box-text" x="120" y="158" text-anchor="middle">Custom CBS</text>
-            <text class="col-sub" x="120" y="200" text-anchor="middle">your corebanking stack</text>
-            <line class="edge" x1="180" y1="114" x2="500" y2="200"/>
-          </g>
+          <!-- flow out -->
+          <text class="flowlbl" x="818" y="196" text-anchor="middle">settle to operator</text>
+          <line class="flow" x1="748" y1="210" x2="888" y2="210" marker-end="url(#arch-ah)"/>
 
-          <g>
-            <rect class="box" x="920" y="200" width="120" height="28" rx="3"/><text class="box-text" x="980" y="218" text-anchor="middle">Mobile money</text>
-            <rect class="box" x="920" y="240" width="120" height="28" rx="3"/><text class="box-text" x="980" y="258" text-anchor="middle">Card networks</text>
-            <rect class="box" x="920" y="280" width="120" height="28" rx="3"/><text class="box-text" x="980" y="298" text-anchor="middle">Inter-banking</text>
-            <rect class="box" x="920" y="320" width="120" height="28" rx="3"/><text class="box-text" x="980" y="338" text-anchor="middle">Cross-border</text>
-            <rect class="box" x="920" y="360" width="120" height="28" rx="3"/><text class="box-text" x="980" y="378" text-anchor="middle">Remittances</text>
-            <text class="col-sub" x="980" y="420" text-anchor="middle">networks</text>
-            <line class="edge" x1="920" y1="294" x2="598" y2="220"/>
-          </g>
+          <!-- right: operator networks -->
+          <text class="hdr" x="980" y="106" text-anchor="middle">Networks</text>
+          <rect class="cluster" x="896" y="116" width="168" height="178" rx="8"/>
+          <rect class="box" x="905" y="128" width="150" height="26" rx="3"/><text class="box-text" x="980" y="145" text-anchor="middle">Mobile money</text>
+          <rect class="box" x="905" y="161" width="150" height="26" rx="3"/><text class="box-text" x="980" y="178" text-anchor="middle">Card networks</text>
+          <rect class="box" x="905" y="194" width="150" height="26" rx="3"/><text class="box-text" x="980" y="211" text-anchor="middle">Inter-banking</text>
+          <rect class="box" x="905" y="227" width="150" height="26" rx="3"/><text class="box-text" x="980" y="244" text-anchor="middle">Cross-border</text>
+          <rect class="box" x="905" y="260" width="150" height="26" rx="3"/><text class="box-text" x="980" y="277" text-anchor="middle">Remittances</text>
+
+          <!-- down: core banking (the ledger EBB calls) — debit goes down, credit returns up -->
+          <line class="flow" x1="538" y1="364" x2="538" y2="403" stroke-width="2" marker-end="url(#arch-ah)"/>
+          <line class="flow" x1="562" y1="403" x2="562" y2="364" stroke-width="2" marker-end="url(#arch-ah)"/>
+          <text class="flowlbl" x="521" y="387" text-anchor="end">debit</text>
+          <text class="flowlbl" x="579" y="387" text-anchor="start">credit</text>
+          <rect class="cluster" x="448" y="410" width="204" height="116" rx="8"/>
+          <rect class="box" x="465" y="420" width="170" height="26" rx="3"/><text class="box-text" x="550" y="437" text-anchor="middle">Finacle / T24</text>
+          <rect class="box" x="465" y="453" width="170" height="26" rx="3"/><text class="box-text" x="550" y="470" text-anchor="middle">FlexCube</text>
+          <rect class="box" x="465" y="486" width="170" height="26" rx="3"/><text class="box-text" x="550" y="503" text-anchor="middle">Custom CBS</text>
+          <text class="hdr" x="550" y="547" text-anchor="middle">Core banking</text>
+          <text class="col-sub" x="550" y="562" text-anchor="middle">your system of record</text>
         </svg>
-        <p class="solution3__frame-caption">One gateway. Eight capabilities. Every operator your customers reach.</p>
-      </div>
-
-      <div class="solution3__lifecycle">
-        <div class="solution3__lc-head">
-          <span class="solution3__lc-intro">protected at every step</span>
-          <span class="solution3__lc-aside">What happens to a payment after it leaves your core.</span>
+          <p class="arch-cap">Every channel in, every operator out &mdash; your core always in sync.</p>
+          </div>
+          </div>
         </div>
-        <ol class="solution3__lc-stages">
 
-          <li class="solution3__lc-stage">
-            <div class="solution3__lc-stage-head"><span class="solution3__lc-num">01</span><span class="solution3__lc-name">Route</span></div>
-            <div class="solution3__lc-viz">
-              <svg class="lc-svg" viewBox="0 0 240 92" role="img" aria-label="Routing: a payment travels from your core, through EBB, to the right rail">
-                <line class="lc-edge" x1="56" y1="46" x2="184" y2="46"/>
-                <rect class="lc-node" x="12" y="34" width="44" height="24" rx="3"/><text class="lc-lbl" x="34" y="49" text-anchor="middle">core</text>
-                <rect class="lc-node" x="184" y="34" width="44" height="24" rx="3"/><text class="lc-lbl" x="206" y="49" text-anchor="middle">rail</text>
-                <circle class="lc-hub" cx="120" cy="46" r="17"/><text class="lc-hub-tx" x="120" y="49" text-anchor="middle">EBB</text>
-                <circle class="lc-ring is-green" cx="206" cy="46" opacity="0">
-                  <animate attributeName="opacity" values="0;0;1;0" keyTimes="0;0.78;0.88;1" dur="2.6s" repeatCount="indefinite"/>
-                  <animate attributeName="r" values="11;11;18;22" keyTimes="0;0.78;0.88;1" dur="2.6s" repeatCount="indefinite"/>
-                </circle>
-                <circle class="lc-pkt is-green" r="4" opacity="0">
-                  <animateMotion dur="2.6s" repeatCount="indefinite" keyTimes="0;0.1;0.8;1" keyPoints="0;0;1;1" calcMode="linear" path="M34 46 L206 46"/>
-                  <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.12;0.8;0.84" dur="2.6s" repeatCount="indefinite"/>
-                </circle>
-              </svg>
+        <!-- 02 LIFECYCLE -->
+        <div class="rail__beat">
+          <div class="rail__dot"><b>02</b></div>
+          <div class="rail__panel">
+          <div class="bh">
+            <span class="bh__name">Protected at every step</span>
+            <span class="bh__aside">what happens to a payment after it leaves your core</span>
+          </div>
+          <div class="s3-canvas">
+          <div class="morph__grid">
+            <div class="morph__visual" id="mvis" data-s="1">
+              <div class="mtrack">
+                <div class="mnode">core</div><div class="mhub">EBB<span>gateway</span></div><div class="mnode">rail</div>
+                <div class="mline"></div><div class="mpkt g"></div><div class="mpkt a"></div>
+              </div>
+              <div class="mledger">
+                <div class="mlrow"><div class="mlc"></div><div class="mlt"><span class="ok">&#10003;</span></div><div class="mlc"></div></div>
+                <div class="mlrow mlrow--fix"><div class="mlc"></div><div class="mlt"><span class="no">&#10007;</span><span class="ok">&#10003;</span></div><div class="mlc"></div></div>
+                <div class="mlrow"><div class="mlc"></div><div class="mlt"><span class="ok">&#10003;</span></div><div class="mlc"></div></div>
+              </div>
             </div>
-            <p class="solution3__lc-cap">Every payment sent down the right rail, the moment it&rsquo;s made.</p>
-          </li>
-
-          <li class="solution3__lc-stage">
-            <div class="solution3__lc-stage-head"><span class="solution3__lc-num">02</span><span class="solution3__lc-name">Retry</span></div>
-            <div class="solution3__lc-viz">
-              <svg class="lc-svg" viewBox="0 0 240 92" role="img" aria-label="Retry: a timed-out payment is automatically re-attempted until it clears">
-                <line class="lc-edge" x1="58" y1="46" x2="176" y2="46"/>
-                <circle class="lc-hub" cx="40" cy="46" r="17"/><text class="lc-hub-tx" x="40" y="49" text-anchor="middle">EBB</text>
-                <rect class="lc-node" x="176" y="34" width="50" height="24" rx="3"/><text class="lc-lbl" x="201" y="49" text-anchor="middle">rail</text>
-                <circle class="lc-ring is-amber" cx="201" cy="46" r="13" opacity="0">
-                  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.18;0.24;0.4;0.46;1" dur="3s" repeatCount="indefinite"/>
-                </circle>
-                <circle class="lc-ring is-green" cx="201" cy="46" opacity="0">
-                  <animate attributeName="opacity" values="0;0;1;0" keyTimes="0;0.82;0.9;1" dur="3s" repeatCount="indefinite"/>
-                  <animate attributeName="r" values="11;11;18;22" keyTimes="0;0.82;0.9;1" dur="3s" repeatCount="indefinite"/>
-                </circle>
-                <circle class="lc-pkt is-amber" r="4" opacity="0">
-                  <animateMotion dur="3s" repeatCount="indefinite" keyTimes="0;0.06;0.2;0.34;1" keyPoints="0;0;1;0;0" calcMode="linear" path="M58 46 L201 46"/>
-                  <animate attributeName="opacity" values="0;1;1;1;0;0" keyTimes="0;0.06;0.2;0.33;0.36;1" dur="3s" repeatCount="indefinite"/>
-                </circle>
-                <circle class="lc-pkt is-green" r="4" opacity="0">
-                  <animateMotion dur="3s" repeatCount="indefinite" keyTimes="0;0.55;0.84;1" keyPoints="0;0;1;1" calcMode="linear" path="M58 46 L201 46"/>
-                  <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.55;0.6;0.84;0.88" dur="3s" repeatCount="indefinite"/>
-                </circle>
-              </svg>
+            <div>
+              <div class="morph__steps" id="msteps">
+                <div class="mstep on" data-s="1"><div class="r"><span class="n">01</span><span class="nm">Route</span></div><p class="cap">Every payment sent down the right rail, the moment it&rsquo;s made &mdash; no human in the loop.</p></div>
+                <div class="mstep" data-s="2"><div class="r"><span class="n">02</span><span class="nm">Retry</span></div><p class="cap">Timeouts and failures are caught, backed off, and re-attempted automatically &mdash; no manual resends.</p></div>
+                <div class="mstep" data-s="3"><div class="r"><span class="n">03</span><span class="nm">Reverse</span></div><p class="cap">Payments that can&rsquo;t clear are auto-reversed back to your core. The customer is made whole.</p></div>
+                <div class="mstep" data-s="4"><div class="r"><span class="n">04</span><span class="nm">Reconcile</span></div><p class="cap">Every transaction matched against the operator. Mismatches surface and resolve before finance closes the month.</p></div>
+              </div>
+              <div class="morph__progress"><i id="mprog"></i></div>
             </div>
-            <p class="solution3__lc-cap">Timeouts and failures re-attempted automatically &mdash; no manual resends.</p>
-          </li>
+          </div>
+          </div>
+          </div>
+        </div>
 
-          <li class="solution3__lc-stage">
-            <div class="solution3__lc-stage-head"><span class="solution3__lc-num">03</span><span class="solution3__lc-name">Reverse</span></div>
-            <div class="solution3__lc-viz">
-              <svg class="lc-svg" viewBox="0 0 240 92" role="img" aria-label="Reverse: a payment that cannot clear is automatically reversed back to your core">
-                <line class="lc-edge" x1="56" y1="46" x2="184" y2="46"/>
-                <rect class="lc-node" x="12" y="34" width="44" height="24" rx="3"/><text class="lc-lbl" x="34" y="49" text-anchor="middle">core</text>
-                <rect class="lc-node" x="184" y="34" width="50" height="24" rx="3"/><text class="lc-lbl" x="209" y="49" text-anchor="middle">rail</text>
-                <circle class="lc-hub" cx="120" cy="46" r="17"/><text class="lc-hub-tx" x="120" y="49" text-anchor="middle">EBB</text>
-                <circle class="lc-ring is-amber" cx="209" cy="46" r="13" opacity="0">
-                  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.1;0.16;0.34;0.4;1" dur="3.2s" repeatCount="indefinite"/>
-                </circle>
-                <circle class="lc-pkt is-amber" r="4" opacity="0">
-                  <animateMotion dur="3.2s" repeatCount="indefinite" keyTimes="0;0.4;0.78;1" keyPoints="0;0;1;1" calcMode="linear" path="M209 46 L34 46"/>
-                  <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.4;0.46;0.78;0.82" dur="3.2s" repeatCount="indefinite"/>
-                </circle>
-                <circle class="lc-ring is-green" cx="34" cy="46" opacity="0">
-                  <animate attributeName="opacity" values="0;0;1;0" keyTimes="0;0.78;0.88;1" dur="3.2s" repeatCount="indefinite"/>
-                  <animate attributeName="r" values="11;11;18;22" keyTimes="0;0.78;0.88;1" dur="3.2s" repeatCount="indefinite"/>
-                </circle>
-              </svg>
-            </div>
-            <p class="solution3__lc-cap">Payments that can&rsquo;t clear are auto-reversed. The customer is made whole.</p>
-          </li>
+        <!-- 03 WHAT CHANGES -->
+        <div class="rail__beat">
+          <div class="rail__dot"><b>03</b></div>
+          <div class="rail__panel">
+          <div class="bh">
+            <span class="bh__name">What changes for your team</span>
+            <span class="bh__aside">four shifts in how the work feels</span>
+          </div>
+          <div class="s3-canvas">
+            <div class="pay__grid" data-solution3-themes></div>
+          </div>
+          <div class="pay__close"><p>We hold the rails. <em>You hold the roadmap.</em></p></div>
+          </div>
+        </div>
 
-          <li class="solution3__lc-stage">
-            <div class="solution3__lc-stage-head"><span class="solution3__lc-num">04</span><span class="solution3__lc-name">Reconcile</span></div>
-            <div class="solution3__lc-viz">
-              <svg class="lc-svg" viewBox="0 0 240 92" role="img" aria-label="Reconcile: every transaction is matched against the operator, with mismatches caught and resolved">
-                <text class="lc-lbl" x="40" y="14" text-anchor="middle">EBB</text>
-                <text class="lc-lbl" x="200" y="14" text-anchor="middle">operator</text>
-                <g>
-                  <rect class="lc-node" x="18" y="22" width="44" height="15" rx="2"/>
-                  <rect class="lc-node" x="178" y="22" width="44" height="15" rx="2"/>
-                  <line class="lc-edge" x1="62" y1="29" x2="178" y2="29"/>
-                  <text class="lc-tick is-green" x="120" y="33" text-anchor="middle" opacity="0">&#10003;<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.18;0.26;1" dur="4s" repeatCount="indefinite"/></text>
-                </g>
-                <g>
-                  <rect class="lc-node" x="18" y="42" width="44" height="15" rx="2"/>
-                  <rect class="lc-node" x="178" y="42" width="44" height="15" rx="2"/>
-                  <line class="lc-edge" x1="62" y1="49" x2="178" y2="49"/>
-                  <text class="lc-tick is-crimson" x="120" y="53" text-anchor="middle" opacity="0">&#10007;<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.38;0.46;0.66;0.72;1" dur="4s" repeatCount="indefinite"/></text>
-                  <text class="lc-tick is-green" x="120" y="53" text-anchor="middle" opacity="0">&#10003;<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.72;0.8;1" dur="4s" repeatCount="indefinite"/></text>
-                </g>
-                <g>
-                  <rect class="lc-node" x="18" y="62" width="44" height="15" rx="2"/>
-                  <rect class="lc-node" x="178" y="62" width="44" height="15" rx="2"/>
-                  <line class="lc-edge" x1="62" y1="69" x2="178" y2="69"/>
-                  <text class="lc-tick is-green" x="120" y="73" text-anchor="middle" opacity="0">&#10003;<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.28;0.36;1" dur="4s" repeatCount="indefinite"/></text>
-                </g>
-              </svg>
-            </div>
-            <p class="solution3__lc-cap">Every transaction matched against the operator. Your books always agree.</p>
-          </li>
-
-        </ol>
       </div>
 
-      <div class="solution3__themes-head">
-        <span class="solution3__themes-intro">what changes for your team</span>
-        <span class="solution3__themes-aside">Four shifts in how the work feels.</span>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       §3.5 WHY EBB (#compare) — three ways to connect to the rails,
+       EBB column spotlighted. The "why us" closer before the CTA.
+       ============================================================ -->
+  <section class="cmp" id="compare" data-reveal>
+    <header class="cmp__head">
+      <span class="cmp__eyebrow">an honest comparison</span>
+      <h2 class="cmp__heading">Three real ways to connect &mdash; <em>and what each gives up.</em></h2>
+      <p class="cmp__lede">A managed processor and an in-house build each get real things right. EBB&rsquo;s claim is simple: the strengths of both, without their trade-offs.</p>
+    </header>
+
+    <div class="cmp__container">
+      <div class="cmp__legend" aria-hidden="true">
+        <span><span class="cmp__mk cmp__mk--yes">&#10003;</span> built in</span>
+        <span><span class="cmp__mk cmp__mk--mid">&ndash;</span> partial / your effort</span>
+        <span><span class="cmp__mk cmp__mk--no">&#10007;</span> not offered</span>
       </div>
+      <div class="cmp__scroll">
+        <div class="cmp__table" role="table" aria-label="EBB Systems compared to a managed processor and an in-house integration">
 
-      <ol class="solution3__themes" data-solution3-themes></ol>
+          <div class="cmp__row cmp__row--head" role="row">
+            <div class="cmp__cell cmp__cell--label" role="columnheader"></div>
+            <div class="cmp__cell cmp__col-h cmp__col-h--ebb" role="columnheader">
+              <span class="cmp__colname">EBB Systems</span>
+              <span class="cmp__coltag">the orchestration layer</span>
+            </div>
+            <div class="cmp__cell cmp__col-h cmp__col-h--d" role="columnheader">
+              <span class="cmp__colname">Managed processor</span>
+              <span class="cmp__coltag">run for you</span>
+            </div>
+            <div class="cmp__cell cmp__col-h cmp__col-h--v" role="columnheader">
+              <span class="cmp__colname">In-house integration</span>
+              <span class="cmp__coltag">built by you</span>
+            </div>
+          </div>
 
-      <div class="solution3__closing">
-        <p class="solution3__closing-text">We hold the rails. <em>You hold the roadmap.</em></p>
+          <div class="cmp__row" role="row">
+            <div class="cmp__cell cmp__cell--label" role="rowheader">Who owns it</div>
+            <div class="cmp__cell cmp__cell--ebb" role="cell"><span class="cmp__mk cmp__mk--yes" aria-hidden="true">&#10003;</span><span>Your estate, your team</span></div>
+            <div class="cmp__cell cmp__cell--d" role="cell"><span class="cmp__mk cmp__mk--no" aria-hidden="true">&#10007;</span><span>The vendor owns it</span></div>
+            <div class="cmp__cell cmp__cell--v" role="cell"><span class="cmp__mk cmp__mk--yes" aria-hidden="true">&#10003;</span><span>Yours, end to end</span></div>
+          </div>
+
+          <div class="cmp__row" role="row">
+            <div class="cmp__cell cmp__cell--label" role="rowheader">When a rail goes down</div>
+            <div class="cmp__cell cmp__cell--ebb" role="cell"><span class="cmp__mk cmp__mk--yes" aria-hidden="true">&#10003;</span><span>Auto-reroute, retry, reverse</span></div>
+            <div class="cmp__cell cmp__cell--d" role="cell"><span class="cmp__mk cmp__mk--yes" aria-hidden="true">&#10003;</span><span>They handle failover</span></div>
+            <div class="cmp__cell cmp__cell--v" role="cell"><span class="cmp__mk cmp__mk--no" aria-hidden="true">&#10007;</span><span>You build the failover</span></div>
+          </div>
+
+          <div class="cmp__row" role="row">
+            <div class="cmp__cell cmp__cell--label" role="rowheader">Adding a rail</div>
+            <div class="cmp__cell cmp__cell--ebb" role="cell"><span class="cmp__mk cmp__mk--yes" aria-hidden="true">&#10003;</span><span>A config change or a plugin</span></div>
+            <div class="cmp__cell cmp__cell--d" role="cell"><span class="cmp__mk cmp__mk--mid" aria-hidden="true">&ndash;</span><span>On their roadmap</span></div>
+            <div class="cmp__cell cmp__cell--v" role="cell"><span class="cmp__mk cmp__mk--no" aria-hidden="true">&#10007;</span><span>A new project each time</span></div>
+          </div>
+
+          <div class="cmp__row" role="row">
+            <div class="cmp__cell cmp__cell--label" role="rowheader">System of record</div>
+            <div class="cmp__cell cmp__cell--ebb" role="cell"><span class="cmp__mk cmp__mk--yes" aria-hidden="true">&#10003;</span><span>Your core, via a ledger tap</span></div>
+            <div class="cmp__cell cmp__cell--d" role="cell"><span class="cmp__mk cmp__mk--no" aria-hidden="true">&#10007;</span><span>Often their ledger</span></div>
+            <div class="cmp__cell cmp__cell--v" role="cell"><span class="cmp__mk cmp__mk--yes" aria-hidden="true">&#10003;</span><span>Your core</span></div>
+          </div>
+
+          <div class="cmp__row" role="row">
+            <div class="cmp__cell cmp__cell--label" role="rowheader">Reconciliation</div>
+            <div class="cmp__cell cmp__cell--ebb" role="cell"><span class="cmp__mk cmp__mk--yes" aria-hidden="true">&#10003;</span><span>Continuously matched to operators</span></div>
+            <div class="cmp__cell cmp__cell--d" role="cell"><span class="cmp__mk cmp__mk--yes" aria-hidden="true">&#10003;</span><span>They provide the tooling</span></div>
+            <div class="cmp__cell cmp__cell--v" role="cell"><span class="cmp__mk cmp__mk--mid" aria-hidden="true">&ndash;</span><span>You build &amp; schedule it</span></div>
+          </div>
+
+          <div class="cmp__row" role="row">
+            <div class="cmp__cell cmp__cell--label" role="rowheader">Audit &amp; compliance</div>
+            <div class="cmp__cell cmp__cell--ebb" role="cell"><span class="cmp__mk cmp__mk--yes" aria-hidden="true">&#10003;</span><span>An immutable transaction trail</span></div>
+            <div class="cmp__cell cmp__cell--d" role="cell"><span class="cmp__mk cmp__mk--yes" aria-hidden="true">&#10003;</span><span>Certified, audit-ready</span></div>
+            <div class="cmp__cell cmp__cell--v" role="cell"><span class="cmp__mk cmp__mk--mid" aria-hidden="true">&ndash;</span><span>As good as you instrument</span></div>
+          </div>
+
+          <div class="cmp__row" role="row">
+            <div class="cmp__cell cmp__cell--label" role="rowheader">Security</div>
+            <div class="cmp__cell cmp__cell--ebb" role="cell"><span class="cmp__mk cmp__mk--yes" aria-hidden="true">&#10003;</span><span>In your perimeter, hardened by EBB</span></div>
+            <div class="cmp__cell cmp__cell--d" role="cell"><span class="cmp__mk cmp__mk--yes" aria-hidden="true">&#10003;</span><span>Certified to standards</span></div>
+            <div class="cmp__cell cmp__cell--v" role="cell"><span class="cmp__mk cmp__mk--yes" aria-hidden="true">&#10003;</span><span>Your perimeter</span></div>
+          </div>
+
+          <div class="cmp__row" role="row">
+            <div class="cmp__cell cmp__cell--label" role="rowheader">Visibility</div>
+            <div class="cmp__cell cmp__cell--ebb" role="cell"><span class="cmp__mk cmp__mk--yes" aria-hidden="true">&#10003;</span><span>Full lifecycle, on your data</span></div>
+            <div class="cmp__cell cmp__cell--d" role="cell"><span class="cmp__mk cmp__mk--mid" aria-hidden="true">&ndash;</span><span>Their dashboards</span></div>
+            <div class="cmp__cell cmp__cell--v" role="cell"><span class="cmp__mk cmp__mk--mid" aria-hidden="true">&ndash;</span><span>Spread across integrations</span></div>
+          </div>
+
+          <div class="cmp__row" role="row">
+            <div class="cmp__cell cmp__cell--label" role="rowheader">Lock-in</div>
+            <div class="cmp__cell cmp__cell--ebb" role="cell"><span class="cmp__mk cmp__mk--yes" aria-hidden="true">&#10003;</span><span>A standard layer, no lock-in</span></div>
+            <div class="cmp__cell cmp__cell--d" role="cell"><span class="cmp__mk cmp__mk--no" aria-hidden="true">&#10007;</span><span>Proprietary</span></div>
+            <div class="cmp__cell cmp__cell--v" role="cell"><span class="cmp__mk cmp__mk--yes" aria-hidden="true">&#10003;</span><span>No vendor lock-in</span></div>
+          </div>
+
+        </div>
       </div>
+      <div class="cmp__verdict">
+        <span class="cmp__verdict-eyebrow">the bottom line</span>
+        <p class="cmp__verdict-line">A managed processor takes your <em>ownership</em>. In-house makes you build the <em>resilience</em>. EBB is the one layer that gives you <em>both</em>.</p>
+        <a class="cmp__verdict-cta" href="#talk">See where EBB fits in your stack <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
 
+
+  <!-- ============================================================
+       §4 ENGAGEMENT CTA (#talk) — the single conversion path
+       ============================================================ -->
+  <section class="talk" id="talk">
+    <div class="talk__inner">
+      <div class="talk__pitch">
+        <span class="talk__eyebrow">the next step</span>
+        <h2 class="talk__head">Let&rsquo;s walk your payment architecture <em>together.</em></h2>
+        <p class="talk__sub">Walk your rails with our engineers. We&rsquo;ll pinpoint where a single outage takes you down, and show how EBB keeps payments moving through it.</p>
+        <ul class="talk__points">
+          <li>Your failure points, mapped in real time</li>
+          <li>How EBB routes, retries, and recovers around them</li>
+          <li>30 minutes &middot; no obligation</li>
+        </ul>
+      </div>
+      <form class="talk__form" id="talkForm" action="https://formspree.io/f/xojbdjdj" method="POST" novalidate>
+        <input type="hidden" name="_subject" value="Architecture walkthrough request — engineeredbybytes.com">
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="talk__hp" aria-hidden="true">
+        <div class="talk__field">
+          <label for="t-name">Name</label>
+          <input id="t-name" type="text" name="name" required autocomplete="name">
+        </div>
+        <div class="talk__field">
+          <label for="t-email">Work email</label>
+          <input id="t-email" type="email" name="email" required autocomplete="email">
+        </div>
+        <div class="talk__field">
+          <label for="t-org">Institution</label>
+          <input id="t-org" type="text" name="institution" autocomplete="organization">
+        </div>
+        <div class="talk__field">
+          <label for="t-msg">What hurts most? <span>(optional)</span></label>
+          <textarea id="t-msg" name="message" rows="2"></textarea>
+        </div>
+        <div class="talk__status" id="talkStatus" role="status" aria-live="polite"></div>
+        <button type="submit" class="talk__submit" id="talkSubmit"><span class="talk__submit-label">Schedule a briefing</span> <span aria-hidden="true">&rarr;</span></button>
+        <p class="talk__fineprint">We reply within one business day. Your details are never shared.</p>
+      </form>
     </div>
   </section>
 
@@ -2170,28 +2443,40 @@
           Built for banks. Owned by the bank.<br>
           The payment platform underneath the next decade.
         </p>
-      </div>
-
-      <!-- Navigation column -->
-      <div class="ftr__nav-block">
-        <span class="ftr__nav-label">Navigation</span>
-        <ul class="ftr__nav-list">
-          <li><a href="#hero">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#solution">Solutions</a></li>
-          <li><a href="#network">Network</a></li>
-          <li><a href="#talk">Get in Touch</a></li>
-        </ul>
-      </div>
-
-      <!-- Contact column -->
-      <div class="ftr__contact">
-        <span class="ftr__contact-label">Contact</span>
         <div class="ftr__contact-items">
           <a href="mailto:info@engineeredbybytes.com">info@engineeredbybytes.com</a>
           <a href="https://www.engineeredbybytes.com">www.engineeredbybytes.com</a>
-          <span>Nairobi, Kenya</span>
+          <span>Worldwide &middot; Remote-first</span>
         </div>
+      </div>
+
+      <!-- Explore (single-page sections) -->
+      <div class="ftr__nav-block">
+        <span class="ftr__nav-label">Explore</span>
+        <ul class="ftr__nav-list">
+          <li><a href="#problem">The problem</a></li>
+          <li><a href="#solution">Platform</a></li>
+          <li><a href="#compare">Why EBB</a></li>
+        </ul>
+      </div>
+
+      <!-- Company -->
+      <div class="ftr__nav-block">
+        <span class="ftr__nav-label">Company</span>
+        <ul class="ftr__nav-list">
+          <li><a href="about.html">About EBB Systems</a></li>
+          <li><a href="platform.html">The Platform</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div class="ftr__nav-block">
+        <span class="ftr__nav-label">Legal</span>
+        <ul class="ftr__nav-list">
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="#talk">Get in Touch</a></li>
+        </ul>
       </div>
 
     </div>
@@ -2214,7 +2499,7 @@
       const THEMES = [
         {
           title: 'Peace of mind',
-          felt:  'The 3am pager, finally quiet.',
+          felt:  'The 3am call that never comes.',
           items: [
             { b: 'Multi-rail routing', d: 'Retries and reversals built in. Most failures resolve themselves before anyone has to be woken.' },
             { b: 'Continuous reconciliation', d: 'Every operator reconciled continuously. Variances surface and resolve long before finance closes the books.' },
@@ -2246,17 +2531,92 @@
         },
       ];
       mount.innerHTML = THEMES.map((t, i) => `
-        <li class="solution3__theme">
-          <div class="solution3__theme-head">
-            <span class="solution3__theme-num">${String(i+1).padStart(2,'0')}</span>
-            <h3 class="solution3__theme-title">${t.title}</h3>
+        <div class="pay__entry">
+          <div class="pay__entry-hd">
+            <span class="pay__num">${String(i+1).padStart(2,'0')}</span>
+            <h3 class="pay__title">${t.title}</h3>
           </div>
-          <p class="solution3__theme-felt">${t.felt}</p>
-          <ul class="solution3__theme-items">
-            ${t.items.map(it => `<li class="solution3__theme-item"><div><b>${it.b}</b><span>${it.d}</span></div></li>`).join('')}
+          <p class="pay__felt">${t.felt}</p>
+          <ul class="pay__items">
+            ${t.items.map(it => `<li class="pay__item"><div><b>${it.b}</b> <span>${it.d}</span></div></li>`).join('')}
           </ul>
-        </li>
+        </div>
       `).join('');
+    })();
+
+    // §3 — lifecycle scroll-morph stepper (Route → Retry → Reverse → Reconcile)
+    (function () {
+      const vis = document.getElementById('mvis');
+      const steps = document.querySelectorAll('.mstep');
+      const prog = document.getElementById('mprog');
+      if (!vis || !steps.length || !prog) return;
+      const fixRow = vis.querySelector('.mlrow--fix');
+      const STEP_COLOURS = ['#3E7D63', '#2C4E7A', '#9A2F2F', '#A8732A'];
+      let s = 1, timer, resolveT;
+      function set(n) {
+        s = n;
+        vis.setAttribute('data-s', n);
+        steps.forEach(x => x.classList.toggle('on', +x.dataset.s === n));
+        prog.style.width = (n * 25) + '%';
+        prog.style.background = STEP_COLOURS[n - 1] || 'var(--crimson)';
+        // Reconcile (step 4): hold the red ✗, then flip to green ✓ after ~2s
+        clearTimeout(resolveT);
+        if (fixRow) {
+          fixRow.classList.remove('resolved');
+          if (n === 4) {
+            resolveT = setTimeout(() => { if (s === 4) fixRow.classList.add('resolved'); }, 2000);
+          }
+        }
+      }
+      // auto-advance, but hover/click locks on a step until the cursor leaves the panel
+      function pause() { clearInterval(timer); timer = null; }
+      function resume() { if (!timer) timer = setInterval(() => set(s % 4 + 1), 3200); }
+      function lock(n) { pause(); set(n); }
+      const grid = vis.closest('.morph__grid');
+      steps.forEach(x => {
+        const n = +x.dataset.s;
+        x.addEventListener('mouseenter', () => lock(n));
+        x.addEventListener('click', () => lock(n));
+        x.addEventListener('focus', () => lock(n));
+      });
+      if (grid) {
+        grid.addEventListener('mouseenter', pause);   // dwell on the panel → hold
+        grid.addEventListener('mouseleave', resume);  // move away → resume cycling
+        grid.addEventListener('focusout', e => { if (!grid.contains(e.relatedTarget)) resume(); });
+      }
+      set(1); resume();
+    })();
+
+    // §3 — the rail: each station lights crimson as it is reached
+    (function () {
+      const beats = document.querySelectorAll('#rail .rail__beat');
+      if (!beats.length) return;
+      if (!('IntersectionObserver' in window)) {
+        beats.forEach(b => b.classList.add('in'));
+        return;
+      }
+      const io = new IntersectionObserver((es) => {
+        es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+      }, { rootMargin: '-35% 0px -55% 0px' });
+      beats.forEach(b => io.observe(b));
+    })();
+
+    // §3.5 — comparison table: highlight the hovered row across all columns.
+    // Rows are display:contents, so we delegate on the grid and resolve the
+    // row from the hovered cell — only re-painting when the row actually changes.
+    (function () {
+      const table = document.querySelector('.cmp__table');
+      if (!table) return;
+      let current = null;
+      function clear() { if (current) { current.classList.remove('is-hl'); current = null; } }
+      table.addEventListener('mouseover', (e) => {
+        const row = e.target.closest('.cmp__row');
+        const next = (row && !row.classList.contains('cmp__row--head')) ? row : null;
+        if (next === current) return;
+        clear();
+        if (next) { next.classList.add('is-hl'); current = next; }
+      });
+      table.addEventListener('mouseleave', clear);
     })();
   </script>
 
@@ -2376,33 +2736,38 @@
       const el = document.getElementById('topoA');
       if (!el) return;
 
-      const cores = ['Finacle / T24', 'FlexCube', 'Custom CBS'];
+      const channels = ['Mobile app', 'USSD', 'Corporate / H2H', 'DFS / wallet'];
       const ops = [
         { n: 'Mobile money', state: 'outage' },
         { n: 'Inter-banking', state: 'ok' },
-        { n: 'Card networks', state: 'ok' },
+        { n: 'Card networks', state: 'reverse' },
         { n: 'SWIFT / x-border', state: 'ok' },
         { n: 'Remittances', state: 'ok' },
         { n: 'Bill & utility', state: 'ok' }
       ];
 
       function buildTopo() {
-        const W = 600, H = 360, gx = 300, gy = 180, gr = 42;
-        const coreX = 42, coreW = 120, coreY0 = 120, coreGap = 42;
-        const opX = 438, opW = 132, opY0 = 58, opGap = 44;
-        const coreY = i => coreY0 + i * coreGap;
-        const opY = i => opY0 + i * opGap;
-        let s = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Live payment routing topology with automatic retry and recovery">`;
-        s += `<defs>
-          <path id="ha-pin" d="M ${coreX + coreW} ${gy} L ${gx - gr} ${gy}"/>
-        </defs>`;
-        cores.forEach((c, i) => { s += `<line class="t-edge" x1="${coreX + coreW}" y1="${coreY(i) + 13}" x2="${gx - gr}" y2="${gy}"/>`; });
+        const W = 600, H = 326, gx = 300, gy = 168, gr = 40;
+        const chX = 38, chW = 126, opX = 436, opW = 134;
+        const pitch = 42; // each column centred independently on the gateway
+        const opTop = gy - ((ops.length - 1) * pitch + 26) / 2;
+        const opY = i => opTop + i * pitch;
+        const chTop = gy - ((channels.length - 1) * pitch + 26) / 2;
+        const chY = i => chTop + i * pitch;
+        const coreY = 286, coreX = 240, coreW = 120, coreTop = gy + gr; // core sits below the gateway
+        const revI = ops.findIndex(o => o.state === 'reverse'); // rail demonstrating auto-reversal
+        let s = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Live payment topology: channels originate into the EBB gateway, which calls core banking for the ledger and settles to operator networks, with automatic retry and recovery on rail outage">`;
+        channels.forEach((c, i) => { s += `<line class="t-edge-ghost" x1="${chX + chW}" y1="${chY(i) + 13}" x2="${gx - gr}" y2="${gy}"/>`; });
         ops.forEach((o, i) => { s += `<line class="t-edge" x1="${gx + gr}" y1="${gy}" x2="${opX}" y2="${opY(i) + 13}"/>`; });
+        s += `<line class="t-edge" x1="${gx}" y1="${coreTop}" x2="${gx}" y2="${coreY}"/>`;
         s += `<line class="t-edge-down" x1="${gx + gr}" y1="${gy}" x2="${opX}" y2="${opY(0) + 13}"/>`;
-        for (let k = 0; k < 3; k++) { s += `<circle class="t-pulse" cx="${gx}" cy="${gy}" r="${gr}"><animate attributeName="r" values="${gr};${gr + 40}" dur="4s" begin="${k * 1.3}s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;.5;0" keyTimes="0;.3;1" dur="4s" begin="${k * 1.3}s" repeatCount="indefinite"/></circle>`; }
-        cores.forEach((c, i) => { s += `<g><rect class="t-box" x="${coreX}" y="${coreY(i)}" width="${coreW}" height="26" rx="5"/><text class="t-box-tx" x="${coreX + coreW / 2}" y="${coreY(i) + 17}" text-anchor="middle">${c}</text></g>`; });
-        s += `<text class="t-sub" x="${coreX + coreW / 2}" y="${coreY(2) + 46}" text-anchor="middle">your core</text>`;
+        for (let k = 0; k < 3; k++) { s += `<circle class="t-pulse" cx="${gx}" cy="${gy}" r="${gr}"><animate attributeName="r" values="${gr};${gr + 38}" dur="4s" begin="${k * 1.3}s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;.5;0" keyTimes="0;.3;1" dur="4s" begin="${k * 1.3}s" repeatCount="indefinite"/></circle>`; }
+        channels.forEach((c, i) => { s += `<g><rect class="t-box-ghost" x="${chX}" y="${chY(i)}" width="${chW}" height="26" rx="5"/><text class="t-box-tx-ghost" x="${chX + chW / 2}" y="${chY(i) + 17}" text-anchor="middle">${c}</text></g>`; });
+        s += `<text class="t-sub" x="${chX + chW / 2}" y="${chY(channels.length - 1) + 44}" text-anchor="middle">channels</text>`;
         s += `<circle class="t-gw" cx="${gx}" cy="${gy}" r="${gr}"/><text class="t-gw-tx" x="${gx}" y="${gy - 2}" text-anchor="middle">EBB</text><text class="t-gw-sub" x="${gx}" y="${gy + 13}" text-anchor="middle">GATEWAY</text>`;
+        s += `<text class="t-ledger-tx" x="${gx + 8}" y="${(coreTop + coreY) / 2 + 3}" text-anchor="start">debit / credit</text>`;
+        s += `<text class="t-ledger-rev" x="${gx + 8}" y="${(coreTop + coreY) / 2 + 3}" text-anchor="start">reversal</text>`;
+        s += `<g><rect class="t-box" x="${coreX}" y="${coreY}" width="${coreW}" height="26" rx="5"/><text class="t-box-tx" x="${coreX + coreW / 2}" y="${coreY + 17}" text-anchor="middle">Core banking</text></g>`;
         ops.forEach((o, i) => {
           const tagX = opX + opW, tagY = opY(i) - 4;
           s += `<g><rect class="t-box" x="${opX}" y="${opY(i)}" width="${opW}" height="26" rx="5"/><text class="t-box-tx" x="${opX + opW / 2}" y="${opY(i) + 17}" text-anchor="middle">${o.n}</text>`;
@@ -2410,6 +2775,10 @@
             s += `<rect class="t-down-ring" x="${opX}" y="${opY(i)}" width="${opW}" height="26" rx="5"/>`
                + `<text class="t-tag t-tag--ok-down" x="${tagX}" y="${tagY}" text-anchor="end">● OK</text>`
                + `<text class="t-tag t-tag--outage" x="${tagX}" y="${tagY}" text-anchor="end">● OUTAGE</text>`;
+          } else if (o.state === 'reverse') {
+            s += `<rect class="t-rev-ring" x="${opX}" y="${opY(i)}" width="${opW}" height="26" rx="5"/>`
+               + `<text class="t-tag t-tag--ok-rev" x="${tagX}" y="${tagY}" text-anchor="end">● OK</text>`
+               + `<text class="t-tag t-tag--reversed" x="${tagX}" y="${tagY}" text-anchor="end">● REVERSED</text>`;
           } else {
             const b = (0.4 + (i - 1) * 0.7).toFixed(2);
             s += `<rect class="t-ok-ring" x="${opX}" y="${opY(i)}" width="${opW}" height="26" rx="5"><animate attributeName="opacity" values="0;0;1;0" keyTimes="0;0.8;0.9;1" dur="3s" begin="${b}s" repeatCount="indefinite"/></rect>`
@@ -2417,10 +2786,15 @@
           }
           s += `</g>`;
         });
-        s += `<text class="t-sub" x="${opX + opW / 2}" y="${opY(ops.length - 1) + 46}" text-anchor="middle">every operator</text>`;
-        for (let k = 0; k < 2; k++) { s += `<circle class="t-packet" r="3"><animateMotion dur="3s" begin="${k * 1.5}s" repeatCount="indefinite"><mpath href="#ha-pin"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.9;1" dur="3s" begin="${k * 1.5}s" repeatCount="indefinite"/></circle>`; }
-        [1, 2, 3, 4, 5].forEach((i) => { const b = (0.4 + (i - 1) * 0.7).toFixed(2); s += `<circle class="t-packet" r="3"><animateMotion dur="3s" begin="${b}s" repeatCount="indefinite" path="M ${gx + gr} ${gy} L ${opX} ${opY(i) + 13}"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.9;1" dur="3s" begin="${b}s" repeatCount="indefinite"/></circle>`; });
-        // Mobile money outage: EBB holds & retries on the SAME rail (amber pulses out and bounces back), then flushes the held payment through on recovery (green) — no cross-rail rerouting.
+        s += `<text class="t-sub" x="${opX + opW / 2}" y="${opY(5) + 44}" text-anchor="middle">every operator</text>`;
+        channels.forEach((c, i) => { const b = (i * 0.6).toFixed(2); s += `<circle class="t-packet t-packet-ghost" r="2.6"><animateMotion dur="3s" begin="${b}s" repeatCount="indefinite" path="M ${chX + chW} ${chY(i) + 13} L ${gx - gr} ${gy}"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.9;1" dur="3s" begin="${b}s" repeatCount="indefinite"/></circle>`; });
+        [1, 2, 3, 4, 5].filter(i => i !== revI).forEach((i) => { const b = (0.4 + (i - 1) * 0.7).toFixed(2); s += `<circle class="t-packet" r="3"><animateMotion dur="3s" begin="${b}s" repeatCount="indefinite" path="M ${gx + gr} ${gy} L ${opX} ${opY(i) + 13}"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.9;1" dur="3s" begin="${b}s" repeatCount="indefinite"/></circle>`; });
+        // core ledger tap: a packet pulses down (debit) and back (credit confirm)
+        s += `<circle class="t-packet" r="2.6"><animateMotion dur="3s" repeatCount="indefinite" calcMode="linear" keyTimes="0;0.5;1" keyPoints="0;1;0" path="M ${gx} ${coreTop} L ${gx} ${coreY}"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.85;1" dur="3s" repeatCount="indefinite"/></circle>`;
+        // Act 1 (~0.17–0.50): a card payment can't clear → auto-reversed back through EBB into core (re-credit). The customer is made whole.
+        s += `<circle class="t-packet" r="3" opacity="0"><animateMotion dur="11s" repeatCount="indefinite" calcMode="linear" keyTimes="0;0.17;0.26;1" keyPoints="0;0;1;1" path="M ${gx + gr} ${gy} L ${opX} ${opY(revI) + 13}"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.17;0.18;0.255;0.27;1" dur="11s" repeatCount="indefinite"/></circle>`;
+        s += `<circle class="t-packet t-packet-amber" r="3.4" opacity="0"><animateMotion dur="11s" repeatCount="indefinite" calcMode="linear" keyTimes="0;0.29;0.40;0.50;1" keyPoints="0;0;0.5;1;1" path="M ${opX} ${opY(revI) + 13} L ${gx} ${gy} L ${gx} ${coreY}"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.29;0.30;0.49;0.50;1" dur="11s" repeatCount="indefinite"/></circle>`;
+        // Act 2 (~0.72–0.95): Mobile money outage EBB holds & retries on the SAME rail (amber pulses out and bounces back), then flushes the held payment through on recovery (green) — no cross-rail rerouting.
         s += `<circle class="t-packet t-packet-amber" r="3.4" opacity="0">
               <animateMotion dur="11s" repeatCount="indefinite" calcMode="linear" keyTimes="0;0.72;0.755;0.79;0.825;0.86;1" keyPoints="0;0;0.5;0;0.5;0;0" path="M ${gx + gr} ${gy} L ${opX} ${opY(0) + 13}"/>
               <animate attributeName="opacity" values="0;0;1;1;1;0;0" keyTimes="0;0.72;0.73;0.79;0.85;0.86;1" dur="11s" repeatCount="indefinite"/>
@@ -2433,8 +2807,92 @@
         return s;
       }
 
-      const foot = `<span>flow: <b>core &rarr; EBB &rarr; rail</b></span><span>last recovery: <b>just now</b></span><span>retry: <b>automatic</b></span>`;
+      const foot = `<span>flow: <b>channel &rarr; EBB &rarr; operator</b></span><span>reversal: <b>auto</b></span><span>retry: <b>automatic</b></span>`;
       el.innerHTML = `<div class="topo__head"><span class="topo__title">Live &middot; payment topology</span><span class="topo__live">streaming</span></div>${buildTopo()}<div class="topo__foot">${foot}</div>`;
+    })();
+  </script>
+
+  <!-- =============================================================
+       #talk CONTACT FORM — AJAX submission to Formspree (xojbdjdj)
+       Keeps the user on our page with an inline status message instead
+       of redirecting to Formspree's branded thank-you. Same endpoint and
+       field contract as V1 (delivers to info@engineeredbybytes.com).
+       ============================================================= -->
+  <script>
+    (function () {
+      'use strict';
+      const form   = document.getElementById('talkForm');
+      const status = document.getElementById('talkStatus');
+      const submit = document.getElementById('talkSubmit');
+      if (!form || !status || !submit) return;
+
+      const label = submit.querySelector('.talk__submit-label');
+      const originalLabel = label ? label.textContent : 'Schedule a briefing';
+
+      function setStatus(kind, message) {
+        status.className = 'talk__status talk__status--' + kind;
+        status.textContent = message;
+      }
+      function setSubmitting(on) {
+        submit.disabled = on;
+        if (label) label.textContent = on ? 'Sending…' : originalLabel;
+      }
+
+      form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+
+        setSubmitting(true);
+        setStatus('pending', 'Sending your request…');
+
+        try {
+          const response = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+          });
+
+          if (response.ok) {
+            setStatus('success', 'Thanks — your request is on its way. We’ll respond within one business day.');
+            form.reset();
+          } else {
+            let detail = '';
+            try {
+              const payload = await response.json();
+              if (payload && payload.errors && payload.errors.length) {
+                detail = ' (' + payload.errors.map(function (e) { return e.message; }).join(', ') + ')';
+              }
+            } catch (_) {}
+            setStatus('error', 'Something went wrong sending your request' + detail + '. Please email info@engineeredbybytes.com directly.');
+          }
+        } catch (err) {
+          setStatus('error', 'Couldn’t reach the server. Check your connection or email info@engineeredbybytes.com directly.');
+        } finally {
+          setSubmitting(false);
+        }
+      });
+    })();
+  </script>
+
+  <!-- Back-to-top floating button -->
+  <button class="to-top" id="toTop" aria-label="Back to top" title="Back to top">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+  <script>
+    (function () {
+      var btn = document.getElementById('toTop');
+      var hero = document.getElementById('hero');
+      if (!btn) return;
+      function show() {
+        var trigger = hero ? hero.offsetHeight - 140 : 600;
+        btn.classList.toggle('show', window.scrollY > trigger);
+      }
+      btn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      window.addEventListener('scroll', show, { passive: true });
+      window.addEventListener('resize', show, { passive: true });
+      show();
     })();
   </script>
 

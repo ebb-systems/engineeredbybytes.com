@@ -7,6 +7,7 @@ zoho-email-config/
 # Working / preview files — not production pages
 preview-capabilities.html
 designs.html
+mockups/
 
 # OS + editor cruft
 .DS_Store
@@ -15,3 +16,6 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+# Local agent config
+.claude/

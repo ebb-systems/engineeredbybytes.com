@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary SEO -->
+  <title>The Platform — Core, Gateway &amp; Signed Plugins | EBB Systems</title>
+  <meta name="description" content="The EBB platform: a core and gateway you run inside your own estate, extended by small operator plugins that are cryptographically signed and verified before they run — integrity, authenticity, non-repudiation. PCI-aligned, AML-screened, ISO 20022 native.">
+  <meta name="keywords" content="EBB Systems platform, payment core and gateway, signed plugins, code signing, plugin signature verification, non-repudiation, in-perimeter deployment, Finacle T24 FlexCube integration, payment security, PCI-DSS, AML screening, key management, HSM">
+  <meta name="author" content="EBB Systems">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://engineeredbybytes.com/platform.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="EBB Systems">
+  <meta property="og:title" content="The Platform — Core, Gateway &amp; Signed Plugins | EBB Systems">
+  <meta property="og:description" content="A core and gateway you run inside your estate, extended by signed plugins verified by EBB core before they run — integrity, authenticity, non-repudiation.">
+  <meta property="og:url" content="https://engineeredbybytes.com/platform.html">
+  <meta property="og:image" content="https://engineeredbybytes.com/assets/img/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="EBB Systems platform — core, gateway and signed plugins you run yourself">
+  <meta property="og:locale" content="en_GB">
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Platform — Core, Gateway &amp; Signed Plugins | EBB Systems">
+  <meta name="twitter:description" content="A core and gateway you run, extended by signed plugins verified before they run — integrity, authenticity, non-repudiation.">
+  <meta name="twitter:image" content="https://engineeredbybytes.com/assets/img/og-image.png">
+
+  <!-- Favicon family + PWA manifest -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Theme -->
+  <meta name="theme-color" content="#0D2240">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- Fonts + V2 design system -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/v2.css">
+
+  <!-- Schema.org / JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "The Platform — EBB Systems",
+    "url": "https://engineeredbybytes.com/platform.html",
+    "description": "The EBB platform: a core and gateway you run, extended by cryptographically signed and verified operator plugins.",
+    "isPartOf": { "@type": "WebSite", "name": "EBB Systems", "url": "https://engineeredbybytes.com" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "EBB Systems",
+    "legalName": "Engineered By Bytes Ltd",
+    "alternateName": ["Engineered By Bytes", "Engineered by Bytes"],
+    "url": "https://engineeredbybytes.com",
+    "logo": "https://engineeredbybytes.com/assets/img/logo-dark.png",
+    "areaServed": { "@type": "Place", "name": "Worldwide" },
+    "sameAs": [
+      "https://www.linkedin.com/company/engineered-by-bytes/",
+      "https://github.com/ebb-systems"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://engineeredbybytes.com/" },
+      { "@type": "ListItem", "position": 2, "name": "The Platform", "item": "https://engineeredbybytes.com/platform.html" }
+    ]
+  }
+  </script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "14ec8dcab57646cd8a055d3362833978"}'></script>
+
+  <style>
+    /* ═══════════ The platform & trust model — rail section (page-local) ═══════════ */
+    section.ptm{background:var(--cream-warm);padding-left:24px;padding-right:24px}
+    .ptm{--card:var(--cream-card);--rules:var(--rule-soft);--mut:var(--text-muted);--faint:var(--text-faint);--green2:#41C08A;--on:var(--on-dark);--onmut:var(--on-dark-mut);--blue:var(--navy-blue);--fd:var(--font-display);--fu:var(--font-ui);--fm:'JetBrains Mono',ui-monospace,monospace;--ink2:var(--ink-2)}
+    .eye{font:700 11px/1 var(--fu);letter-spacing:.26em;text-transform:uppercase;color:var(--crimson)}
+    .h2{font:400 clamp(28px,3.4vw,40px)/1.18 var(--fd);color:var(--navy);margin:13px 0 0}.h2 em{font-style:italic;color:var(--crimson)}
+    .lede{font:400 15.5px/1.65 var(--fu);color:var(--mut);margin:13px 0 0}
+    .sub{font:700 9.5px/1 var(--fu);letter-spacing:.14em;text-transform:uppercase;color:var(--crimson);display:inline-flex;align-items:center;gap:9px}.sub::before{content:"";width:16px;height:1.5px;background:var(--crimson);opacity:.55}
+    .nm{font:400 clamp(21px,2.2vw,25px)/1.2 var(--fd);color:var(--navy)}
+    .pd{font:400 14.5px/1.65 var(--fu);color:var(--mut)}.pd b{color:var(--navy);font-weight:600}
+    /* shell */
+    .sec{padding:56px 24px 84px}.cont{max-width:1080px;margin:0 auto;background:var(--card);border:1px solid var(--rule);border-radius:22px;box-shadow:0 28px 60px -30px rgba(13,34,64,.3);padding:clamp(30px,4vw,56px)}
+    .hd{text-align:center;max-width:760px;margin:0 auto 38px}
+    .rail{position:relative;padding-left:58px}.spine{position:absolute;left:17px;top:6px;bottom:26px;width:2px;background:linear-gradient(180deg,var(--crimson),color-mix(in srgb,var(--crimson) 16%,transparent))}
+    .beat{position:relative;margin-bottom:44px}.beat:last-child{margin-bottom:0}
+    .dot{position:absolute;left:-58px;top:-2px;width:36px;height:36px;border-radius:50%;background:#fff;border:2px solid var(--crimson);color:var(--crimson);display:grid;place-items:center;font:600 12px var(--fd);box-shadow:0 6px 16px -8px rgba(139,26,26,.5)}
+    .bhd{display:flex;align-items:baseline;gap:13px;margin-bottom:16px;flex-wrap:wrap}
+    /* lead statement */
+    .lead{margin:0 0 22px;max-width:760px}
+    .lead p{margin:0;font:400 16px/1.64 var(--fu);color:#33405a}
+    .lead p+p{margin-top:10px}
+    .lead .o{font-weight:700;color:var(--navy)}
+    .hi{font-weight:600;color:var(--navy);background:linear-gradient(transparent 58%,rgba(224,70,87,.22) 0);padding:0 1.5px}
+    /* explanatory grid (term + plain meaning) */
+    .xg{display:grid;grid-template-columns:1fr 1fr;gap:0 52px}
+    .xi{display:grid;grid-template-columns:26px 1fr;column-gap:13px;align-items:start;padding:14px 0;border-bottom:1px solid var(--rules);break-inside:avoid}
+    .xi .n{grid-row:1/3;font:500 10px var(--fm);color:var(--acc);padding-top:4px}
+    .xi .t{font:600 14.5px var(--fu);color:var(--navy)}
+    .xi .d{font:400 12.5px/1.5 var(--fu);color:var(--mut);margin-top:4px}
+    .xg--p .xi{grid-template-columns:1fr;align-items:start}
+    .xg--p .xi .t{display:flex;align-items:center;gap:8px}
+    .xg--p .xi .t::before{content:"";width:7px;height:7px;border-radius:2px;background:var(--blue);flex:none}
+    @media(max-width:760px){.xg{grid-template-columns:1fr}}
+    /* guarantees */
+    .guar{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+    .guar span{font:600 9.5px/1 var(--fu);letter-spacing:.04em;text-transform:uppercase;color:var(--green);background:rgba(47,138,91,.1);border:1px solid rgba(47,138,91,.28);padding:8px 12px;border-radius:14px;display:inline-flex;align-items:center;gap:7px}
+    .guar span::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green2);box-shadow:0 0 8px var(--green2)}
+    /* ===== shared viz shell ===== */
+    .viz{background:radial-gradient(720px 260px at 50% -10%,rgba(224,70,87,.10),transparent 62%),var(--navy);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:22px 24px;color:var(--on);position:relative;overflow:hidden;margin-top:20px}
+    .viz__top{display:flex;justify-content:space-between;align-items:center;font:600 9px var(--fm);letter-spacing:.14em;text-transform:uppercase;color:var(--onmut);margin-bottom:6px}
+    .viz__top .live{color:var(--acc);display:inline-flex;align-items:center;gap:6px}
+    .viz__top .live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--acc);animation:blink 1.6s infinite}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+    /* ===== i: core illustration ===== */
+    .vCore__row{display:flex;align-items:center;gap:14px;position:relative;margin-top:22px;min-height:96px}
+    .vCore__chs{display:flex;flex-direction:column;gap:7px}
+    .vCore__chs span{font:500 11px var(--fu);color:#cdd6e6;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:7px;padding:6px 11px;text-align:center}
+    .vCore__line{flex:1;height:1px;background:rgba(255,255,255,.16);min-width:22px;position:relative}
+    .vCore__gw{flex:none;text-align:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:14px 16px}
+    .vCore__gw b{display:block;font:600 13px var(--fu);color:#fff}.vCore__gw i{display:block;margin-top:4px;font:500 8.5px var(--fu);letter-spacing:.05em;text-transform:uppercase;color:var(--onmut);font-style:normal}
+    .vCore__core{flex:none;max-width:230px;text-align:center;background:linear-gradient(180deg,rgba(224,70,87,.16),rgba(224,70,87,.04));border:1.5px solid rgba(224,70,87,.5);border-radius:12px;padding:16px 18px;position:relative}
+    .vCore__core::after{content:"";position:absolute;inset:-1.5px;border-radius:12px;border:1.5px solid var(--acc);opacity:0;animation:pulseRing 2.6s ease-out infinite}
+    @keyframes pulseRing{0%{opacity:.55;transform:scale(1)}100%{opacity:0;transform:scale(1.06)}}
+    .vCore__core b{display:block;font:400 17px var(--fd);color:#fff}.vCore__core i{display:block;margin-top:5px;font:400 11px/1.5 var(--fu);color:#d7b0b4;font-style:normal}
+    .pkt{position:absolute;top:50%;margin-top:-3.5px;width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 10px 1px var(--acc);animation:pktflow 5.2s linear infinite}
+    @keyframes pktflow{0%{left:9%;opacity:0}10%{opacity:1}80%{opacity:1;background:#fff}100%{left:78%;opacity:0}}
+    /* ===== ii: signing lifecycle ===== */
+    .vSign__stage{position:relative;height:188px;margin-top:18px}
+    .vSign__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;height:118px}
+    .sn{position:relative;text-align:center;padding:0 10px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .sn__box{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:13px 10px;transition:none}
+    .sn__k{font:600 8px var(--fm);letter-spacing:.12em;text-transform:uppercase;color:var(--onmut);margin-bottom:6px}
+    .sn__t{font:600 13px var(--fu);color:#fff}.sn__d{font:400 10px/1.4 var(--fu);color:var(--onmut);margin-top:5px}
+    .sn__lock{display:inline-block;margin-top:7px;color:var(--green2)}
+    .sn__arr{position:absolute;right:-9px;top:50%;margin-top:-9px;z-index:2;color:var(--acc);font-size:15px}
+    /* glow per node */
+    .sn1 .sn__box{animation:g1 7s infinite}.sn2 .sn__box{animation:g2 7s infinite}.sn3 .sn__box{animation:g3 7s infinite}.sn4 .sn__box{animation:g4 7s infinite}
+    @keyframes g1{0%,3%{border-color:rgba(255,255,255,.14)}5%,18%{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc),0 12px 26px -14px rgba(224,70,87,.7)}24%,100%{border-color:rgba(255,255,255,.14);box-shadow:none}}
+    @keyframes g2{0%,26%{border-color:rgba(255,255,255,.14)}30%,42%{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc),0 12px 26px -14px rgba(224,70,87,.7)}48%,100%{border-color:rgba(255,255,255,.14);box-shadow:none}}
+    @keyframes g3{0%,46%{border-color:rgba(255,255,255,.14)}50%,62%{border-color:var(--green2);box-shadow:0 0 0 1px var(--green2),0 12px 26px -14px rgba(65,192,138,.6)}68%,100%{border-color:rgba(255,255,255,.14);box-shadow:none}}
+    @keyframes g4{0%,66%{border-color:rgba(255,255,255,.14)}70%,90%{border-color:var(--green2);box-shadow:0 0 0 1px var(--green2),0 14px 30px -14px rgba(65,192,138,.7)}96%,100%{border-color:rgba(255,255,255,.14);box-shadow:none}}
+    .vSign__tok{position:absolute;top:50px;width:9px;height:9px;border-radius:50%;background:#fff;box-shadow:0 0 12px 2px var(--acc);z-index:3;animation:signtok 7s ease-in-out infinite}
+    @keyframes signtok{0%{left:12.5%;opacity:0}3%{opacity:1}18%{left:12.5%}30%{left:37.5%}46%{left:37.5%}54%{left:62.5%}68%{left:62.5%}78%{left:87.5%}92%{left:87.5%;opacity:1}100%{left:87.5%;opacity:0}}
+    .vSign__res{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;font:500 11px var(--fu)}
+    .vSign__res .ok{color:var(--green2);display:inline-flex;align-items:center;gap:6px}
+    .vSign__res .bad{color:#e89aa0;display:inline-flex;align-items:center;gap:6px;opacity:.85}
+    .vSign__res .sepd{color:rgba(255,255,255,.18)}
+    /* ===== iii: payment journey ===== */
+    .vFlow__stage{position:relative;height:212px;margin-top:18px}
+    .fn{position:absolute;width:148px;margin-left:-74px;text-align:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:11px;padding:11px 8px;z-index:2}
+    .fn b{display:block;font:600 12.5px var(--fu);color:#fff}.fn small{display:block;margin-top:4px;font:400 9.5px/1.35 var(--fu);color:var(--onmut)}
+    .fn--user{left:9%;top:64px}.fn--ebb{left:33%;top:64px;width:166px;margin-left:-83px}.fn--cbs{left:33%;top:150px;margin-left:-74px}
+    .fn--plug{left:63%;top:64px}.fn--op{left:88%;top:64px;width:158px;margin-left:-79px}
+    .fn--ebb b{font-size:13.5px}
+    .fw{position:absolute;background:rgba(255,255,255,.14);z-index:1}
+    .fw--1{left:13%;top:88px;width:12%;height:1px}.fw--2{left:43%;top:88px;width:11.5%;height:1px}
+    .fw--3{left:69%;top:88px;width:11%;height:1px}.fw--4{left:33%;top:88px;width:1px;height:62px;margin-left:-1px}
+    .tok{position:absolute;width:10px;height:10px;border-radius:50%;background:#fff;box-shadow:0 0 12px 2px var(--acc);z-index:4;animation:journey 7.5s ease-in-out infinite}
+    @keyframes journey{
+     0%{left:9%;top:88px;opacity:0}
+     3%{opacity:1}
+     16%{left:33%;top:88px}
+     24%{left:33%;top:150px}
+     36%{left:33%;top:88px}
+     52%{left:63%;top:88px}
+     70%{left:88%;top:88px}
+     86%{left:88%;top:88px;opacity:1}
+     100%{left:9%;top:88px;opacity:0}}
+    .fn--user{animation:fU 7.5s infinite}.fn--ebb{animation:fE 7.5s infinite}.fn--cbs{animation:fC 7.5s infinite}.fn--plug{animation:fP 7.5s infinite}.fn--op{animation:fO 7.5s infinite}
+    @keyframes fU{0%,2%{border-color:rgba(255,255,255,.14)}4%,12%{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc)}18%,100%{border-color:rgba(255,255,255,.14);box-shadow:none}}
+    @keyframes fE{0%,12%{border-color:rgba(255,255,255,.14)}15%,18%{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc)}22%,32%{border-color:rgba(255,255,255,.14);box-shadow:none}35%,40%{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc)}46%,100%{border-color:rgba(255,255,255,.14);box-shadow:none}}
+    @keyframes fC{0%,20%{border-color:rgba(255,255,255,.14)}24%,32%{border-color:var(--green2);box-shadow:0 0 0 1px var(--green2)}38%,100%{border-color:rgba(255,255,255,.14);box-shadow:none}}
+    @keyframes fP{0%,46%{border-color:rgba(255,255,255,.14)}50%,60%{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc)}66%,100%{border-color:rgba(255,255,255,.14);box-shadow:none}}
+    @keyframes fO{0%,64%{border-color:rgba(255,255,255,.14)}68%,86%{border-color:var(--green2);box-shadow:0 0 0 1px var(--green2),0 14px 30px -16px rgba(65,192,138,.7)}94%,100%{border-color:rgba(255,255,255,.14);box-shadow:none}}
+    @media(max-width:760px){.hl{column-count:1}}
+  </style>
+</head>
+<body class="v2">
+
+<!-- ───────────── NAV ───────────── -->
+<header class="v2-nav">
+  <div class="v2-nav__inner">
+    <a href="index.html" class="v2-brand" aria-label="EBB Systems home">
+      <span class="v2-brand__rule" aria-hidden="true"></span>
+      <span class="v2-brand__ebb">EBB</span>
+      <span class="v2-brand__sys">Systems</span>
+    </a>
+    <nav class="v2-nav__links" aria-label="Primary">
+      <a href="index.html#problem">The problem</a>
+      <a href="index.html#solution">Solution</a>
+      <a href="platform.html" aria-current="page">Platform</a>
+    </nav>
+    <a href="index.html#talk" class="v2-nav__cta">Schedule a briefing</a>
+    <button class="v2-nav__burger" aria-label="Open menu" aria-expanded="false" aria-controls="v2mobile">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="v2-nav__mobile" id="v2mobile" aria-label="Mobile">
+    <a href="index.html#problem">The problem</a>
+    <a href="index.html#solution">Solution</a>
+    <a href="platform.html" aria-current="page">Platform</a>
+    <a href="about.html">About</a>
+    <a href="index.html#talk">Schedule a briefing</a>
+  </nav>
+</header>
+
+<!-- ───────────── HERO ───────────── -->
+<section class="v2-hero">
+  <div class="v2-container v2-hero__inner">
+    <span class="v2-eyebrow">the platform</span>
+    <h1 class="v2-h1">The core, gateway &amp; signed plugins &mdash; <em>that you run yourself.</em></h1>
+    <p class="v2-hero__lede">EBB is one platform you operate inside your own estate: a core and gateway that carry every payment&rsquo;s heavy lifting, extended by small plugins that are cryptographically verified before they ever run.</p>
+    <div class="v2-actions">
+      <a href="index.html#talk" class="v2-btn v2-btn--primary">Schedule a briefing</a>
+      <a href="#deploy" class="v2-btn v2-btn--ghost">How it deploys</a>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── THE PLATFORM & TRUST MODEL ───────────── -->
+<section class="v2-section v2-seam ptm">
+  <div class="cont">
+  <div class="hd">
+    <span class="eye">the platform &amp; trust model</span>
+    <h2 class="h2">Built once. <em>Extended safely.</em></h2>
+    <p class="lede">EBB is a core and gateway you run, plus small plugins for each operator — every one verified before it touches a payment.</p>
+  </div>
+
+  <div class="rail"><div class="spine"></div>
+
+    <!-- i -->
+    <div class="beat"><div class="dot">i</div>
+      <div class="bp">
+        <div class="bhd"><span class="nm">The core &amp; gateway</span><span class="sub">built once</span></div>
+        <div class="lead">
+          <p><span class="o">One platform you run, written once.</span> It carries every payment&rsquo;s <span class="hi">heavy lifting</span> — so each plugin stays small and never re-implements any of it. Here&rsquo;s what the core handles for you:</p>
+        </div>
+        <div class="xg">
+          <div class="xi"><span class="n">01</span><span class="t">Resilient routing</span><span class="d">If one route fails, the payment automatically tries another.</span></div>
+          <div class="xi"><span class="n">05</span><span class="t">Signature verification</span><span class="d">Confirms each plugin is genuine before it&rsquo;s allowed to run.</span></div>
+          <div class="xi"><span class="n">02</span><span class="t">Retry</span><span class="d">Re-sends a stuck payment safely — never paying twice.</span></div>
+          <div class="xi"><span class="n">06</span><span class="t">Audit trail</span><span class="d">Records who did what, and when, on every payment.</span></div>
+          <div class="xi"><span class="n">03</span><span class="t">Reverse</span><span class="d">Cleanly rolls a payment back when it can&rsquo;t complete.</span></div>
+          <div class="xi"><span class="n">07</span><span class="t">AML / compliance</span><span class="d">Screens every payment against sanctions and AML rules.</span></div>
+          <div class="xi"><span class="n">04</span><span class="t">Reconcile</span><span class="d">Matches every leg so nothing is lost or double-counted.</span></div>
+          <div class="xi"><span class="n">08</span><span class="t">Ledger sync</span><span class="d">Keeps your books and the core perfectly in step.</span></div>
+        </div>
+        <div class="viz vCore">
+          <div class="viz__top"><span>every channel · one core</span><span class="live">live</span></div>
+          <div class="vCore__row">
+            <div class="vCore__chs"><span>Mobile app</span><span>Web &amp; API</span><span>Branch</span><span>Partner</span></div>
+            <div class="vCore__line"></div>
+            <div class="vCore__gw"><b>Gateway</b><i>one front door</i></div>
+            <div class="vCore__line"></div>
+            <div class="vCore__core"><b>One core</b><i>written once · carries every payment&rsquo;s heavy lifting</i></div>
+            <span class="pkt" style="animation-delay:0s"></span>
+            <span class="pkt" style="animation-delay:1.75s"></span>
+            <span class="pkt" style="animation-delay:3.5s"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ii -->
+    <div class="beat"><div class="dot">ii</div>
+      <div class="bp">
+        <div class="bhd"><span class="nm">The plugins</span><span class="sub">small · signed · per operator</span></div>
+        <div class="lead">
+          <p><span class="o">A plugin is a small backend-Java integration to one operator</span> — written by your developers or ours. The author writes only the operator-specific code; the core orchestrates the rest.</p>
+          <p>Each plugin is <span class="hi">signed when it&rsquo;s built</span>. On deploy, the core <span class="hi">verifies that signature</span> before the plugin ever loads — proving its <b>integrity</b>, <b>authenticity</b> and <b>non-repudiation</b>. A typical plugin connects to:</p>
+        </div>
+        <div class="xg xg--p">
+          <div class="xi"><span class="t">Mobile money</span><span class="d">Wallet schemes such as M-Pesa, Airtel Money and MoMo.</span></div>
+          <div class="xi"><span class="t">Inter-banking</span><span class="d">Domestic switches and rails like RTGS and ACH.</span></div>
+          <div class="xi"><span class="t">Card networks</span><span class="d">Scheme rails such as Visa and Mastercard.</span></div>
+          <div class="xi"><span class="t">Cross-border</span><span class="d">Remittance and FX settlement corridors.</span></div>
+        </div>
+        <div class="viz vSign">
+          <div class="viz__top"><span>build · sign · deploy · verify</span><span class="live">live</span></div>
+          <div class="vSign__stage">
+            <div class="vSign__grid">
+              <div class="sn sn1"><div class="sn__box"><div class="sn__k">at build</div><div class="sn__t">Sign</div><div class="sn__d">hash the plugin, encrypt it with the developer&rsquo;s private key</div><div class="sn__lock">🔒</div></div><span class="sn__arr">→</span></div>
+              <div class="sn sn2"><div class="sn__box"><div class="sn__k">deploy</div><div class="sn__t">Hand to core</div><div class="sn__d">signed plugin shipped into your core</div></div><span class="sn__arr">→</span></div>
+              <div class="sn sn3"><div class="sn__box"><div class="sn__k">at deploy</div><div class="sn__t">Verify</div><div class="sn__d">core re-hashes &amp; checks the registered public key</div></div><span class="sn__arr">→</span></div>
+              <div class="sn sn4"><div class="sn__box"><div class="sn__k">result</div><div class="sn__t">Trusted</div><div class="sn__d">signature matches → plugin loads &amp; runs</div></div></div>
+            </div>
+            <span class="vSign__tok"></span>
+          </div>
+          <div class="vSign__res"><span class="ok">✓ match → loads &amp; runs</span><span class="sepd">|</span><span class="bad">✗ tampered or unsigned → rejected, never loads</span></div>
+        </div>
+        <div class="guar"><span>Integrity</span><span>Authenticity</span><span>Non-repudiation</span></div>
+      </div>
+    </div>
+
+    <!-- iii -->
+    <div class="beat"><div class="dot">iii</div>
+      <div class="bp">
+        <div class="bhd"><span class="nm">How they work together</span><span class="sub">initiate → core banking → settle</span></div>
+        <p class="pd" style="margin:0 0 2px">A customer initiates a payment. The EBB <b>core and gateway</b> take it from there — posting to your <b>core banking</b>, then routing through the operator&rsquo;s <b>plugin</b> out to the <b>third-party network</b> to settle.</p>
+        <div class="viz vFlow">
+          <div class="viz__top"><span>a payment, end to end</span><span class="live">live</span></div>
+          <div class="vFlow__stage">
+            <div class="fw fw--1"></div><div class="fw fw--2"></div><div class="fw fw--3"></div><div class="fw fw--4"></div>
+            <div class="fn fn--user"><b>User</b><small>initiates a payment</small></div>
+            <div class="fn fn--ebb"><b>EBB platform</b><small>gateway &amp; core orchestrate</small></div>
+            <div class="fn fn--cbs"><b>Core banking</b><small>core posts: debit / authorize</small></div>
+            <div class="fn fn--plug"><b>Operator plugin</b><small>core calls the adapter</small></div>
+            <div class="fn fn--op"><b>Third-party network</b><small>plugin calls operator → settles</small></div>
+            <span class="tok"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+</section>
+
+<!-- ───────────── DEPLOYMENT ───────────── -->
+<section class="v2-section v2-seam" id="deploy">
+  <div class="v2-container">
+    <span class="v2-eyebrow">how it deploys</span>
+    <h2 class="v2-h2">A layer you own and operate.</h2>
+    <p class="v2-lede">EBB is software your bank runs &mdash; not a managed service you route through. You keep the deployment, the keys, and the system-of-record relationship.</p>
+    <div class="v2-grid v2-grid--3">
+      <div class="v2-card v2-card--plain"><h3>In your estate</h3><p>Runs on the infrastructure your bank controls &mdash; cloud, on-prem, or hybrid. Yours to operate.</p></div>
+      <div class="v2-card v2-card--plain"><h3>Config, not rebuild</h3><p>A new rail or corridor is a signed plugin and a configuration change &mdash; live in weeks, not a project per integration.</p></div>
+      <div class="v2-card v2-card--plain"><h3>Your core, untouched</h3><p>EBB integrates through a ledger interface to Finacle, T24, FlexCube, or a custom core &mdash; without replacing it.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── SIX STRUCTURAL LAYERS ───────────── -->
+<section class="v2-section">
+  <div class="v2-container">
+    <span class="v2-eyebrow">defence in depth</span>
+    <h2 class="v2-h2">Six structural layers, on every transaction.</h2>
+    <p class="v2-lede">Signatures, mutual TLS, network isolation, AML, PCI-DSS masking, and end-to-end audit &mdash; applied unconditionally by the core to every payment, not bolted on per integration.</p>
+    <div class="v2-grid v2-grid--3">
+      <div class="v2-card v2-card--blue"><span class="v2-card__num">01</span><h3>Signatures</h3><p>Every payload is cryptographically signed &mdash; the message itself, not just the channel.</p></div>
+      <div class="v2-card v2-card--blue"><span class="v2-card__num">02</span><h3>Mutual TLS</h3><p>Both parties are verified on every connection. No password fallback.</p></div>
+      <div class="v2-card v2-card--blue"><span class="v2-card__num">03</span><h3>Network isolation</h3><p>Surfaces run on separate, segmented ports &mdash; blast radius contained by design.</p></div>
+      <div class="v2-card v2-card--blue"><span class="v2-card__num">04</span><h3>AML screening</h3><p>Sanctions and AML checks at the infrastructure layer, before a payment settles.</p></div>
+      <div class="v2-card v2-card--blue"><span class="v2-card__num">05</span><h3>PCI-DSS masking</h3><p>Sensitive fields are masked at ingestion &mdash; never stored or logged in the clear.</p></div>
+      <div class="v2-card v2-card--blue"><span class="v2-card__num">06</span><h3>Audit trail</h3><p>Every field, at every stage, logged &mdash; immutable and queryable end to end.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── CTA ───────────── -->
+<section class="v2-cta">
+  <div class="v2-container">
+    <span class="v2-cta__eyebrow">the next step</span>
+    <h2>Put the platform in front of your team.</h2>
+    <p>Thirty minutes with our engineers &mdash; architecture, plugin signing, key custody, deployment, audit. Bring your security and platform people; we&rsquo;ll go as deep as you want.</p>
+    <div class="v2-actions">
+      <a href="index.html#talk" class="v2-btn v2-btn--primary">Schedule a briefing</a>
+      <a href="index.html#compare" class="v2-btn v2-btn--ghost">Why EBB vs the alternatives</a>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── FOOTER ───────────── -->
+<footer class="v2-ftr">
+  <div class="v2-ftr__container">
+    <div class="v2-ftr__brand">
+      <div>
+        <div class="v2-ftr__logo-rule"></div>
+        <div class="v2-ftr__logo-ebb">EBB</div>
+        <div class="v2-ftr__logo-sys">Systems</div>
+      </div>
+      <p class="v2-ftr__tagline">Built for banks. Owned by the bank.</p>
+      <div class="v2-ftr__contact">
+        <a href="mailto:info@engineeredbybytes.com">info@engineeredbybytes.com</a>
+        <a href="https://www.engineeredbybytes.com">www.engineeredbybytes.com</a>
+        <span>Worldwide &middot; Remote-first</span>
+      </div>
+    </div>
+    <div class="v2-ftr__col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="index.html#problem">The problem</a></li>
+        <li><a href="index.html#solution">Platform</a></li>
+        <li><a href="index.html#compare">Why EBB</a></li>
+      </ul>
+    </div>
+    <div class="v2-ftr__col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About EBB Systems</a></li>
+        <li><a href="platform.html">The Platform</a></li>
+      </ul>
+    </div>
+    <div class="v2-ftr__col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Service</a></li>
+        <li><a href="index.html#talk">Get in Touch</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="v2-ftr__bottom">
+    <span>&copy; 2026 Engineered By Bytes Ltd. All rights reserved.</span>
+    <em>Secure. Scalable. Engineered for Trust.</em>
+  </div>
+</footer>
+
+<script src="assets/js/v2-nav.js"></script>
+</body>
+</html>
