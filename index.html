@@ -1852,7 +1852,7 @@
     /* hero layout */
     .heroA-hero { padding: 40px 44px 56px; }
     .heroA-grid { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.08fr; gap: 60px; align-items: center; }
-    .heroA-h1 { font: 800 clamp(36px, 4.4vw, 56px)/1.07 var(--font-ui); letter-spacing: -.025em; margin: 22px 0 20px; color: var(--on-dark); }
+    .heroA-h1 { font: 800 clamp(26px, 7vw, 56px)/1.1 var(--font-ui); letter-spacing: -.025em; margin: 22px 0 20px; color: var(--on-dark); overflow-wrap: break-word; }
     .heroA-h1 em { font-style: normal; color: var(--acc); }
     .heroA-sub { font-size: 18px; line-height: 1.6; color: var(--on-dark-mut); max-width: 480px; margin-bottom: 30px; }
     .heroA-sub strong { color: var(--on-dark); font-weight: 600; }
@@ -1934,7 +1934,9 @@
     }
     @media (max-width: 940px) {
       .heroA-grid { grid-template-columns: 1fr; gap: 40px; }
-      .heroA-links { display: none; }
+      .heroA-nav { flex-wrap: wrap; row-gap: 14px; }
+      .heroA-links { display: flex; order: 3; flex: 1 1 100%; justify-content: center; flex-wrap: wrap; gap: 10px 22px; }
+      .heroA-links a { font-size: 14px; }
       .heroA-telemetry-items { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 560px) {
