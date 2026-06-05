@@ -44,7 +44,7 @@
   <!-- Fonts + V2 design system -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/v2.css">
 
   <!-- Schema.org / JSON-LD -->
@@ -89,6 +89,128 @@
   <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
           data-cf-beacon='{"token": "14ec8dcab57646cd8a055d3362833978"}'></script>
+
+  <style>
+    /* about — centered hero (matches platform) */
+    .ab-hero__copy{max-width:1000px;margin:0 auto;text-align:center}
+    .ab-hero__copy .v2-h1{margin-left:auto;margin-right:auto}
+    .ab-hero__copy .v2-h1 em{display:inline-block}
+    .ab-hero__copy .v2-hero__lede{max-width:660px;margin-left:auto;margin-right:auto}
+    .ab-hero__copy .v2-actions{justify-content:center}
+    /* centered section headers across About (match hero) */
+    .v2-section > .v2-container{text-align:center}
+    .v2-section > .v2-container > .v2-h2{margin-left:auto;margin-right:auto}
+    .v2-section > .v2-container > .v2-lede,
+    .v2-section > .v2-container > .abx-narrow{margin-left:auto;margin-right:auto}
+    .abx-meta{justify-content:center}
+    /* but keep card / panel / column bodies left-aligned */
+    .wwa-feat__txt,.wwa-mc,.v2-card,.conv-card,.abx-card,.abx-feat,.vm-card{text-align:left}
+    /* what we are — bento: feature diagram + compact cards */
+    .wwa-bento{margin-top:34px;display:flex;flex-direction:column;gap:16px}
+    .wwa-feat{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(20px,3vw,38px);align-items:center;background:#fff;border:1px solid rgba(13,34,64,.14);border-radius:18px;padding:clamp(22px,3vw,34px);box-shadow:0 14px 36px -22px rgba(13,34,64,.45),0 2px 5px -2px rgba(13,34,64,.06)}
+    .wwa-feat__txt h3{font:400 clamp(20px,2.3vw,24px)/1.2 var(--font-display);color:var(--navy);margin:0}
+    .wwa-feat__txt p{font:400 14px/1.66 var(--font-ui);color:var(--text-muted);margin:12px 0 0}
+    /* cross-hub diagram (fluid SVG) */
+    .wwa-svg{width:100%;max-width:560px;height:auto;display:block;margin:0 auto}
+    .wwa-svg .dconn{stroke:rgba(13,34,64,.22);stroke-width:2;stroke-linecap:round}
+    .wwa-svg .dconn--dash{stroke:var(--navy-blue);stroke-width:1.8;stroke-dasharray:2.5 5;opacity:.85;animation:wwaDash 1.1s linear infinite}
+    @keyframes wwaDash{to{stroke-dashoffset:-15}}
+    .wwa-svg .dflow{fill:var(--acc);filter:drop-shadow(0 0 5px var(--acc))}
+    .wwa-svg .dcap{font:600 9px 'JetBrains Mono',monospace;letter-spacing:.14em;fill:var(--text-faint)}
+    .wwa-svg .dchip rect{fill:var(--cream-warm);stroke:var(--rule);stroke-width:1}
+    .wwa-svg .dchip text{font:500 11.5px var(--font-ui);fill:var(--navy);text-anchor:middle}
+    .wwa-svg .dhub-bg{fill:url(#wwaHub)}
+    .wwa-svg .dhub-acc{fill:var(--acc)}
+    .wwa-svg .dhub-t{font:700 16px var(--font-ui);fill:#fff;text-anchor:middle}
+    .wwa-svg .dhub-s{font:600 7px 'JetBrains Mono',monospace;letter-spacing:.16em;fill:#9fb0cc;text-anchor:middle}
+    .wwa-svg .dledger{font:600 8px 'JetBrains Mono',monospace;letter-spacing:.1em;fill:var(--navy-blue)}
+    .wwa-svg .dcore-bg{fill:var(--cream-warm);stroke:rgba(13,34,64,.14);stroke-width:1}
+    .wwa-svg .dcore-acc{fill:var(--navy-blue)}
+    .wwa-svg .dcore-ic{stroke:var(--navy-blue);stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+    .wwa-svg .dcore-t{font:600 13px var(--font-ui);fill:var(--navy)}
+    .wwa-svg .dcore-s{font:600 8px 'JetBrains Mono',monospace;letter-spacing:.1em;fill:var(--text-faint)}
+    .wwa-svg .dhubglow{fill:none;stroke:var(--acc);stroke-width:2;opacity:0;animation:wwaHubGlow 5s ease-in-out infinite}
+    @keyframes wwaHubGlow{0%,100%{opacity:0}45%{opacity:.55}}
+    /* compact cards */
+    .wwa-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .wwa-mc{position:relative;border:1px solid rgba(13,34,64,.14);border-radius:14px;background:#fff;padding:22px 22px 24px;overflow:hidden;box-shadow:0 8px 22px -16px rgba(13,34,64,.4),0 2px 4px -2px rgba(13,34,64,.05);transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+    .wwa-mc::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--crimson);transform:scaleY(0);transform-origin:top;transition:transform .28s ease}
+    .wwa-mc:hover{transform:translateY(-4px);box-shadow:0 24px 46px -30px rgba(13,34,64,.55);border-color:color-mix(in srgb,var(--crimson) 26%,var(--rule))}
+    .wwa-mc:hover::before{transform:scaleY(1)}
+    .wwa-mc__ic{width:40px;height:40px;border-radius:11px;background:#fff;border:1px solid rgba(139,26,26,.2);display:grid;place-items:center;color:var(--crimson);transition:background .25s,color .25s}
+    .wwa-mc:hover .wwa-mc__ic{background:var(--crimson);color:#fff}
+    .wwa-mc__ic svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+    .wwa-mc h4{font:400 18px/1.2 var(--font-display);color:var(--navy);margin:15px 0 0}
+    .wwa-mc p{font:400 13px/1.6 var(--font-ui);color:var(--text-muted);margin:8px 0 0}
+    .wwa-pull{max-width:900px;margin:42px auto 0;text-align:center;font:400 clamp(20px,2.5vw,27px)/1.42 var(--font-display);color:var(--navy)}
+    .wwa-pull em{font-style:italic;color:var(--crimson)}
+    @media(max-width:860px){.wwa-feat{grid-template-columns:1fr}.wwa-mini{grid-template-columns:1fr}}
+    /* about — credibility components */
+    .abx-narrow{max-width:740px}
+    /* proven: live-integration grid */
+    .abx-meta{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
+    .abx-meta span{font:600 11px/1 var(--font-ui);letter-spacing:.03em;color:var(--navy);background:var(--cream-warm);border:1px solid var(--rule);border-radius:999px;padding:7px 13px}
+    .abx-proof{margin-top:34px;display:flex;flex-direction:column;gap:16px}
+    .abx-card,.abx-feat{position:relative;border:1px solid rgba(13,34,64,.14);border-radius:15px;background:#fff;box-shadow:0 10px 28px -18px rgba(13,34,64,.45),0 2px 5px -2px rgba(13,34,64,.06);overflow:hidden;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+    .abx-card::before,.abx-feat::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--crimson);transform:scaleY(0);transform-origin:top;transition:transform .28s ease}
+    .abx-card:hover,.abx-feat:hover{transform:translateY(-4px);box-shadow:0 24px 48px -28px rgba(13,34,64,.5);border-color:color-mix(in srgb,var(--crimson) 24%,var(--rule))}
+    .abx-card:hover::before,.abx-feat:hover::before{transform:scaleY(1)}
+    .abx-card{padding:20px 22px 22px}
+    .abx-card__hd,.abx-feat__l{display:flex;align-items:center;gap:12px}
+    .abx-card__ic,.abx-feat__ic{flex:none;width:40px;height:40px;border-radius:10px;background:#fff;border:1px solid rgba(139,26,26,.2);display:grid;place-items:center;color:var(--crimson);transition:background .25s,color .25s}
+    .abx-card:hover .abx-card__ic,.abx-feat:hover .abx-feat__ic{background:var(--crimson);color:#fff}
+    .abx-card__ic svg,.abx-feat__ic svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+    .abx-card__t,.abx-feat__t{display:block;font:400 18px/1.15 var(--font-display);color:var(--navy)}
+    .abx-card__s,.abx-feat__s{display:block;font:400 11.5px/1.35 var(--font-ui);color:var(--text-faint);margin-top:3px;letter-spacing:.01em}
+    .abx-chips,.abx-feat__chips{display:flex;flex-wrap:wrap;gap:8px}
+    .abx-chips{margin-top:15px}
+    .abx-chips span,.abx-feat__chips span{font:500 12px/1 var(--font-ui);color:var(--navy);background:var(--cream-warm);border:1px solid var(--rule);border-radius:7px;padding:6px 10px}
+    .abx-feat{display:grid;grid-template-columns:.82fr 1.18fr;gap:30px;align-items:center;padding:22px 28px}
+    .abx-feat__markets{margin:13px 0 0;font:500 11px/1.4 var(--font-ui);color:var(--text-muted);letter-spacing:.04em}
+    .abx-int{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media(max-width:760px){.abx-feat{grid-template-columns:1fr;gap:16px}.abx-int{grid-template-columns:1fr}}
+    /* built on standards: cards (consistent with proven) */
+    .abx-std{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
+    .std-desc{margin:14px 0 0;font:400 13px/1.62 var(--font-ui);color:var(--text-muted)}
+    @media(max-width:860px){.abx-std{grid-template-columns:1fr 1fr}}
+    @media(max-width:560px){.abx-std{grid-template-columns:1fr}}
+    /* what we believe — number-led cards */
+    .conv-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:34px}
+    .conv-card{position:relative;border:1px solid rgba(13,34,64,.14);border-radius:15px;background:#fff;padding:26px 28px 28px;overflow:hidden;box-shadow:0 10px 28px -18px rgba(13,34,64,.42),0 2px 5px -2px rgba(13,34,64,.06);transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+    .conv-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--crimson);transform:scaleY(0);transform-origin:top;transition:transform .28s ease}
+    .conv-card:hover{transform:translateY(-4px);box-shadow:0 24px 48px -28px rgba(13,34,64,.5);border-color:color-mix(in srgb,var(--crimson) 24%,var(--rule))}
+    .conv-card:hover::before{transform:scaleY(1)}
+    .conv-card__num{display:grid;place-items:center;width:44px;height:44px;border-radius:11px;border:1px solid rgba(139,26,26,.25);background:#fff;color:var(--crimson);font:700 14px 'JetBrains Mono',monospace;letter-spacing:.04em;transition:background .25s,color .25s}
+    .conv-card:hover .conv-card__num{background:var(--crimson);color:#fff}
+    .conv-card h3{font:400 20px/1.25 var(--font-display);color:var(--navy);margin:16px 0 0}
+    .conv-card p{font:400 14px/1.66 var(--font-ui);color:var(--text-muted);margin:10px 0 0}
+    @media(max-width:760px){.conv-grid{grid-template-columns:1fr}}
+    /* who we build for */
+    .aud-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
+    @media(max-width:860px){.aud-grid{grid-template-columns:1fr}}
+    /* vision & mission */
+    .vm-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:34px}
+    .vm-card{position:relative;border:1px solid rgba(13,34,64,.14);border-radius:15px;background:#fff;padding:28px 30px 32px;overflow:hidden;box-shadow:0 10px 28px -18px rgba(13,34,64,.42),0 2px 5px -2px rgba(13,34,64,.06);transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+    .vm-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--crimson);transform:scaleY(0);transform-origin:top;transition:transform .28s ease}
+    .vm-card:hover{transform:translateY(-4px);box-shadow:0 24px 48px -28px rgba(13,34,64,.5);border-color:color-mix(in srgb,var(--crimson) 24%,var(--rule))}
+    .vm-card:hover::before{transform:scaleY(1)}
+    .vm-card__hd{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+    .vm-card__ic{flex:none;width:40px;height:40px;border-radius:10px;background:#fff;border:1px solid rgba(139,26,26,.2);display:grid;place-items:center;color:var(--crimson);transition:background .25s,color .25s}
+    .vm-card:hover .vm-card__ic{background:var(--crimson);color:#fff}
+    .vm-card__ic svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+    .vm-card__k{font:700 10.5px/1 var(--font-ui);letter-spacing:.2em;text-transform:uppercase;color:var(--crimson)}
+    .vm-card__t{font:400 clamp(18px,2vw,22px)/1.4 var(--font-display);color:var(--navy);margin:0}
+    .vm-card__t em{font-style:italic;color:var(--crimson)}
+    @media(max-width:760px){.vm-grid{grid-template-columns:1fr}}
+    /* back-to-top floating button */
+    .to-top{position:fixed;right:26px;bottom:26px;z-index:90;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;cursor:pointer;background:#0D2240;color:#fff;border:1px solid rgba(255,255,255,.18);box-shadow:0 12px 30px -10px rgba(13,34,64,.55);opacity:0;transform:translateY(14px) scale(.92);pointer-events:none;transition:opacity .26s ease,transform .26s ease,background .2s ease,border-color .2s ease}
+    .to-top.show{opacity:1;transform:none;pointer-events:auto}
+    .to-top:hover{background:var(--acc);border-color:var(--acc);box-shadow:0 14px 32px -10px rgba(224,70,87,.5)}
+    .to-top:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+    .to-top svg{width:18px;height:18px;display:block;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+    @media(max-width:600px){.to-top{right:16px;bottom:16px;width:44px;height:44px}}
+    @media(prefers-reduced-motion:reduce){.to-top{transition:opacity .2s ease;transform:none}}
+  </style>
 </head>
 <body class="v2">
 
@@ -103,8 +225,9 @@
     <nav class="v2-nav__links" aria-label="Primary">
       <a href="index.html">Home</a>
       <a href="index.html#problem">The problem</a>
-      <a href="index.html#solution">Solution</a>
-      <a href="platform.html">Platform</a>
+      <a href="index.html#solution">The solution</a>
+      <a href="platform.html">The platform</a>
+      <a href="about.html" aria-current="page">About</a>
     </nav>
     <a href="index.html#talk" class="v2-nav__cta">Schedule a briefing</a>
     <button class="v2-nav__burger" aria-label="Open menu" aria-expanded="false" aria-controls="v2mobile">
@@ -114,8 +237,8 @@
   <nav class="v2-nav__mobile" id="v2mobile" aria-label="Mobile">
     <a href="index.html">Home</a>
     <a href="index.html#problem">The problem</a>
-    <a href="index.html#solution">Solution</a>
-    <a href="platform.html">Platform</a>
+    <a href="index.html#solution">The solution</a>
+    <a href="platform.html">The platform</a>
     <a href="about.html">About</a>
     <a href="index.html#talk">Schedule a briefing</a>
   </nav>
@@ -124,12 +247,14 @@
 <!-- ───────────── HERO ───────────── -->
 <section class="v2-hero">
   <div class="v2-container v2-hero__inner">
-    <span class="v2-eyebrow">About EBB Systems</span>
-    <h1 class="v2-h1">We build the payment layer <em>banks own.</em></h1>
-    <p class="v2-hero__lede">EBB Systems is the orchestration layer between every channel your customers touch and every rail they reach &mdash; engineered so the bank, not a vendor, stays in control. We are Engineered By Bytes: an engineering company building resilient payment infrastructure for regulated institutions worldwide.</p>
-    <div class="v2-actions">
-      <a href="index.html#talk" class="v2-btn v2-btn--primary">Schedule a briefing</a>
-      <a href="index.html#solution" class="v2-btn v2-btn--ghost">See the platform</a>
+    <div class="ab-hero__copy">
+      <span class="v2-eyebrow">About EBB Systems</span>
+      <h1 class="v2-h1">We build the payment layer <em>banks own.</em></h1>
+      <p class="v2-hero__lede">The orchestration layer between every channel your customers touch and every rail they reach &mdash; engineered so control stays with the bank.</p>
+      <div class="v2-actions">
+        <a href="index.html#talk" class="v2-btn v2-btn--primary">Schedule a briefing</a>
+        <a href="platform.html" class="v2-btn v2-btn--ghost">See the platform</a>
+      </div>
     </div>
   </div>
 </section>
@@ -139,43 +264,165 @@
   <div class="v2-container">
     <span class="v2-eyebrow">what we are</span>
     <h2 class="v2-h2">One resilient layer, owned by the bank.</h2>
-    <div class="v2-prose-grid">
-      <div>
-        <p>EBB sits between every channel &mdash; mobile app, USSD, agency, corporate host-to-host &mdash; and every operator your payments reach: mobile money, card networks, interbank switches, cross-border corridors. Your core stays the system of record; EBB taps it through a ledger interface and never becomes the book of record.</p>
-        <p>When a rail goes down, EBB routes around it, retries, and reverses automatically &mdash; payments keep clearing without anyone being paged. Every transaction is matched to the operator continuously, and the whole lifecycle is captured in an immutable, auditable trail on your own data.</p>
+    <p class="v2-lede abx-narrow">What EBB is, and what it does for every payment that runs through it:</p>
+    <div class="wwa-bento">
+      <div class="wwa-feat">
+        <div class="wwa-feat__txt">
+          <h3>Between channel and rail</h3>
+          <p>Every channel your customers touch on one side, every rail your payments reach on the other. EBB is the single resilient layer in between &mdash; tapping your core without ever becoming the record.</p>
+        </div>
+        <svg class="wwa-svg" viewBox="0 0 540 300" role="img" aria-label="EBB sits between channels and rails, tapping the core banking system of record">
+          <defs><linearGradient id="wwaHub" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#13294a"/><stop offset="1" stop-color="#0D2240"/></linearGradient></defs>
+          <line class="dconn" x1="156" y1="103" x2="226" y2="103"/>
+          <line class="dconn" x1="314" y1="103" x2="384" y2="103"/>
+          <line class="dconn dconn--dash" x1="270" y1="139" x2="270" y2="212"/>
+          <circle class="dflow" r="4.5"><animateMotion dur="3s" repeatCount="indefinite" path="M156,103 L384,103"/></circle>
+          <circle class="dflow" r="3.5" opacity="0.6"><animateMotion dur="3s" begin="1.5s" repeatCount="indefinite" path="M156,103 L384,103"/></circle>
+          <text class="dcap" x="42" y="29">CHANNELS</text>
+          <text class="dcap" x="498" y="29" text-anchor="end">RAILS</text>
+          <g class="dchip"><rect x="42" y="40" width="114" height="30" rx="8"/><text x="99" y="59">Mobile app</text></g>
+          <g class="dchip"><rect x="42" y="78" width="114" height="30" rx="8"/><text x="99" y="97">USSD</text></g>
+          <g class="dchip"><rect x="42" y="116" width="114" height="30" rx="8"/><text x="99" y="135">Agency</text></g>
+          <g class="dchip"><rect x="42" y="154" width="114" height="30" rx="8"/><text x="99" y="173">Host-to-host</text></g>
+          <g class="dchip"><rect x="384" y="40" width="114" height="30" rx="8"/><text x="441" y="59">Mobile money</text></g>
+          <g class="dchip"><rect x="384" y="78" width="114" height="30" rx="8"/><text x="441" y="97">Cards</text></g>
+          <g class="dchip"><rect x="384" y="116" width="114" height="30" rx="8"/><text x="441" y="135">Interbank</text></g>
+          <g class="dchip"><rect x="384" y="154" width="114" height="30" rx="8"/><text x="441" y="173">Cross-border</text></g>
+          <rect class="dhubglow" x="224" y="66" width="92" height="74" rx="17"/>
+          <rect class="dhub-bg" x="228" y="70" width="84" height="66" rx="15"/>
+          <rect class="dhub-acc" x="234" y="72" width="72" height="3" rx="1.5"/>
+          <text class="dhub-t" x="270" y="101">EBB</text>
+          <text class="dhub-s" x="270" y="117">THE LAYER</text>
+          <text class="dledger" x="282" y="179">LEDGER</text>
+          <text class="dledger" x="282" y="190">INTERFACE</text>
+          <rect class="dcore-bg" x="171" y="212" width="198" height="54" rx="11"/>
+          <rect class="dcore-acc" x="171" y="216" width="4" height="46" rx="2"/>
+          <g class="dcore-ic" transform="translate(190,227) scale(0.8)"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></g>
+          <text class="dcore-t" x="222" y="234">Core banking</text>
+          <text class="dcore-s" x="222" y="250">SYSTEM OF RECORD</text>
+        </svg>
       </div>
-      <div>
-        <p class="v2-pull">The layer your team has been holding together by hand &mdash; <em>engineered, owned by you, and built to stay up.</em></p>
+      <div class="wwa-mini">
+        <div class="wwa-mc">
+          <span class="wwa-mc__ic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></svg></span>
+          <h4>Your core stays the record</h4>
+          <p>The system of truth stays exactly where it is &mdash; EBB never becomes the book of record.</p>
+        </div>
+        <div class="wwa-mc">
+          <span class="wwa-mc__ic"><svg viewBox="0 0 24 24"><path d="M5 6h4l5 6h5"/><path d="M14 12l-5 6H5"/><circle cx="19.5" cy="6" r="1.6"/><circle cx="19.5" cy="18" r="1.6"/><circle cx="3.5" cy="12" r="1.6"/></svg></span>
+          <h4>Payments keep moving</h4>
+          <p>When a rail goes down, EBB routes around it, retries and reverses &mdash; clearing without anyone being paged.</p>
+        </div>
+        <div class="wwa-mc">
+          <span class="wwa-mc__ic"><svg viewBox="0 0 24 24"><rect x="4.5" y="3" width="15" height="18" rx="2"/><path d="M9 11.5l2 2 4-4"/></svg></span>
+          <h4>Matched and provable</h4>
+          <p>Every transaction reconciled continuously, on an immutable, auditable trail on your own data.</p>
+        </div>
+      </div>
+    </div>
+    <p class="wwa-pull">The layer your team has been holding together by hand &mdash; <em>engineered, owned by you, and built to stay up.</em></p>
+  </div>
+</section>
+
+<!-- ───────────── PROVEN IN PRODUCTION ───────────── -->
+<section class="v2-section v2-seam">
+  <div class="v2-container">
+    <span class="v2-eyebrow">proven in production</span>
+    <h2 class="v2-h2">Live systems, <em>moving real money.</em></h2>
+    <p class="v2-lede abx-narrow">Our team brings production-grade delivery built inside one of East Africa&rsquo;s largest commercial banks &mdash; and we ship that experience across a growing roster of institutions. These integrations are live in production today:</p>
+    <div class="abx-meta">
+      <span>6 mobile-money operators</span><span>5+ markets</span><span>ISO 20022 &middot; ISO 8583</span><span>millions of transactions / day</span>
+    </div>
+    <div class="abx-proof">
+      <div class="abx-feat">
+        <div class="abx-feat__l"><span class="abx-feat__ic"><svg viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><line x1="10" y1="18.5" x2="14" y2="18.5"/></svg></span><div><span class="abx-feat__t">Mobile money</span><span class="abx-feat__s">6 operators &middot; 5+ markets &middot; C2B, B2C, B2B</span></div></div>
+        <div>
+          <div class="abx-feat__chips"><span>M-PESA</span><span>Airtel Money</span><span>Vodacom</span><span>MTN</span><span>Africell</span><span>Orange</span></div>
+          <p class="abx-feat__markets">Kenya &middot; Uganda &middot; Tanzania &middot; Rwanda &middot; DRC</p>
+        </div>
+      </div>
+      <div class="abx-int">
+        <div class="abx-card">
+          <div class="abx-card__hd"><span class="abx-card__ic"><svg viewBox="0 0 24 24"><path d="M3 9.5l9-5.5 9 5.5"/><line x1="5" y1="10.5" x2="5" y2="18"/><line x1="9.5" y1="10.5" x2="9.5" y2="18"/><line x1="14.5" y1="10.5" x2="14.5" y2="18"/><line x1="19" y1="10.5" x2="19" y2="18"/><line x1="3" y1="20.5" x2="21" y2="20.5"/></svg></span><div><span class="abx-card__t">Interbank &amp; switches</span><span class="abx-card__s">Real-time transfers &middot; ISO 20022</span></div></div>
+          <div class="abx-chips"><span>PesaLink / IPSL</span><span>PAPSS</span><span>Multipay DRC</span></div>
+        </div>
+        <div class="abx-card">
+          <div class="abx-card__hd"><span class="abx-card__ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3c2.5 2.5 4 5.5 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.5-4-9s1.5-6.5 4-9z"/></svg></span><div><span class="abx-card__t">International remittance</span><span class="abx-card__s">Inbound &amp; outbound corridors</span></div></div>
+          <div class="abx-chips"><span>Thunes</span><span>Mastercard Send</span><span>MoneyGram</span></div>
+        </div>
+        <div class="abx-card">
+          <div class="abx-card__hd"><span class="abx-card__ic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></svg></span><div><span class="abx-card__t">Core banking</span><span class="abx-card__s">Middleware layer &middot; custom API adapters</span></div></div>
+          <div class="abx-chips"><span>Finacle</span><span>Custom cores</span></div>
+        </div>
+        <div class="abx-card">
+          <div class="abx-card__hd"><span class="abx-card__ic"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l3-4 3 3 4-6"/></svg></span><div><span class="abx-card__t">Observability &amp; ops</span><span class="abx-card__s">Full telemetry, every environment</span></div></div>
+          <div class="abx-chips"><span>ELK Stack</span><span>Prometheus</span><span>Grafana</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── BUILT ON STANDARDS ───────────── -->
+<section class="v2-section v2-section--cream v2-seam">
+  <div class="v2-container">
+    <span class="v2-eyebrow">built on standards</span>
+    <h2 class="v2-h2">Standards-first, by construction.</h2>
+    <p class="v2-lede abx-narrow">Every integration speaks the messaging and settlement standards banks and switches already trust &mdash; signed, encrypted, and observable end to end.</p>
+    <div class="abx-std">
+      <div class="abx-card">
+        <div class="abx-card__hd"><span class="abx-card__ic"><svg viewBox="0 0 24 24"><path d="M4 8h13l-3.5-3.5M20 16H7l3.5 3.5"/></svg></span><div><span class="abx-card__t">ISO 20022</span><span class="abx-card__s">Real-time messaging</span></div></div>
+        <p class="std-desc">Native messaging for modern interbank and cross-border rails.</p>
+      </div>
+      <div class="abx-card">
+        <div class="abx-card__hd"><span class="abx-card__ic"><svg viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><line x1="2.5" y1="10" x2="21.5" y2="10"/></svg></span><div><span class="abx-card__t">ISO 8583</span><span class="abx-card__s">Card &amp; switch</span></div></div>
+        <p class="std-desc">Interoperability on the standard the card networks run on.</p>
+      </div>
+      <div class="abx-card">
+        <div class="abx-card__hd"><span class="abx-card__ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg></span><div><span class="abx-card__t">RTGS &amp; ACH</span><span class="abx-card__s">Settlement rails</span></div></div>
+        <p class="std-desc">Real-time gross settlement and batch clearing on national payment rails.</p>
+      </div>
+      <div class="abx-card">
+        <div class="abx-card__hd"><span class="abx-card__ic"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><div><span class="abx-card__t">PKI &amp; TLS</span><span class="abx-card__s">Signed &amp; encrypted</span></div></div>
+        <p class="std-desc">PKI-based digital signatures and TLS/SSL on every message and connection.</p>
+      </div>
+      <div class="abx-card">
+        <div class="abx-card__hd"><span class="abx-card__ic"><svg viewBox="0 0 24 24"><path d="M3 12s3.5-6 9-6 9 6 9 6a15 15 0 0 1-2.6 3.2"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/><line x1="4" y1="4" x2="20" y2="20"/></svg></span><div><span class="abx-card__t">PCI-DSS</span><span class="abx-card__s">Card-data security</span></div></div>
+        <p class="std-desc">Card data masked at ingestion and protected end to end.</p>
+      </div>
+      <div class="abx-card">
+        <div class="abx-card__hd"><span class="abx-card__ic"><svg viewBox="0 0 24 24"><path d="M3 12h4l2.5 6 4-12 2.5 6h5"/></svg></span><div><span class="abx-card__t">Continuous monitoring</span><span class="abx-card__s">Full observability</span></div></div>
+        <p class="std-desc">ELK, Prometheus and Grafana telemetry across every environment.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ───────────── WHAT WE BELIEVE ───────────── -->
-<section class="v2-section">
+<section class="v2-section v2-seam">
   <div class="v2-container">
     <span class="v2-eyebrow">what we believe</span>
     <h2 class="v2-h2">Four convictions we build on.</h2>
-    <div class="v2-grid v2-grid--2">
-      <div class="v2-card">
-        <span class="v2-card__num">01</span>
+    <div class="conv-grid">
+      <div class="conv-card">
+        <span class="conv-card__num">01</span>
         <h3>Banks should own their rails</h3>
         <p>Resilience and routing are too important to live inside a vendor&rsquo;s black box. EBB runs in your estate, under your controls &mdash; yours to operate and yours to change.</p>
       </div>
-      <div class="v2-card">
-        <span class="v2-card__num">02</span>
+      <div class="conv-card">
+        <span class="conv-card__num">02</span>
         <h3>Connectivity is commodity; resilience is the product</h3>
         <p>Anyone can reach a rail. Keeping payments moving when one fails &mdash; routing, retrying, reversing, reconciling &mdash; is the hard part, and the part we obsess over.</p>
       </div>
-      <div class="v2-card">
-        <span class="v2-card__num">03</span>
+      <div class="conv-card">
+        <span class="conv-card__num">03</span>
         <h3>Engineered, not assembled</h3>
         <p>Built by engineers for the people who run payments at 2am. No glue-code sprawl, no integration-by-integration drift &mdash; one layer, designed to be operated.</p>
       </div>
-      <div class="v2-card">
-        <span class="v2-card__num">04</span>
+      <div class="conv-card">
+        <span class="conv-card__num">04</span>
         <h3>No lock-in</h3>
-        <p>A standard layer your bank runs, with your core as the record. Add a rail as a config change or a plugin &mdash; and leave on your own terms, not ours.</p>
+        <p>A standard layer your bank runs, with your core as the record. Add a rail as a config change or a plugin &mdash; and leave on your own terms.</p>
       </div>
     </div>
   </div>
@@ -187,10 +434,40 @@
     <span class="v2-eyebrow">who we build for</span>
     <h2 class="v2-h2">Regulated institutions, worldwide.</h2>
     <p class="v2-lede">EBB is built for organisations that move other people&rsquo;s money and answer to a regulator for it &mdash; on the core banking systems they already run.</p>
-    <div class="v2-grid v2-grid--3">
-      <div class="v2-card v2-card--plain"><h3>Banks</h3><p>Tier-1 to challenger banks running Finacle, T24, FlexCube, or a custom core &mdash; modernising payments without replacing the core.</p></div>
-      <div class="v2-card v2-card--plain"><h3>Licensed fintechs &amp; PSPs</h3><p>Payment service providers and licensed fintechs that need bank-grade resilience, audit, and compliance on infrastructure they control.</p></div>
-      <div class="v2-card v2-card--plain"><h3>Engineering teams</h3><p>The teams who own the integration and carry the pager &mdash; who want one layer to operate, not a dozen point-to-point connections to maintain.</p></div>
+    <div class="aud-grid">
+      <div class="wwa-mc">
+        <span class="wwa-mc__ic"><svg viewBox="0 0 24 24"><path d="M3 9.5l9-5.5 9 5.5"/><line x1="5" y1="10.5" x2="5" y2="18"/><line x1="9.5" y1="10.5" x2="9.5" y2="18"/><line x1="14.5" y1="10.5" x2="14.5" y2="18"/><line x1="19" y1="10.5" x2="19" y2="18"/><line x1="3" y1="20.5" x2="21" y2="20.5"/></svg></span>
+        <h4>Banks</h4>
+        <p>Tier-1 to challenger banks running Finacle, T24, FlexCube, or a custom core &mdash; modernising payments on the core they already run.</p>
+      </div>
+      <div class="wwa-mc">
+        <span class="wwa-mc__ic"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="14" rx="2"/><circle cx="12" cy="9.5" r="2.4"/><path d="M9 17.5l-1 3.5 4-2 4 2-1-3.5"/></svg></span>
+        <h4>Licensed fintechs &amp; PSPs</h4>
+        <p>Payment service providers and licensed fintechs that need bank-grade resilience, audit, and compliance on infrastructure they control.</p>
+      </div>
+      <div class="wwa-mc">
+        <span class="wwa-mc__ic"><svg viewBox="0 0 24 24"><path d="M8 8l-4 4 4 4"/><path d="M16 8l4 4-4 4"/><line x1="13.5" y1="6" x2="10.5" y2="18"/></svg></span>
+        <h4>Engineering teams</h4>
+        <p>The teams who own the integration and keep payments flowing &mdash; one clean layer to operate, with every rail reached through a single interface.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── VISION & MISSION ───────────── -->
+<section class="v2-section v2-seam">
+  <div class="v2-container">
+    <span class="v2-eyebrow">vision &amp; mission</span>
+    <h2 class="v2-h2">Where we&rsquo;re headed.</h2>
+    <div class="vm-grid">
+      <div class="vm-card">
+        <div class="vm-card__hd"><span class="vm-card__ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.6 8.4l-2.3 4.9-4.9 2.3 2.3-4.9z"/></svg></span><span class="vm-card__k">Vision</span></div>
+        <p class="vm-card__t">To be the world&rsquo;s most trusted technology partner for <em>financial interoperability</em> and seamless digital payments.</p>
+      </div>
+      <div class="vm-card">
+        <div class="vm-card__hd"><span class="vm-card__ic"><svg viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 4.5h12l-2.6 4 2.6 4H5"/></svg></span><span class="vm-card__k">Mission</span></div>
+        <p class="vm-card__t">To deliver secure, scalable, standards-compliant transaction solutions that connect people, businesses and financial ecosystems &mdash; so every institution we serve can <em>move faster, reach further, and operate with confidence.</em></p>
+      </div>
     </div>
   </div>
 </section>
@@ -255,5 +532,11 @@
 </footer>
 
 <script src="assets/js/v2-nav.js"></script>
+<button class="to-top" id="toTop" aria-label="Back to top" title="Back to top">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+<script>
+  (function(){var b=document.getElementById('toTop');if(!b)return;function s(){b.classList.toggle('show',window.scrollY>600);}b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});window.addEventListener('scroll',s,{passive:true});s();})();
+</script>
 </body>
 </html>
