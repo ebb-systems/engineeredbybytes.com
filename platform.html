@@ -272,6 +272,14 @@
     .coda::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:min(100%,640px);height:1px;background:linear-gradient(90deg,transparent,var(--crimson) 50%,transparent);opacity:.55}
     .coda p{margin:0;font:400 clamp(22px,2.9vw,31px)/1.32 var(--fd);color:var(--navy)}
     .coda em{font-style:italic;color:var(--crimson)}
+    /* back-to-top floating button */
+    .to-top{position:fixed;right:26px;bottom:26px;z-index:90;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;cursor:pointer;background:#0D2240;color:#fff;border:1px solid rgba(255,255,255,.18);box-shadow:0 12px 30px -10px rgba(13,34,64,.55);opacity:0;transform:translateY(14px) scale(.92);pointer-events:none;transition:opacity .26s ease,transform .26s ease,background .2s ease,border-color .2s ease}
+    .to-top.show{opacity:1;transform:none;pointer-events:auto}
+    .to-top:hover{background:var(--acc);border-color:var(--acc);box-shadow:0 14px 32px -10px rgba(224,70,87,.5)}
+    .to-top:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+    .to-top svg{width:18px;height:18px;display:block;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+    @media(max-width:600px){.to-top{right:16px;bottom:16px;width:44px;height:44px}}
+    @media(prefers-reduced-motion:reduce){.to-top{transition:opacity .2s ease;transform:none}}
   </style>
 </head>
 <body class="v2">
@@ -287,8 +295,9 @@
     <nav class="v2-nav__links" aria-label="Primary">
       <a href="index.html">Home</a>
       <a href="index.html#problem">The problem</a>
-      <a href="index.html#solution">Solution</a>
-      <a href="platform.html" aria-current="page">Platform</a>
+      <a href="index.html#solution">The solution</a>
+      <a href="platform.html" aria-current="page">The platform</a>
+      <a href="about.html">About</a>
     </nav>
     <a href="index.html#talk" class="v2-nav__cta">Schedule a briefing</a>
     <button class="v2-nav__burger" aria-label="Open menu" aria-expanded="false" aria-controls="v2mobile">
@@ -298,8 +307,8 @@
   <nav class="v2-nav__mobile" id="v2mobile" aria-label="Mobile">
     <a href="index.html">Home</a>
     <a href="index.html#problem">The problem</a>
-    <a href="index.html#solution">Solution</a>
-    <a href="platform.html" aria-current="page">Platform</a>
+    <a href="index.html#solution">The solution</a>
+    <a href="platform.html" aria-current="page">The platform</a>
     <a href="about.html">About</a>
     <a href="index.html#talk">Schedule a briefing</a>
   </nav>
@@ -538,6 +547,12 @@
 </footer>
 
 <script src="assets/js/v2-nav.js"></script>
+<button class="to-top" id="toTop" aria-label="Back to top" title="Back to top">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+<script>
+  (function(){var b=document.getElementById('toTop');if(!b)return;function s(){b.classList.toggle('show',window.scrollY>600);}b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});window.addEventListener('scroll',s,{passive:true});s();})();
+</script>
 <script>
 (function(){
   var beats=[].slice.call(document.querySelectorAll('.rail .beat'));

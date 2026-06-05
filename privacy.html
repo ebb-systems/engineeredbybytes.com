@@ -5,19 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Primary SEO -->
-  <title>Privacy Policy — EBB Systems | Engineered By Bytes</title>
-  <meta name="description" content="EBB Systems Privacy Policy: what data we collect, how we use it, your rights, and how to contact us. Updated May 2026.">
-  <meta name="author" content="EBB Systems">
-  <meta name="robots" content="index, follow">
+  <title>Privacy Policy — EBB Systems</title>
+  <meta name="description" content="How EBB Systems (Engineered By Bytes Ltd) collects, uses, shares, and protects information on engineeredbybytes.com, and the rights you have over it.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://engineeredbybytes.com/privacy.html">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="EBB Systems">
   <meta property="og:title" content="Privacy Policy — EBB Systems">
-  <meta property="og:description" content="What data EBB Systems collects, how we use it, and your rights.">
+  <meta property="og:description" content="What we collect, how we use it, who we share it with, and your rights.">
   <meta property="og:url" content="https://engineeredbybytes.com/privacy.html">
-  <meta property="og:image" content="https://engineeredbybytes.com/assets/img/og-image.png">
   <meta property="og:locale" content="en_GB">
 
   <!-- Favicon family + PWA manifest -->
@@ -27,59 +25,100 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
 
+  <!-- Theme -->
   <meta name="theme-color" content="#0D2240">
+  <meta name="format-detection" content="telephone=no">
 
-  <!-- Fonts -->
+  <!-- Fonts + V2 design system -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/main.css">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/v2.css">
 
-  <!-- Cloudflare Web Analytics — cookieless, privacy-respecting -->
+  <style>
+    /* ── legal page (V2) ── */
+    .legal-hero{background:radial-gradient(900px 460px at 80% 0%,rgba(224,70,87,.10),transparent 60%),var(--ink-2);color:var(--on-dark);padding:clamp(46px,7vw,80px) 0 clamp(36px,5vw,52px);position:relative}
+    .legal-hero .v2-container{max-width:820px}
+    .legal-hero .v2-eyebrow{color:var(--acc)}
+    .legal-hero h1{font:400 clamp(30px,4.4vw,46px)/1.12 var(--font-display);color:#fff;margin:14px 0 0}
+    .legal-meta{display:inline-block;margin:16px 0 0;font:500 11px/1 var(--font-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--on-dark-mut);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:7px 13px}
+    .legal-body{padding:clamp(44px,6vw,68px) 0 clamp(60px,8vw,92px)}
+    .legal-body .v2-container{max-width:760px}
+    .legal__lead{font:400 17px/1.72 var(--font-ui);color:var(--navy);margin:0 0 8px}
+    .legal-body h2{font:400 clamp(20px,2.4vw,24px)/1.3 var(--font-display);color:var(--navy);margin:38px 0 12px;padding-top:26px;border-top:1px solid var(--rule)}
+    .legal-body h3{font:600 14.5px/1.4 var(--font-ui);color:var(--navy);margin:22px 0 8px}
+    .legal-body p{font:400 15px/1.78 var(--font-ui);color:var(--text-muted);margin:0 0 14px}
+    .legal-body ul{margin:0 0 16px;padding-left:4px;list-style:none}
+    .legal-body li{position:relative;font:400 15px/1.7 var(--font-ui);color:var(--text-muted);margin:0 0 9px;padding-left:22px}
+    .legal-body li::before{content:"";position:absolute;left:4px;top:11px;width:5px;height:5px;border-radius:50%;background:var(--acc)}
+    .legal-body strong{color:var(--navy);font-weight:600}
+    .legal-body a{color:var(--crimson);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+    .legal-body a:hover{color:var(--acc)}
+    .legal-body code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.86em;background:var(--cream-warm);border:1px solid var(--rule);padding:1px 5px;border-radius:5px;color:var(--navy)}
+  </style>
+
+  <!-- Schema.org / JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Privacy Policy",
+    "url": "https://engineeredbybytes.com/privacy.html",
+    "description": "How EBB Systems collects, uses, shares, and protects information on engineeredbybytes.com.",
+    "isPartOf": { "@type": "WebSite", "name": "EBB Systems", "url": "https://engineeredbybytes.com" },
+    "publisher": { "@type": "Organization", "name": "EBB Systems", "legalName": "Engineered By Bytes Ltd" }
+  }
+  </script>
+
+  <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
           data-cf-beacon='{"token": "14ec8dcab57646cd8a055d3362833978"}'></script>
 </head>
-<body class="legal-page">
+<body class="v2">
 
-<!-- ============================================================
-     NAVBAR
-     ============================================================ -->
-<nav class="navbar navbar--solid navbar--light-page" role="navigation" aria-label="Main navigation">
-  <div class="navbar__inner navbar__inner--no-logo">
-    <div class="navbar__links">
-      <a href="/#hero"      class="navbar__link">Home</a>
-      <a href="/#about"     class="navbar__link">About</a>
-      <a href="/#solutions" class="navbar__link">Solutions</a>
-      <a href="/#network"   class="navbar__link">Network</a>
-      <a href="/#contact"   class="navbar__link">Get in Touch</a>
-    </div>
-    <button class="navbar__hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="navbarMobile">
+<!-- ───────────── NAV ───────────── -->
+<header class="v2-nav">
+  <div class="v2-nav__inner">
+    <a href="index.html" class="v2-brand" aria-label="EBB Systems home">
+      <span class="v2-brand__rule" aria-hidden="true"></span>
+      <span class="v2-brand__ebb">EBB</span>
+      <span class="v2-brand__sys">Systems</span>
+    </a>
+    <nav class="v2-nav__links" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="index.html#problem">The problem</a>
+      <a href="index.html#solution">The solution</a>
+      <a href="platform.html">The platform</a>
+      <a href="about.html">About</a>
+    </nav>
+    <a href="index.html#talk" class="v2-nav__cta">Schedule a briefing</a>
+    <button class="v2-nav__burger" aria-label="Open menu" aria-expanded="false" aria-controls="v2mobile">
       <span></span><span></span><span></span>
     </button>
   </div>
-</nav>
-<nav class="navbar__mobile" id="navbarMobile" aria-label="Mobile navigation">
-  <a href="/#hero"      class="navbar__mobile-link">Home</a>
-  <a href="/#about"     class="navbar__mobile-link">About</a>
-  <a href="/#solutions" class="navbar__mobile-link">Solutions</a>
-  <a href="/#network"   class="navbar__mobile-link">Network</a>
-  <a href="/#contact"   class="navbar__mobile-link">Get in Touch</a>
-</nav>
+  <nav class="v2-nav__mobile" id="v2mobile" aria-label="Mobile">
+    <a href="index.html">Home</a>
+    <a href="index.html#problem">The problem</a>
+    <a href="index.html#solution">The solution</a>
+    <a href="platform.html">The platform</a>
+    <a href="about.html">About</a>
+    <a href="index.html#talk">Schedule a briefing</a>
+  </nav>
+</header>
 
+<!-- ───────────── HEADER ───────────── -->
+<section class="legal-hero">
+  <div class="v2-container">
+    <span class="v2-eyebrow">Legal</span>
+    <h1>Privacy Policy</h1>
+    <span class="legal-meta">Last updated: 21 May 2026</span>
+  </div>
+</section>
 
-<!-- ============================================================
-     LEGAL CONTENT
-     ============================================================ -->
-<main class="legal">
-  <div class="container">
-
-    <header class="legal__header">
-      <span class="eyebrow">Legal</span>
-      <h1>Privacy Policy</h1>
-      <p class="legal__meta">Last updated: 21 May 2026</p>
-    </header>
-
-    <article class="legal__body">
+<!-- ───────────── BODY ───────────── -->
+<section class="legal-body">
+  <div class="v2-container">
+    <article>
 
       <p class="legal__lead">
         EBB Systems ("EBB Systems", "Engineered By Bytes", "we", "us", "our") respects your
@@ -256,59 +295,54 @@
 
     </article>
   </div>
-</main>
+</section>
 
-
-<!-- ============================================================
-     FOOTER
-     ============================================================ -->
-<footer class="site-footer">
-  <div class="container">
-    <div class="site-footer__grid">
-      <div class="site-footer__brand">
-        <div class="site-footer__logo">
-          <div class="site-footer__logo-rule"></div>
-          <div class="site-footer__logo-ebb">EBB</div>
-          <div class="site-footer__logo-systems">Systems</div>
-        </div>
-        <p class="site-footer__tagline">Secure. Scalable. Engineered for Trust.</p>
-        <div class="site-footer__contact">
-          <a href="mailto:info@engineeredbybytes.com">info@engineeredbybytes.com</a>
-          <a href="https://www.engineeredbybytes.com">www.engineeredbybytes.com</a>
-        </div>
+<!-- ───────────── FOOTER ───────────── -->
+<footer class="v2-ftr">
+  <div class="v2-ftr__container">
+    <div class="v2-ftr__brand">
+      <div>
+        <div class="v2-ftr__logo-rule"></div>
+        <div class="v2-ftr__logo-ebb">EBB</div>
+        <div class="v2-ftr__logo-sys">Systems</div>
       </div>
-      <div class="site-footer__col">
-        <h4>Solutions</h4>
-        <ul>
-          <li><a href="/#solutions">Payment Gateway</a></li>
-          <li><a href="https://wizardcd.com" target="_blank" rel="noopener">WizardCd</a></li>
-          <li><a href="/#solutions">HSM Services</a></li>
-          <li><a href="/#solutions">Recon &amp; Consultancy</a></li>
-        </ul>
-      </div>
-      <div class="site-footer__col">
-        <h4>Company</h4>
-        <ul>
-          <li><a href="/#about">About EBB Systems</a></li>
-          <li><a href="/#network">Live Network</a></li>
-          <li><a href="/platform.html">The Platform</a></li>
-        </ul>
-      </div>
-      <div class="site-footer__col">
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="/privacy.html">Privacy Policy</a></li>
-          <li><a href="/terms.html">Terms of Service</a></li>
-          <li><a href="mailto:info@engineeredbybytes.com">Contact</a></li>
-        </ul>
+      <p class="v2-ftr__tagline">Built for banks. Owned by the bank.</p>
+      <div class="v2-ftr__contact">
+        <a href="mailto:info@engineeredbybytes.com">info@engineeredbybytes.com</a>
+        <a href="https://www.engineeredbybytes.com">www.engineeredbybytes.com</a>
+        <span>Worldwide &middot; Remote-first</span>
       </div>
     </div>
-    <div class="site-footer__bottom">
-      <p class="site-footer__copy">&copy; 2026 Engineered By Bytes Ltd. All rights reserved.</p>
+    <div class="v2-ftr__col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="index.html#problem">The problem</a></li>
+        <li><a href="index.html#solution">Platform</a></li>
+        <li><a href="index.html#compare">Why EBB</a></li>
+      </ul>
     </div>
+    <div class="v2-ftr__col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About EBB Systems</a></li>
+        <li><a href="platform.html">The Platform</a></li>
+      </ul>
+    </div>
+    <div class="v2-ftr__col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Service</a></li>
+        <li><a href="index.html#talk">Get in Touch</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="v2-ftr__bottom">
+    <span>&copy; 2026 Engineered By Bytes Ltd. All rights reserved.</span>
+    <em>Secure. Scalable. Engineered for Trust.</em>
   </div>
 </footer>
 
-<script src="assets/js/nav.js"></script>
+<script src="assets/js/v2-nav.js"></script>
 </body>
 </html>
