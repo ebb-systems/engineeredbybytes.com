@@ -1820,6 +1820,14 @@
     .heroA-links a:hover { color: var(--on-dark); }
     .heroA-navcta { border: 1px solid var(--hair-2); color: var(--on-dark); padding: 9px 18px; font-size: 13px; font-weight: 600; border-radius: 6px; transition: all .2s; }
     .heroA-navcta:hover { border-color: var(--acc); color: #fff; }
+    /* mobile hamburger + dropdown (mirrors the interior v2-nav pattern) */
+    .heroA-burger { display: none; margin-left: auto; background: none; border: 0; cursor: pointer; width: 30px; height: 24px; padding: 0; }
+    .heroA-burger span { display: block; height: 2px; background: #fff; margin: 5px 0; border-radius: 2px; }
+    .heroA-mobile { display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 60; flex-direction: column; background: var(--ink-2); border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); box-shadow: 0 26px 44px -18px rgba(0,0,0,.65); }
+    .heroA-mobile a { padding: 15px 28px; color: var(--on-dark); font-size: 15px; font-weight: 500; border-top: 1px solid var(--hair); transition: background .15s, color .15s; }
+    .heroA-mobile a:first-child { border-top: 0; }
+    .heroA-mobile a:hover { background: rgba(255,255,255,.04); color: #fff; }
+    .heroA-mobile.open { display: flex; }
 
     /* scroll cue — clickable doorway straddling the hero → problem seam.
        Signals more content below and marks where the hero ends. */
@@ -1934,14 +1942,14 @@
     }
     @media (max-width: 940px) {
       .heroA-grid { grid-template-columns: 1fr; gap: 40px; }
-      .heroA-nav { flex-wrap: wrap; row-gap: 14px; }
-      .heroA-links { display: flex; order: 3; flex: 1 1 100%; justify-content: center; flex-wrap: wrap; gap: 10px 22px; }
-      .heroA-links a { font-size: 14px; }
       .heroA-telemetry-items { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .heroA-links, .heroA-navcta { display: none; }
+      .heroA-burger { display: block; }
     }
     @media (max-width: 560px) {
       .heroA-nav, .heroA-hero, .heroA-telemetry { padding-left: 22px; padding-right: 22px; }
-      .heroA-navcta { display: none; }
       .heroA-telemetry-items { grid-template-columns: 1fr; }
     }
 
@@ -1986,6 +1994,16 @@
         <li><a href="about.html">About</a></li>
       </ul>
       <a href="#talk" class="heroA-navcta">Schedule a briefing</a>
+      <button class="heroA-burger" aria-label="Open menu" aria-expanded="false" aria-controls="heroMobile">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="heroA-mobile" id="heroMobile" role="navigation" aria-label="Mobile navigation">
+        <a href="#problem">The problem</a>
+        <a href="#solution">The solution</a>
+        <a href="platform.html">The platform</a>
+        <a href="about.html">About</a>
+        <a href="#talk">Schedule a briefing</a>
+      </div>
     </nav>
 
     <div class="heroA-hero">
@@ -2953,6 +2971,25 @@
       window.addEventListener('scroll', show, { passive: true });
       window.addEventListener('resize', show, { passive: true });
       show();
+    })();
+  </script>
+
+  <script>
+    /* mobile hero nav: hamburger toggle */
+    (function () {
+      var burger = document.querySelector('.heroA-burger');
+      var menu = document.getElementById('heroMobile');
+      if (!burger || !menu) return;
+      burger.addEventListener('click', function () {
+        var open = menu.classList.toggle('open');
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      menu.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          menu.classList.remove('open');
+          burger.setAttribute('aria-expanded', 'false');
+        });
+      });
     })();
   </script>
 
