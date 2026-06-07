@@ -286,7 +286,14 @@
       .vCore__row{flex-direction:column;align-items:stretch;gap:10px;min-height:0}
       .vCore__line{display:none}
       .vCore__core{max-width:none}
-      .vFlow__stage{min-width:480px}
+      /* 04 — restack the end-to-end flow vertically (absolute layout clips on mobile) */
+      .vFlow__stage{position:static;height:auto;min-width:0;display:flex;flex-direction:column;gap:10px;margin-top:14px}
+      .vFlow .fw,.vFlow .tok{display:none}
+      .vFlow .fn{position:static;width:auto;margin:0;animation:none}
+      /* 03 — stack the two core cards */
+      .vDep__cores{grid-template-columns:1fr}
+      /* 02 — keep the trust branch readable */
+      .vPlug .branch{gap:12px}
     }
     /* back-to-top floating button */
     .to-top{position:fixed;right:26px;bottom:26px;z-index:90;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;cursor:pointer;background:#0D2240;color:#fff;border:1px solid rgba(255,255,255,.18);box-shadow:0 12px 30px -10px rgba(13,34,64,.55);opacity:0;transform:translateY(14px) scale(.92);pointer-events:none;transition:opacity .26s ease,transform .26s ease,background .2s ease,border-color .2s ease}
