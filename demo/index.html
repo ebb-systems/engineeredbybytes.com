@@ -3,73 +3,136 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EBB Systems — 60-Second Demo</title>
+<title>Demo — EBB Systems</title>
 <meta name="description" content="Watch EBB Systems in 60 seconds: a payment settling through the core ledger, a failure handled correctly with auto-reversal, and real-time reconciliation.">
 <meta name="robots" content="noindex">
 <meta property="og:title" content="EBB Systems — 60-Second Demo">
 <meta property="og:description" content="The payment-orchestration layer your bank owns — in 60 seconds.">
 <meta property="og:image" content="https://www.engineeredbybytes.com/assets/img/demo-poster.png">
+<link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/v2.css">
 <style>
-  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-  :root{--navy:#0D2240;--ink:#0b1c33;--acc:#E04657;--on:#EAEEF7;--mut:#8A98B4;--hair:rgba(255,255,255,.12)}
-  html,body{background:radial-gradient(1200px 700px at 50% -10%, #12294a 0%, #0b1c33 55%, #081524 100%);min-height:100%;font-family:'Inter',sans-serif;color:var(--on);-webkit-font-smoothing:antialiased}
-  a{color:inherit;text-decoration:none}
-  .bar{display:flex;align-items:center;justify-content:space-between;padding:22px 40px;border-bottom:1px solid var(--hair)}
-  .logo{display:flex;flex-direction:column;align-items:flex-start}
-  .logo .r{width:26px;height:2px;background:var(--acc);margin-bottom:6px}
-  .logo .e{font-family:'Libre Baskerville',serif;font-weight:700;font-size:24px;line-height:1;letter-spacing:.02em}
-  .logo .s{font-family:'Libre Baskerville',serif;font-size:7px;letter-spacing:.3em;text-transform:uppercase;color:var(--acc);margin-top:3px}
-  .cta{border:1px solid var(--acc);background:var(--acc);color:#fff;font-size:13px;font-weight:600;padding:10px 18px;border-radius:8px}
-  .cta.ghost{background:transparent;color:var(--on);border-color:var(--hair)}
-  .wrap{max-width:960px;margin:0 auto;padding:54px 40px 80px;text-align:center}
-  .eyebrow{font-size:13px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--acc);margin-bottom:18px}
-  h1{font-family:'Libre Baskerville',serif;font-weight:700;font-size:42px;line-height:1.25;margin-bottom:16px}
-  h1 .ct{color:var(--acc)}
-  .lede{font-size:17px;color:var(--mut);line-height:1.6;max-width:640px;margin:0 auto 34px}
-  .videowrap{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--hair);box-shadow:0 40px 90px -40px rgba(0,0,0,.7);background:#000}
-  video{display:block;width:100%;height:auto;aspect-ratio:16/9}
-  .caps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
-  .cap{background:rgba(255,255,255,.03);border:1px solid var(--hair);border-top:3px solid var(--acc);border-radius:10px;padding:16px 14px;text-align:left}
-  .cap .t{font-weight:600;font-size:13.5px;margin-bottom:4px}
-  .cap .d{font-size:12px;color:var(--mut);line-height:1.5}
-  .foot{border-top:1px solid var(--hair);padding:28px 40px;text-align:center;font-size:13px;color:var(--mut)}
-  .foot b{color:var(--on);font-weight:600}
-  @media(max-width:720px){h1{font-size:30px}.caps{grid-template-columns:1fr 1fr}.wrap{padding:36px 22px 60px}.bar{padding:18px 22px}}
+  .demo-hero{background:radial-gradient(1200px 700px at 50% -10%, #12294a 0%, #0b1c33 55%, #081524 100%);color:#EAEEF7;padding:52px 24px 84px}
+  .demo-inner{max-width:960px;margin:0 auto;text-align:center}
+  .demo-eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:#E04657;margin-bottom:18px}
+  .demo-h1{font-family:'Libre Baskerville',serif;font-weight:700;font-size:42px;line-height:1.25;margin-bottom:16px;color:#fff}
+  .demo-h1 .ct{color:#E04657}
+  .demo-lede{font-size:17px;color:#8A98B4;line-height:1.6;max-width:640px;margin:0 auto 34px}
+  .demo-videowrap{position:relative;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.12);box-shadow:0 40px 90px -40px rgba(0,0,0,.7);background:#000}
+  .demo-videowrap video{display:block;width:100%;height:auto;aspect-ratio:16/9}
+  .demo-caps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
+  .demo-cap{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.12);border-top:3px solid #E04657;border-radius:10px;padding:16px 14px;text-align:left}
+  .demo-cap .t{font-weight:600;font-size:13.5px;color:#EAEEF7;margin-bottom:4px}
+  .demo-cap .d{font-size:12px;color:#8A98B4;line-height:1.5}
+  @media(max-width:720px){.demo-h1{font-size:30px}.demo-caps{grid-template-columns:1fr 1fr}.demo-hero{padding:36px 20px 60px}}
 </style>
 </head>
 <body>
-  <div class="bar">
-    <a class="logo" href="/">
-      <span class="r"></span><span class="e">EBB</span><span class="s">Systems</span>
+
+<header class="v2-nav">
+  <div class="v2-nav__inner">
+    <a href="/index.html" class="v2-brand" aria-label="EBB Systems home">
+      <span class="v2-brand__rule" aria-hidden="true"></span>
+      <span class="v2-brand__ebb">EBB</span>
+      <span class="v2-brand__sys">Systems</span>
     </a>
-    <a class="cta" href="mailto:info@engineeredbybytes.com?subject=EBB%20briefing">Schedule a briefing</a>
+    <nav class="v2-nav__links" aria-label="Primary">
+      <a href="/index.html">Home</a>
+      <a href="/index.html#problem">The problem</a>
+      <a href="/index.html#solution">The solution</a>
+      <a href="/platform.html">The platform</a>
+      <a href="/demo/" aria-current="page">Demo</a>
+      <a href="/about.html">About</a>
+    </nav>
+    <a href="/index.html#talk" class="v2-nav__cta">Schedule a briefing</a>
+    <button class="v2-nav__burger" aria-label="Open menu" aria-expanded="false" aria-controls="v2mobile">
+      <span></span><span></span><span></span>
+    </button>
   </div>
+  <nav class="v2-nav__mobile" id="v2mobile" aria-label="Mobile">
+    <a href="/index.html">Home</a>
+    <a href="/index.html#problem">The problem</a>
+    <a href="/index.html#solution">The solution</a>
+    <a href="/platform.html">The platform</a>
+    <a href="/demo/" aria-current="page">Demo</a>
+    <a href="/about.html">About</a>
+    <a href="/index.html#talk">Schedule a briefing</a>
+  </nav>
+</header>
 
-  <div class="wrap">
-    <div class="eyebrow">Product Demo</div>
-    <h1>See EBB in <span class="ct">60 seconds.</span></h1>
-    <p class="lede">The payment-orchestration layer your bank owns — a live payment settling through the core ledger, a failure handled correctly, and reconciliation in real time.</p>
+<main class="demo-hero">
+  <div class="demo-inner">
+    <div class="demo-eyebrow">Product Demo</div>
+    <h1 class="demo-h1">See EBB in <span class="ct">60 seconds.</span></h1>
+    <p class="demo-lede">The payment-orchestration layer your bank owns — a live payment settling through the core ledger, a failure handled correctly, and reconciliation in real time.</p>
 
-    <div class="videowrap">
+    <div class="demo-videowrap">
       <video controls playsinline preload="metadata" poster="/assets/img/demo-poster.png">
         <source src="/assets/video/EBB_Demo_Video.mp4" type="video/mp4">
         Your browser doesn't support embedded video — <a href="/assets/video/EBB_Demo_Video.mp4">download the demo (MP4)</a>.
       </video>
     </div>
 
-    <div class="caps">
-      <div class="cap"><div class="t">Routes, retries, reverses</div><div class="d">Real-time recovery when a rail fails — never a blind reverse on a timeout.</div></div>
-      <div class="cap"><div class="t">Real-time reconciliation</div><div class="d">Every operator matched continuously, not at month-end.</div></div>
-      <div class="cap"><div class="t">AML &amp; audit built in</div><div class="d">Screening and an immutable trail on every transaction.</div></div>
-      <div class="cap"><div class="t">Owned by the bank</div><div class="d">Any core banking system. No vendor lock-in.</div></div>
+    <div class="demo-caps">
+      <div class="demo-cap"><div class="t">Routes, retries, reverses</div><div class="d">Real-time recovery when a rail fails — never a blind reverse on a timeout.</div></div>
+      <div class="demo-cap"><div class="t">Real-time reconciliation</div><div class="d">Every operator matched continuously, not at month-end.</div></div>
+      <div class="demo-cap"><div class="t">AML &amp; audit built in</div><div class="d">Screening and an immutable trail on every transaction.</div></div>
+      <div class="demo-cap"><div class="t">Owned by the bank</div><div class="d">Any core banking system. No vendor lock-in.</div></div>
     </div>
   </div>
+</main>
 
-  <div class="foot">
-    <b>Engineered By Bytes Ltd</b> &nbsp;·&nbsp; <a href="mailto:info@engineeredbybytes.com">info@engineeredbybytes.com</a> &nbsp;·&nbsp; <a href="/">www.engineeredbybytes.com</a> &nbsp;·&nbsp; Nairobi, Kenya
+<footer class="v2-ftr">
+  <div class="v2-ftr__container">
+    <div class="v2-ftr__brand">
+      <div>
+        <div class="v2-ftr__logo-rule"></div>
+        <div class="v2-ftr__logo-ebb">EBB</div>
+        <div class="v2-ftr__logo-sys">Systems</div>
+      </div>
+      <p class="v2-ftr__tagline">Built for banks. Owned by the bank.</p>
+      <div class="v2-ftr__contact">
+        <a href="mailto:info@engineeredbybytes.com">info@engineeredbybytes.com</a>
+        <a href="https://www.engineeredbybytes.com">www.engineeredbybytes.com</a>
+        <span>Worldwide &middot; Remote-first</span>
+      </div>
+    </div>
+    <div class="v2-ftr__col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="/index.html#problem">The problem</a></li>
+        <li><a href="/index.html#solution">Platform</a></li>
+        <li><a href="/demo/">Demo</a></li>
+      </ul>
+    </div>
+    <div class="v2-ftr__col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/about.html">About EBB Systems</a></li>
+        <li><a href="/platform.html">The Platform</a></li>
+      </ul>
+    </div>
+    <div class="v2-ftr__col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="/privacy.html">Privacy Policy</a></li>
+        <li><a href="/terms.html">Terms of Service</a></li>
+        <li><a href="/index.html#talk">Get in Touch</a></li>
+      </ul>
+    </div>
   </div>
+  <div class="v2-ftr__bottom">
+    <span>&copy; 2026 Engineered By Bytes Ltd. All rights reserved.</span>
+    <em>Secure. Scalable. Engineered for Trust.</em>
+  </div>
+</footer>
+
+<script src="/assets/js/v2-nav.js"></script>
 </body>
 </html>
